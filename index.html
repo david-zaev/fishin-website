@@ -111,165 +111,213 @@
             <div class="s23-camera-hole"></div>
 
             <!-- Samsung One UI Status Bar -->
-            <div class="phone-status-bar">
-              <span class="status-time">12:45</span>
+            <!-- Samsung One UI Status Bar -->
+            <div class="phone-status-bar map-status-bar">
+              <span class="status-time">1:35</span>
               <div class="status-icons">
+                <svg width="13" height="10" viewBox="0 0 16 12" fill="currentColor"><path d="M0 10h3v2H0v-2zm4-3h3v5H4V7zm4-3h3v8H8V4zm4-4h3v12h-3V0z"/></svg>
                 <span class="status-net">5G</span>
-                <svg width="12" height="10" viewBox="0 0 16 12" fill="currentColor"><path d="M0 10h3v2H0v-2zm4-3h3v5H4V7zm4-3h3v8H8V4zm4-4h3v12h-3V0z"/></svg>
-                <svg width="12" height="10" viewBox="0 0 16 12" fill="currentColor"><path d="M8 2.4C4.8 2.4 2 3.8.2 5.9L8 15.5l7.8-9.6C14 3.8 11.2 2.4 8 2.4z"/></svg>
-                <span class="battery-pct">98%</span>
-                <div class="battery-icon"><div class="battery-fill"></div></div>
+                <div class="battery-icon"><div class="battery-fill" style="width: 85%;"></div></div>
               </div>
             </div>
 
-            <div class="phone-screen">
-              <!-- TopBar from ForecastScreen.kt -->
-              <div class="phone-top-bar">
-                <div class="top-bar-left">
-                  <div class="top-bar-back">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
+            <div class="phone-screen map-app-screen">
+              
+              <!-- Floating Search Header & Date Pill -->
+              <div class="app-map-header">
+                <div class="map-search-bar">
+                  <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <span class="search-placeholder">Search spots, lakes, rivers</span>
+                  <div class="search-filter-icon">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><line x1="4" y1="6" x2="20" y2="6"/><circle cx="15" cy="6" r="2.5" fill="#1c1d22"/><line x1="4" y1="12" x2="20" y2="12"/><circle cx="9" cy="12" r="2.5" fill="#1c1d22"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="16" cy="18" r="2.5" fill="#1c1d22"/></svg>
                   </div>
-                  <div>
-                    <div class="top-bar-title">Forecast</div>
-                    <div class="phone-place-name">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                      <span>Lake Ohrid · Kaneo</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="top-bar-actions">
-                  <div class="hydro-live-badge">
-                    <span class="hydro-live-dot"></span>
-                    <span>18.2°C Live</span>
+                  <div class="search-avatar-btn">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                   </div>
                 </div>
-              </div>
 
-              <!-- DayStrip from ForecastComponents.kt -->
-              <div class="phone-day-strip">
-                <div class="day-chip active">
+                <div class="map-date-pill">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
                   <span>Today</span>
-                  <span class="chip-score-badge">92</span>
-                </div>
-                <div class="day-chip">
-                  <span>Tomorrow</span>
-                  <span class="chip-score-badge muted">74</span>
-                </div>
-                <div class="day-chip">
-                  <span>Sun 12</span>
-                  <span class="chip-score-badge muted">81</span>
-                </div>
-                <div class="day-chip locked">
-                  <span>Mon 13</span>
-                  <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
                 </div>
               </div>
 
-              <!-- Primary Hero Card with Large Circular ScoreRing -->
-              <div class="hero-card-app">
-                <div class="score-ring-wrap">
-                  <svg class="score-ring-svg" viewBox="0 0 96 96">
-                    <circle cx="48" cy="48" r="39" class="score-ring-bg"></circle>
-                    <circle cx="48" cy="48" r="39" class="score-ring-progress"></circle>
-                  </svg>
-                  <div class="score-ring-text">
-                    <span class="score-ring-num">92</span>
-                    <span class="score-ring-caption">Bite Score</span>
+              <!-- Vector Map View Surface -->
+              <div class="app-map-surface">
+                <!-- SVG Vector Roads & Waterways (Realistic Dark Map Cartography) -->
+                <svg class="map-svg-canvas" viewBox="0 0 396 828" preserveAspectRatio="none">
+                  <!-- Base Landmass -->
+                  <rect width="100%" height="100%" fill="#0a0b0e"/>
+
+                  <!-- Secondary Road Network -->
+                  <path d="M-10 120 Q 90 140 180 110 T 360 80 M20 220 Q 140 260 220 290 T 410 320 M-20 440 Q 110 420 230 450 T 420 480 M10 620 Q 130 640 250 620 T 410 650 M-10 750 Q 140 730 260 760 T 410 740" stroke="#16181f" stroke-width="2" fill="none"/>
+                  <path d="M60 -20 Q 80 180 110 360 T 140 700 M320 -10 Q 300 240 280 500 T 290 850 M210 -20 Q 230 180 250 440 T 240 850" stroke="#14151b" stroke-width="1.8" fill="none"/>
+                  
+                  <!-- Major Arterial Highway -->
+                  <path d="M190 -20 C 185 180, 220 380, 205 600 C 195 720, 230 780, 250 850" stroke="#1e2029" stroke-width="3" fill="none"/>
+
+                  <!-- Water Bodies: Dürrlohspeicher Reservoir -->
+                  <path d="M140 215 C 150 205, 185 200, 195 215 C 205 230, 180 250, 160 252 C 145 252, 132 235, 140 215 Z" fill="#172554" stroke="#1e40af" stroke-width="1.5" opacity="0.85"/>
+
+                  <!-- Ludwig-Donau-Main-Kanal & Main-Donau-Kanal Main Water Arteries -->
+                  <!-- Blue Canal (Main Flow) -->
+                  <path d="M 235 -20 C 220 120, 190 200, 185 270 C 180 340, 195 440, 175 510 C 160 560, 170 630, 200 690 C 225 740, 240 790, 245 850" stroke="#1d4ed8" stroke-width="5" stroke-linecap="round" fill="none"/>
+                  <path d="M 235 -20 C 220 120, 190 200, 185 270 C 180 340, 195 440, 175 510 C 160 560, 170 630, 200 690 C 225 740, 240 790, 245 850" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+                  <!-- River Feeders / Tributaries (Blue Channels) -->
+                  <path d="M 185 240 Q 150 270 120 280 M 185 310 Q 120 350 70 360 M 180 430 Q 130 460 80 470 M 175 510 Q 110 520 40 500 M 170 560 Q 130 580 90 600 M 185 640 Q 140 680 70 700 M 215 720 Q 270 730 330 710" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                  <path d="M 235 40 Q 290 60 360 40 M 210 160 Q 280 180 360 170 M 195 360 Q 260 370 340 350 M 185 450 Q 250 430 350 440 M 190 610 Q 260 620 330 590 M 220 670 Q 280 690 350 670" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                </svg>
+
+                <!-- Geographic Locality Labels -->
+                <div class="map-geo-label" style="top: 118px; left: 175px; font-weight: 700; color: #f4f4f5; font-size: 13px;">Mühlhausen</div>
+                <div class="map-geo-label" style="top: 242px; left: 196px;">REISMÜHLE</div>
+                <div class="map-geo-label" style="top: 278px; left: 66px;">FRASBACH</div>
+                <div class="map-geo-label" style="top: 304px; left: 230px;">POLLANTEN</div>
+                <div class="map-geo-label" style="top: 422px; left: 190px;">RAPPERSDORF</div>
+                <div class="map-geo-label" style="top: 462px; left: 116px;">SCHLÖNGRIESBACH</div>
+                <div class="map-geo-label" style="top: 560px; left: 165px; font-weight: 700; color: #f4f4f5; font-size: 13.5px;">Berching</div>
+                <div class="map-geo-label" style="top: 712px; left: 70px;">FRIBERTSHOFEN</div>
+                <div class="map-geo-label" style="top: 736px; left: 140px;">STAUDENHOF</div>
+                <div class="map-geo-label" style="top: 752px; left: 205px;">PLANKSTETTEN</div>
+                <div class="map-geo-label" style="top: 756px; left: 22px;">LITTERZHOFEN</div>
+
+                <!-- Spot Pins & Cluster Badges (Exact Replica of Uploaded Screenshot) -->
+                <!-- Pin 1: Score 71 (Mühlhausen) -->
+                <div class="spot-pin" style="top: 154px; left: 236px;">
+                  <div class="spot-pin-badge">71</div>
+                </div>
+
+                <!-- Pin 2: Score 71 + Ludwig-Donau-Main-Ka... -->
+                <div class="spot-pin" style="top: 212px; left: 190px;">
+                  <div class="spot-pin-badge">71</div>
+                  <div class="spot-pin-label">Ludwig-Donau-Main-Ka...</div>
+                </div>
+
+                <!-- Cluster Pin: 2 (Upper Left) -->
+                <div class="spot-pin" style="top: 208px; left: 124px;">
+                  <div class="spot-cluster-badge">2</div>
+                </div>
+
+                <!-- Pin 3: Score 65 + Lake – shore near Weih... -->
+                <div class="spot-pin" style="top: 180px; left: 320px;">
+                  <div class="spot-pin-badge">65</div>
+                  <div class="spot-pin-label">Lake – shore near Weih...</div>
+                </div>
+
+                <!-- Cluster Pin: 2 (Dürrlohspeicher Reservoir) -->
+                <div class="spot-pin" style="top: 268px; left: 174px;">
+                  <div class="spot-cluster-badge">2</div>
+                  <div class="spot-pin-label">Dürrlohspeicher – shore...</div>
+                </div>
+
+                <!-- Pin 4: Score 72 + Main-Donau-Kanal - bri... -->
+                <div class="spot-pin" style="top: 334px; left: 194px;">
+                  <div class="spot-pin-badge">72</div>
+                  <div class="spot-pin-label">Main-Donau-Kanal – bri...</div>
+                </div>
+
+                <!-- Cluster Pin: 2 (Middle) -->
+                <div class="spot-pin" style="top: 524px; left: 166px;">
+                  <div class="spot-cluster-badge">2</div>
+                  <div class="spot-pin-label">Ludwig-Donau-Main-Ka...</div>
+                </div>
+
+                <!-- Pin 5: Score 73 -->
+                <div class="spot-pin" style="top: 512px; left: 195px;">
+                  <div class="spot-pin-badge">73</div>
+                </div>
+
+                <!-- Pin 6: Score 66 (Far Left) -->
+                <div class="spot-pin" style="top: 574px; left: 22px;">
+                  <div class="spot-pin-badge">66</div>
+                  <div class="spot-pin-label">... shore ne...</div>
+                </div>
+
+                <!-- Pin 7: Score 67 (Berching) -->
+                <div class="spot-pin" style="top: 570px; left: 174px;">
+                  <div class="spot-pin-badge">67</div>
+                </div>
+
+                <!-- Cluster Pin: 2 (Lower Berching) -->
+                <div class="spot-pin" style="top: 638px; left: 190px;">
+                  <div class="spot-cluster-badge">2</div>
+                </div>
+
+                <!-- Pin 8: Score 67 -->
+                <div class="spot-pin" style="top: 662px; left: 200px;">
+                  <div class="spot-pin-badge">67</div>
+                </div>
+
+                <!-- Pin 9: Score 73 + Ludwig-Donau-Main-Ka... -->
+                <div class="spot-pin" style="top: 704px; left: 242px;">
+                  <div class="spot-pin-badge">73</div>
+                  <div class="spot-pin-label">Ludwig-Donau-Main-Ka...</div>
+                </div>
+
+                <!-- Pin 10: Score 72 + Ludwig-Donau-Main-Ka... -->
+                <div class="spot-pin" style="top: 748px; left: 272px;">
+                  <div class="spot-pin-badge">72</div>
+                  <div class="spot-pin-label">Ludwig-Donau-Main-Ka...</div>
+                </div>
+
+                <!-- Floating Map Tools on the Right -->
+                <div class="map-floating-tools">
+                  <!-- Layers Icon Button -->
+                  <div class="map-tool-btn" title="Map Layers">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                  </div>
+                  <!-- GPS Reticle with Star Icon Button -->
+                  <div class="map-tool-btn" title="Center Location">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="7"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><polygon points="12 8 13.2 10.8 16 11.2 14 13.2 14.5 16 12 14.5 9.5 16 10 13.2 8 11.2 10.8 10.8 12 8" fill="currentColor"/></svg>
+                  </div>
+                  <!-- Compass / Locate Icon Button -->
+                  <div class="map-tool-btn" title="Compass Orientation">
+                    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><polygon points="12 6 15 12 12 11 9 12 12 6" fill="currentColor"/></svg>
                   </div>
                 </div>
 
-                <div class="hero-details">
-                  <div class="hero-subhead">
-                    <span class="live-pulse"></span>
-                    <span>RIGHT NOW · PEAK BITE</span>
-                  </div>
-                  <div class="hero-rating">Great activity</div>
-                  <div class="hero-weather">18°C · 3.2 m/s NW · Falling baro</div>
-                  <div class="hero-reasons">
-                    <div><span>+</span> Rapid barometric drop (-2.8 hPa)</div>
-                    <div><span>+</span> Major solunar feeding transit</div>
-                  </div>
-                </div>
+                <!-- Google Map Watermark -->
+                <div class="map-google-logo">Google</div>
               </div>
 
-              <!-- Claude AI Tactical Brief Card (Readable, Clean, Bold) -->
-              <div class="ai-brief-card-app">
-                <div class="brief-app-header">
-                  <div class="brief-app-tag">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/></svg>
-                    <span>Claude AI Tactical Brief</span>
-                  </div>
-                  <span class="brief-app-pro">PRO</span>
-                </div>
-                
-                <div class="brief-app-headline">Deep weedline feed: fast twitch cadence</div>
-                
-                <div class="brief-app-list">
-                  <div class="brief-app-row">
-                    <span class="brief-row-label">Target:</span>
-                    <span class="brief-row-value">Northern Pike · Lake Trout</span>
-                  </div>
-                  <div class="brief-app-row">
-                    <span class="brief-row-label">Match:</span>
-                    <span class="brief-row-value">110mm Jerkbait · Ayu (Box match)</span>
-                  </div>
-                  <div class="brief-app-row">
-                    <span class="brief-row-label">Rig:</span>
-                    <span class="brief-row-value">Palomar knot · 14lb Fluorocarbon</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Solunar & Environmental Telemetry Card -->
-              <div class="solunar-telemetry-card">
-                <div class="solunar-top-row">
-                  <div class="solunar-title">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16z"/></svg>
-                    <span>Major Feeding Window</span>
-                  </div>
-                  <div class="solunar-window-time">09:15 – 11:45 <span class="badge-high">HIGH</span></div>
-                </div>
-                <div class="telemetry-stats-row">
-                  <div class="telem-stat">
-                    <span class="telem-k">WATER</span>
-                    <span class="telem-v">18.2°C</span>
-                  </div>
-                  <div class="telem-divider"></div>
-                  <div class="telem-stat">
-                    <span class="telem-k">BAROMETER</span>
-                    <span class="telem-v">1014 hPa ↓</span>
-                  </div>
-                  <div class="telem-divider"></div>
-                  <div class="telem-stat">
-                    <span class="telem-k">WIND</span>
-                    <span class="telem-v">3.2 m/s NW</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Real App Bottom Navigation Bar from Routes.kt -->
-              <div class="app-bottom-bar">
-                <div class="app-tab-item">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+              <!-- Real App 5-Tab Bottom Navigation Bar -->
+              <div class="map-bottom-bar">
+                <!-- Tab 1: Map (Active) -->
+                <div class="app-tab-item active">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/></svg>
                   <span>Map</span>
                 </div>
-                <div class="app-tab-item active">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                  <span>Forecast</span>
-                  <span class="active-dot"></span>
-                </div>
+
+                <!-- Tab 2: Coach -->
                 <div class="app-tab-item">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="13" y2="13"/></svg>
+                  <span>Coach</span>
+                </div>
+
+                <!-- Tab 3: Center White FAB Plus Button -->
+                <div class="map-fab-wrap">
+                  <button class="map-fab-btn" aria-label="Add spot or log catch">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                  </button>
+                </div>
+
+                <!-- Tab 4: Community -->
+                <div class="app-tab-item">
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                   <span>Community</span>
                 </div>
+
+                <!-- Tab 5: Log -->
                 <div class="app-tab-item">
-                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                  <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
                   <span>Log</span>
                 </div>
               </div>
 
-              <!-- Samsung One UI Gesture Bar -->
-              <div class="app-home-bar"></div>
+              <!-- White Android Gesture Home Bar -->
+              <div class="map-home-bar"></div>
             </div>
           </div>
 
