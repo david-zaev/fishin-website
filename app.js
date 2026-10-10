@@ -13,36 +13,44 @@
   if (canvas) {
     const ctx = canvas.getContext('2d');
     let width, height;
+    let dpr = 1;
     let animationFrameId;
     let time = 0;
     let mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000 };
 
     // Realistic Underwater Rising Bubbles
-    const bubbleCount = 60;
     const bubbles = [];
 
     function initBubbles() {
       bubbles.length = 0;
-      for (let i = 0; i < bubbleCount; i++) {
+      const count = width < 768 ? 24 : 55;
+      for (let i = 0; i < count; i++) {
         const radius = Math.random() < 0.25 
-          ? Math.random() * 12 + 10    // Large bubbles (10px - 22px)
-          : Math.random() * 6 + 3;     // Small & medium bubbles (3px - 9px)
+          ? Math.random() * (width < 768 ? 8 : 12) + 7
+          : Math.random() * 5 + 2.5;
         bubbles.push({
           x: Math.random() * width,
           y: Math.random() * height,
           radius: radius,
-          speedY: (radius * 0.04) + 0.45 + Math.random() * 0.6,
+          speedY: (radius * 0.04) + 0.4 + Math.random() * 0.5,
           wobbleOffset: Math.random() * Math.PI * 2,
-          wobbleAmp: Math.random() * 3 + 1.5,
-          alpha: Math.random() * 0.35 + 0.22
+          wobbleAmp: Math.random() * 2.5 + 1.2,
+          alpha: Math.random() * 0.3 + 0.18
         });
       }
     }
 
     function resize() {
       const container = canvas.parentElement;
-      width = canvas.width = container ? container.clientWidth : window.innerWidth;
-      height = canvas.height = container ? container.clientHeight : window.innerHeight;
+      width = container ? container.clientWidth : window.innerWidth;
+      height = container ? container.clientHeight : window.innerHeight;
+      dpr = Math.min(window.devicePixelRatio || 1, 3);
+
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+
       initBubbles();
     }
 
@@ -64,39 +72,60 @@
     }, { passive: true });
 
     window.addEventListener('mousemove', function (e) {
-      mouse.targetX = e.clientX;
-      mouse.targetY = e.clientY;
+      const rect = canvas.getBoundingClientRect();
+      mouse.targetX = e.clientX - rect.left;
+      mouse.targetY = e.clientY - rect.top;
     });
 
-    // Click shockwave ripples
+    // Mobile touch interaction
+    window.addEventListener('touchmove', function (e) {
+      if (e.touches && e.touches[0]) {
+        const rect = canvas.getBoundingClientRect();
+        mouse.targetX = e.touches[0].clientX - rect.left;
+        mouse.targetY = e.touches[0].clientY - rect.top;
+      }
+    }, { passive: true });
+
+    // Click & Touch shockwave ripples
     const ripples = [];
-    window.addEventListener('click', function (e) {
+    function addRipple(clientX, clientY) {
+      const rect = canvas.getBoundingClientRect();
       ripples.push({
-        x: e.clientX,
-        y: e.clientY,
+        x: clientX - rect.left,
+        y: clientY - rect.top,
         radius: 0,
-        maxRadius: Math.max(width, height) * 0.65,
-        alpha: 0.85
+        maxRadius: Math.max(width, height) * (width < 768 ? 0.45 : 0.65),
+        alpha: 0.8
       });
+    }
+
+    window.addEventListener('click', function (e) {
+      addRipple(e.clientX, e.clientY);
     });
 
-    // Bathymetric Depth Contour Lines (Smooth Curving Splines)
-    const numLines = 18;
-    const pointsPerLine = 72;
+    window.addEventListener('touchstart', function (e) {
+      if (e.touches && e.touches[0]) {
+        const rect = canvas.getBoundingClientRect();
+        mouse.targetX = e.touches[0].clientX - rect.left;
+        mouse.targetY = e.touches[0].clientY - rect.top;
+        addRipple(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
 
     function draw() {
       time += 0.005;
+
+      ctx.save();
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, width, height);
 
-      // Smooth mouse tracking
-      mouse.x += (mouse.targetX - mouse.x) * 0.06;
-      mouse.y += (mouse.targetY - mouse.y) * 0.06;
+      // Smooth mouse / touch tracking
+      mouse.x += (mouse.targetX - mouse.x) * 0.07;
+      mouse.y += (mouse.targetY - mouse.y) * 0.07;
 
       // Smooth fluid scroll interpolation
       scrollY += (targetScrollY - scrollY) * 0.08;
       scrollVelocity *= 0.91; // natural water viscosity damping
-
-      ctx.save();
 
       // 1. Draw Rising Underwater Bubbles with Scroll Momentum
       for (let i = 0; i < bubbles.length; i++) {
@@ -161,46 +190,47 @@
         }
       }
 
-      // 2. Draw Bathymetric Waves with Quadratic Midpoint Smoothing (100% Curved, Zero Straight Segments)
-      for (let i = 0; i < numLines; i++) {
-        // Multi-depth parallax reacting smoothly to scroll
-        const parallaxSpeed = 0.06 + (i / numLines) * 0.18;
-        const lineOffset = (i / numLines) * (height * 1.05) - 20 - (scrollY * parallaxSpeed * 0.35);
+      // 2. Draw Bathymetric Waves with Adaptive Mobile Harmonics & Quadratic Splines
+      const isMobile = width < 768;
+      const activeLines = isMobile ? 8 : 15;
+      const activePoints = isMobile ? 44 : 72;
+      const ampMult = isMobile ? 0.38 : 1.0;
+
+      for (let i = 0; i < activeLines; i++) {
+        const parallaxSpeed = 0.05 + (i / activeLines) * 0.15;
+        const lineOffset = (i / activeLines) * (height * 1.04) - 10 - (scrollY * parallaxSpeed * 0.35);
         
-        // Dynamic line proximity calculation
         const dyLine = Math.abs(lineOffset - mouse.y);
-        const lineProximity = Math.max(0, 1 - dyLine / 400);
-        
-        // Base alpha (0.13 - 0.28) + proximity illumination up to 0.65
-        const alpha = Math.min(0.65, (0.13 + (i / numLines) * 0.15) + (lineProximity * 0.35));
+        const lineProximity = Math.max(0, 1 - dyLine / (isMobile ? 220 : 400));
+        const alpha = Math.min(0.65, (0.12 + (i / activeLines) * 0.14) + (lineProximity * 0.35));
         
         const pts = [];
 
-        for (let j = 0; j <= pointsPerLine; j++) {
-          const x = (j / pointsPerLine) * width;
+        for (let j = 0; j <= activePoints; j++) {
+          const normX = j / activePoints;
+          const x = normX * width;
           
-          // Organic undulating wave harmonics (smooth continuous curves)
-          const wave1 = Math.sin(j * 0.13 + time * 1.2 + i * 0.45) * 36;
-          const wave2 = Math.cos(j * 0.08 - time * 0.7 + i * 0.25) * 22;
-          const wave3 = Math.sin((x / (width || 1)) * 3.0 + time * 0.9 + i * 0.6) * 15;
+          // Normalized spatial wave harmonics: smooth broad oceanic curves on both mobile & desktop
+          const wave1 = Math.sin(normX * Math.PI * 1.8 + time * 1.1 + i * 0.42) * (34 * ampMult);
+          const wave2 = Math.cos(normX * Math.PI * 1.2 - time * 0.65 + i * 0.28) * (20 * ampMult);
+          const wave3 = Math.sin(normX * Math.PI * 2.8 + time * 0.85 + i * 0.55) * (14 * ampMult);
 
-          // Water momentum from scroll velocity (reactive ocean swell)
-          const scrollSurge = Math.sin(j * 0.15 + time * 1.8) * Math.min(scrollVelocity, 45) * 1.2;
+          // Scroll momentum swell
+          const scrollSurge = Math.sin(normX * Math.PI * 2.0 + time * 1.6) * Math.min(scrollVelocity, 40) * (isMobile ? 0.55 : 1.1);
 
-          // Silky smooth, organic interactive swell (Zero chop! Smooth cosine bell falloff)
+          // Cursor / touch influence (smooth cosine bell falloff)
           const dx = x - mouse.x;
           const dy = (lineOffset + wave1) - mouse.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
+          const maxInfluenceDist = isMobile ? 220 : 420;
           let mouseInfluence = 0;
-          if (dist < 420) {
-            // Raised cosine bell function: 0.5 * (1 + cos(pi * r / R))
-            // Continuous 1st and 2nd derivatives, absolutely zero jagged edges!
-            const norm = dist / 420;
+          if (dist < maxInfluenceDist) {
+            const norm = dist / maxInfluenceDist;
             const bell = 0.5 * (1 + Math.cos(norm * Math.PI));
-            mouseInfluence = bell * 50 * Math.sin(time * 2.0 + (x / (width || 1)) * 2.2);
+            mouseInfluence = bell * (isMobile ? 24 : 48) * Math.sin(time * 2.0 + normX * 2.5);
           }
 
-          // Click shockwave influence (smooth bell curve)
+          // Ripple shockwave influence
           let rippleInfluence = 0;
           for (let r = 0; r < ripples.length; r++) {
             const rip = ripples[r];
@@ -208,9 +238,9 @@
             const rdy = (lineOffset + wave1) - rip.y;
             const rDist = Math.sqrt(rdx * rdx + rdy * rdy);
             const waveDist = Math.abs(rDist - rip.radius);
-            if (waveDist < 100) {
-              const rBell = 0.5 * (1 + Math.cos((waveDist / 100) * Math.PI));
-              rippleInfluence += rBell * 28 * rip.alpha;
+            if (waveDist < 80) {
+              const rBell = 0.5 * (1 + Math.cos((waveDist / 80) * Math.PI));
+              rippleInfluence += rBell * (isMobile ? 15 : 26) * rip.alpha;
             }
           }
 
@@ -221,7 +251,7 @@
         // Draw line with quadratic curve midpoint smoothing (100% curved, zero straight segments!)
         if (pts.length > 2) {
           ctx.beginPath();
-          ctx.lineWidth = 1.4 + lineProximity * 0.8;
+          ctx.lineWidth = (isMobile ? 1.2 : 1.4) + lineProximity * 0.8;
           ctx.strokeStyle = `rgba(240, 240, 245, ${alpha})`;
 
           ctx.moveTo(pts[0].x, pts[0].y);
@@ -234,6 +264,7 @@
           ctx.stroke();
         }
       }
+
 
       // Update & Draw Click Shockwave Rings
       for (let r = ripples.length - 1; r >= 0; r--) {
