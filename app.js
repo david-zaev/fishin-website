@@ -251,17 +251,6 @@
         }
       }
 
-      // 3. Sonar Pulse Ring (originating from depth center - Crisp & Defined)
-      const sonarPeriod = (time * 0.5) % 1;
-      const sonarRadius = sonarPeriod * Math.max(width, height) * 0.75;
-      const sonarAlpha = (1 - sonarPeriod) * 0.16;
-
-      ctx.beginPath();
-      ctx.arc(width * 0.5, height * 0.38, sonarRadius, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255, 255, 255, ${sonarAlpha})`;
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-
       ctx.restore();
       animationFrameId = requestAnimationFrame(draw);
     }
