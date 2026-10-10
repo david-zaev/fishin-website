@@ -40,8 +40,9 @@
     }
 
     function resize() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      const container = canvas.parentElement;
+      width = canvas.width = container ? container.clientWidth : window.innerWidth;
+      height = canvas.height = container ? container.clientHeight : window.innerHeight;
       initBubbles();
     }
 
@@ -164,7 +165,7 @@
       for (let i = 0; i < numLines; i++) {
         // Multi-depth parallax reacting smoothly to scroll
         const parallaxSpeed = 0.06 + (i / numLines) * 0.18;
-        const lineOffset = (i / numLines) * (height * 1.15) - 30 - ((scrollY * parallaxSpeed) % (height * 0.3));
+        const lineOffset = (i / numLines) * (height * 1.05) - 20 - (scrollY * parallaxSpeed * 0.35);
         
         // Dynamic line proximity calculation
         const dyLine = Math.abs(lineOffset - mouse.y);
@@ -598,7 +599,7 @@
   // =========================================================================
   // 5. Interactive 3D Card Hover Tilt & Scroll Reveal Animations
   // =========================================================================
-  const tiltCards = document.querySelectorAll('.feature-card, .pricing-card, .claude-pitch-item');
+  const tiltCards = document.querySelectorAll('.feature-card, .pricing-card, .pitch-card');
   tiltCards.forEach(function (card) {
     card.addEventListener('mousemove', function (e) {
       const rect = card.getBoundingClientRect();
@@ -615,19 +616,52 @@
     });
   });
 
-  if ('IntersectionObserver' in window) {
-    const revealObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-revealed');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  // Target all core content sections to reveal as user scrolls down
+  const revealTargets = document.querySelectorAll(
+    '.section-header, .demo-terminal, .feature-card, .arch-node, .pitch-card, .pricing-card, .download-banner'
+  );
 
-    document.querySelectorAll('.feature-card, .metric-item, .arch-node, .pricing-card').forEach(function (el) {
-      el.classList.add('scroll-reveal-item');
+  revealTargets.forEach(function (el) {
+    el.classList.add('scroll-reveal');
+    if (el.classList.contains('demo-terminal') || el.classList.contains('download-banner')) {
+      el.classList.add('reveal-scale');
+    }
+  });
+
+  // Assign sequential cascade delay to cards inside grids
+  const staggerGrids = ['.features-grid', '.arch-flow', '.claude-pitch-grid', '.pricing-grid'];
+  staggerGrids.forEach(function (sel) {
+    const parent = document.querySelector(sel);
+    if (parent) {
+      const children = parent.querySelectorAll('.scroll-reveal');
+      children.forEach(function (child, idx) {
+        child.style.setProperty('--reveal-delay', `${(idx % 4) * 110}ms`);
+      });
+    }
+  });
+
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.08,
+        rootMargin: '0px 0px -40px 0px'
+      }
+    );
+
+    revealTargets.forEach(function (el) {
       revealObserver.observe(el);
+    });
+  } else {
+    revealTargets.forEach(function (el) {
+      el.classList.add('is-revealed');
     });
   }
 
