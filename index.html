@@ -102,9 +102,9 @@
         <div class="phone-wrapper">
           
 
-          <!-- Samsung Galaxy S23 Ultra Mockup -->
+          <!-- Samsung Galaxy S23 Ultra Mockup (Physical 2.092:1 Ratio & One UI 6.0) -->
           <div class="phone-mockup s23-ultra">
-            <!-- S23 Ultra Curved Side Edge Reflection -->
+            <!-- S23 Ultra Curved Side Edge Reflection & Metal Rails -->
             <div class="s23-edge-sheen"></div>
 
             <!-- Single Centered Hole-Punch Front Camera (Infinity-O) -->
@@ -127,35 +127,49 @@
               <div class="phone-top-bar">
                 <div class="top-bar-left">
                   <div class="top-bar-back">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg>
                   </div>
                   <span class="top-bar-title">Forecast</span>
                 </div>
                 <div class="top-bar-actions">
-                  <div class="top-bar-btn">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <div class="top-bar-btn" title="Save Spot">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                   </div>
-                  <div class="top-bar-btn">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                  <div class="top-bar-btn" title="Refresh Telemetry">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
                   </div>
                 </div>
               </div>
 
+              <!-- Location & Live Hydro Badge -->
               <div class="phone-place-name">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                <span>Lake Ohrid · Kaneo</span>
-                <span class="place-dot">·</span>
-                <span class="place-status">Live Hydro</span>
+                <div class="place-left">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                  <span>Lake Ohrid · Kaneo</span>
+                </div>
+                <div class="hydro-live-badge">
+                  <span class="hydro-live-dot"></span>
+                  <span>18.2°C Hydro</span>
+                </div>
               </div>
 
               <!-- DayStrip from ForecastComponents.kt -->
               <div class="phone-day-strip">
-                <div class="day-chip active">Today</div>
-                <div class="day-chip">Tomorrow</div>
-                <div class="day-chip">Sun 12</div>
+                <div class="day-chip active">
+                  <span>Today</span>
+                  <span class="chip-score-badge">92</span>
+                </div>
+                <div class="day-chip">
+                  <span>Tomorrow</span>
+                  <span class="chip-score-badge muted">74</span>
+                </div>
+                <div class="day-chip">
+                  <span>Sun 12</span>
+                  <span class="chip-score-badge muted">81</span>
+                </div>
                 <div class="day-chip locked">
                   <span>Mon 13</span>
-                  <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
                 </div>
               </div>
 
@@ -168,7 +182,7 @@
                   </svg>
                   <div class="score-ring-text">
                     <span class="score-ring-num">92</span>
-                    <span class="score-ring-caption">of 100</span>
+                    <span class="score-ring-caption">Bite Score</span>
                   </div>
                 </div>
 
@@ -178,7 +192,7 @@
                     <span>RIGHT NOW · PEAK BITE</span>
                   </div>
                   <div class="hero-rating">Great activity</div>
-                  <div class="hero-weather">18°C · 3.2 m/s NW · Falling baro</div>
+                  <div class="hero-weather">18°C · 3.2 m/s NW · Baro ↓</div>
                   <div class="hero-reasons">
                     <div><span>+</span> Rapid barometric drop (-2.8 hPa)</div>
                     <div><span>+</span> Major solunar feeding transit</div>
@@ -186,41 +200,85 @@
                 </div>
               </div>
 
-              <!-- NowLine from ForecastComponents.kt -->
-              <div class="now-line-app">
-                <span>Water 18.2°C</span> · <span>↓ 1014 hPa</span> · <span>Wind 3.2 m/s NW</span> · <span>Moon 88%</span>
+              <!-- Hourly Feeding Probability Bar Chart (from ForecastComponents.kt HourlyChart) -->
+              <div class="hourly-bite-card">
+                <div class="hourly-header">
+                  <span class="hourly-title">Hourly Feeding Probability</span>
+                  <span class="hourly-peak-badge">Peak at 09:30</span>
+                </div>
+                <div class="hourly-bars-row">
+                  <div class="hour-col"><div class="hour-bar-fill" style="height: 32%;"></div><span class="hour-label">00</span></div>
+                  <div class="hour-col"><div class="hour-bar-fill" style="height: 28%;"></div><span class="hour-label">02</span></div>
+                  <div class="hour-col"><div class="hour-bar-fill" style="height: 38%;"></div><span class="hour-label">04</span></div>
+                  <div class="hour-col"><div class="hour-bar-fill" style="height: 62%;"></div><span class="hour-label">06</span></div>
+                  <div class="hour-col"><div class="hour-bar-fill" style="height: 78%;"></div><span class="hour-label">08</span></div>
+                  <div class="hour-col active-peak"><div class="hour-bar-fill peak-bar" style="height: 96%;"></div><span class="hour-label">10</span></div>
+                  <div class="hour-col"><div class="hour-bar-fill" style="height: 70%;"></div><span class="hour-label">12</span></div>
+                  <div class="hour-col"><div class="hour-bar-fill" style="height: 48%;"></div><span class="hour-label">14</span></div>
+                  <div class="hour-col"><div class="hour-bar-fill" style="height: 58%;"></div><span class="hour-label">16</span></div>
+                  <div class="hour-col"><div class="hour-bar-fill peak-secondary" style="height: 88%;"></div><span class="hour-label">18</span></div>
+                  <div class="hour-col"><div class="hour-bar-fill" style="height: 64%;"></div><span class="hour-label">20</span></div>
+                  <div class="hour-col"><div class="hour-bar-fill" style="height: 40%;"></div><span class="hour-label">22</span></div>
+                </div>
+                <div class="hourly-focus-pill">
+                  <span class="pill-dot"></span>
+                  <span>10:00 · Bite Score 94 · Optimal Lure Window</span>
+                </div>
               </div>
 
-              <!-- AI Tactical Brief Card from ForecastComponents.kt -->
+              <!-- AI Tactical Brief Card with Structured 2x2 Specs Grid -->
               <div class="ai-brief-card-app">
                 <div class="brief-app-header">
                   <div class="brief-app-tag">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/></svg>
-                    <span>AI Brief</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/></svg>
+                    <span>Claude AI Tactical Brief</span>
                   </div>
                   <span class="brief-app-pro">PRO</span>
                 </div>
                 
-                <div class="brief-app-headline">Deep weedline feed: fast twitch</div>
-                
-                <div class="brief-app-item">
-                  <b>Targeting:</b> Northern Pike, Largemouth Bass.
-                </div>
-                <div class="brief-app-item">
-                  <b>Match:</b> 110mm Jerkbait · Ayu (matched to box).
-                </div>
-                <div class="brief-app-item">
-                  <b>Rig:</b> Palomar knot on 14lb fluorocarbon.
+                <div class="brief-app-headline">Deep weedline ambush: fast twitch cadence</div>
+
+                <div class="brief-spec-grid">
+                  <div class="spec-tile">
+                    <span class="spec-tile-k">TARGET</span>
+                    <span class="spec-tile-v">Pike &amp; Lake Trout</span>
+                  </div>
+                  <div class="spec-tile">
+                    <span class="spec-tile-k">LURE MATCH</span>
+                    <span class="spec-tile-v">110mm Jerkbait · Ayu</span>
+                  </div>
+                  <div class="spec-tile">
+                    <span class="spec-tile-k">SHELF DEPTH</span>
+                    <span class="spec-tile-v">4.2m – 6.5m Drop</span>
+                  </div>
+                  <div class="spec-tile">
+                    <span class="spec-tile-k">RIG &amp; LINE</span>
+                    <span class="spec-tile-v">14lb Fluoro · Palomar</span>
+                  </div>
                 </div>
               </div>
 
-              <!-- Solunar Feeding Window Micro-Card -->
-              <div class="solunar-strip-card">
-                <div class="solunar-strip-left">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16z"/></svg>
-                  <span>Major Feeding Window</span>
+              <!-- Compact Telemetry & Solunar Strip -->
+              <div class="app-telemetry-ribbon">
+                <div class="ribbon-item">
+                  <span class="ribbon-label">WATER</span>
+                  <span class="ribbon-val">18.2°C</span>
                 </div>
-                <div class="solunar-strip-time">09:15 - 11:45 <span class="badge-high">HIGH</span></div>
+                <div class="ribbon-divider"></div>
+                <div class="ribbon-item">
+                  <span class="ribbon-label">BARO</span>
+                  <span class="ribbon-val">1014 hPa ↓</span>
+                </div>
+                <div class="ribbon-divider"></div>
+                <div class="ribbon-item">
+                  <span class="ribbon-label">WIND</span>
+                  <span class="ribbon-val">3.2 m/s NW</span>
+                </div>
+                <div class="ribbon-divider"></div>
+                <div class="ribbon-item">
+                  <span class="ribbon-label">SOLUNAR</span>
+                  <span class="ribbon-val">09:15 Major</span>
+                </div>
               </div>
 
               <!-- Real App Bottom Navigation Bar from Routes.kt -->
@@ -231,7 +289,7 @@
                 </div>
                 <div class="app-tab-item active">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                  <span>Coach</span>
+                  <span>Forecast</span>
                   <span class="active-dot"></span>
                 </div>
                 <div class="app-tab-item">
