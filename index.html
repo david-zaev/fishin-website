@@ -20,15 +20,6 @@
 </head>
 <body class="dark-mode">
 
-  <!-- Ambient Dynamic Canvas Background (Clean 60fps Bathymetric Wave & Sonar Simulation) -->
-  <div class="ambient-container" aria-hidden="true">
-    <canvas id="bg-canvas"></canvas>
-    <div class="ambient-overlay"></div>
-  </div>
-
-  <!-- Interactive Scroll Progress Line -->
-  <div class="scroll-progress-line" id="scroll-progress-line"></div>
-
   <!-- Navigation -->
   <nav class="site-nav">
     <div class="nav-inner">
@@ -58,6 +49,12 @@
     
     <!-- Hero Section -->
     <header class="hero-section">
+      <!-- Ambient Dynamic Canvas Background strictly scoped to the Hero section ONLY -->
+      <div class="ambient-container" aria-hidden="true">
+        <canvas id="bg-canvas"></canvas>
+        <div class="ambient-overlay"></div>
+      </div>
+
       <div class="hero-copy">
         <h1 class="hero-title">
           Precision Fishing.

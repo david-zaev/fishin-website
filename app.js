@@ -272,7 +272,6 @@
   // 2. Interactive Scrolling & Parallax Engine
   // =========================================================================
   const siteNav = document.querySelector('.site-nav');
-  const scrollProgressBar = document.getElementById('scroll-progress-line');
   const phoneWrapper = document.querySelector('.phone-wrapper');
 
   let mouseRelX = 0;
@@ -292,13 +291,6 @@
       } else {
         siteNav.classList.remove('scrolled');
       }
-    }
-
-    // Top scroll depth progress line
-    if (scrollProgressBar) {
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docHeight > 0 ? (curY / docHeight) * 100 : 0;
-      scrollProgressBar.style.width = pct + '%';
     }
 
     // Hero S23 Ultra Phone Mockup 3D Float & Tilt on Scroll

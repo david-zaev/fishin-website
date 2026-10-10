@@ -95,14 +95,12 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  min-height: 840px;
-  max-height: 1100px;
+  height: 100%;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
-  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 65%, rgba(0, 0, 0, 0) 100%);
-  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 65%, rgba(0, 0, 0, 0) 100%);
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 75%, rgba(0, 0, 0, 0) 100%);
 }
 
 #bg-canvas {
@@ -129,18 +127,6 @@ body {
 /* ==========================================================================
    Header & Navigation
    ========================================================================== */
-.scroll-progress-line {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 2.5px;
-  width: 0%;
-  background: linear-gradient(90deg, #52525b, #ffffff, #a1a1aa);
-  z-index: 1000;
-  pointer-events: none;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-  transition: width 0.08s ease-out;
-}
 
 .site-nav {
   position: sticky;
@@ -330,6 +316,9 @@ body {
   width: 92%;
   margin: 0 auto;
   padding: 104px 20px;
+  position: relative;
+  z-index: 2;
+  background-color: var(--bg-base);
 }
 
 .section-header {
@@ -354,9 +343,11 @@ body {
 }
 
 /* ==========================================================================
-   Hero Section (True Full Page Above-the-Fold)
+   Hero Section (True Full Page Above-the-Fold with Dynamic Wave Water)
    ========================================================================== */
 .hero-section {
+  position: relative;
+  overflow: hidden;
   min-height: calc(100vh - 74px);
   max-width: 1680px;
   width: 92%;
@@ -373,6 +364,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  z-index: 2;
 }
 
 .hero-title {
@@ -1796,43 +1798,61 @@ main:not(.landing-main) footer {
 }
 
 /* ==========================================================================
-   Responsive Adaptations
+   Responsive & Mobile Optimization
    ========================================================================== */
 @media (max-width: 992px) {
   .hero-section {
     grid-template-columns: 1fr;
     text-align: center;
-    padding-top: 50px;
+    padding: 36px 20px 48px;
+    gap: 40px;
+    min-height: auto;
   }
 
   .hero-copy {
     align-items: center;
   }
 
+  .hero-title {
+    font-size: clamp(34px, 6.5vw, 54px);
+    margin-bottom: 18px;
+  }
+
   .hero-subtitle {
     margin-left: auto;
     margin-right: auto;
+    font-size: 17px;
+    max-width: 580px;
   }
 
   .hero-cta-group {
     justify-content: center;
   }
 
-  .phone-wrapper {
-    padding: 10px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+  .hero-metrics {
+    margin-top: 36px;
+    width: 100%;
+    max-width: 560px;
   }
 
-  .floating-badge {
-    position: static;
-    margin: 4px auto;
+  .phone-wrapper {
+    padding: 10px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .phone-mockup.s23-ultra {
+    transform: scale(0.92);
+    transform-origin: top center;
+    margin-bottom: -60px;
   }
 
   .features-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .feature-card.col-span-2 {
@@ -1841,73 +1861,275 @@ main:not(.landing-main) footer {
 
   .tab-pane.active {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .arch-flow {
     grid-template-columns: 1fr 1fr;
+    gap: 16px;
   }
 
   .claude-pitch-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
   .pricing-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .footer-inner {
     grid-template-columns: 1fr 1fr;
+    gap: 36px;
   }
 }
 
 @media (max-width: 640px) {
+  .site-nav .nav-inner {
+    padding: 12px 16px;
+  }
+
   .nav-links {
     display: none;
   }
 
+  .brand-text {
+    font-size: 19px;
+  }
+
+  .brand-logo-img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .btn-sm {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .hero-section {
+    padding: 24px 16px 36px;
+    gap: 32px;
+  }
+
+  .hero-title {
+    font-size: clamp(28px, 7.5vw, 42px);
+    line-height: 1.14;
+    letter-spacing: -0.03em;
+  }
+
+  .hero-subtitle {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
   .hero-metrics {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 12px 8px;
+    margin-top: 24px;
+  }
+
+  .metric-item {
+    padding: 4px 2px;
+  }
+
+  .metric-value {
+    font-size: 17px;
+  }
+
+  .metric-label {
+    font-size: 10.5px;
+    line-height: 1.25;
+  }
+
+  /* Phone Mockup Proportional Scaling for Mobile */
+  .phone-mockup.s23-ultra {
+    transform: scale(0.82);
+    transform-origin: top center;
+    margin-bottom: -140px;
+  }
+
+  .section-container {
+    padding: 64px 16px;
+  }
+
+  .section-header {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-size: clamp(26px, 6.5vw, 36px);
+  }
+
+  .section-desc {
+    font-size: 15.5px;
+  }
+
+  /* Interactive Demo Mobile Tuning */
+  .demo-section {
+    padding: 64px 16px;
+  }
+
+  .demo-terminal {
+    border-radius: 16px;
+  }
+
+  .demo-topbar {
+    padding: 12px 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .demo-tabs {
+    width: 100%;
+    overflow-x: auto;
+    display: flex;
+    gap: 6px;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .demo-tab-btn {
+    flex-shrink: 0;
+    padding: 7px 12px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .demo-body {
+    padding: 18px 14px;
+  }
+
+  .chip-option {
+    padding: 7px 11px;
+    font-size: 12px;
+  }
+
+  .lure-cards-grid {
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .result-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .result-metric {
+    grid-column: span 1 !important;
+  }
+
+  /* Features & Cards Mobile Tuning */
+  .features-grid {
     gap: 16px;
+  }
+
+  .feature-card {
+    padding: 24px 18px;
+    border-radius: 16px;
+  }
+
+  .feature-card h3 {
+    font-size: 18px;
+  }
+
+  .feature-card p {
+    font-size: 14px;
+  }
+
+  /* Claude Architecture Mobile Tuning */
+  .claude-program-section {
+    padding: 64px 16px;
+  }
+
+  .architecture-diagram-box {
+    padding: 22px 16px;
+    border-radius: 18px;
   }
 
   .arch-flow {
     grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .arch-node {
+    padding: 16px;
+  }
+
+  .pitch-card {
+    padding: 20px 16px;
+  }
+
+  /* Pricing Cards Mobile Tuning */
+  .pricing-card {
+    padding: 28px 20px;
+    border-radius: 18px;
+  }
+
+  .plan-price {
+    font-size: 32px;
+  }
+
+  /* Download Banner Mobile Tuning */
+  .download-banner {
+    padding: 44px 20px;
+    margin: 40px auto 16px;
+    border-radius: 20px;
+  }
+
+  .download-banner h2 {
+    font-size: 24px;
+  }
+
+  .download-banner p {
+    font-size: 14.5px;
+  }
+
+  .download-btns .btn-play {
+    width: 100%;
+    justify-content: center;
   }
 
   .footer-inner {
     grid-template-columns: 1fr;
+    gap: 28px;
   }
 
   .footer-bottom {
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
     text-align: center;
-  }
-
-  .phone-mockup.s23-ultra {
-    width: 330px;
-    height: 690px; /* 690 / 330 = 2.091:1 */
+    font-size: 12px;
   }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 400px) {
   .phone-mockup.s23-ultra {
-    width: 290px;
-    height: 606px; /* 606 / 290 = 2.089:1 */
+    transform: scale(0.74);
+    transform-origin: top center;
+    margin-bottom: -200px;
   }
-}
 
-@media (max-height: 940px) and (min-width: 993px) {
-  .phone-mockup.s23-ultra {
-    transform: scale(0.92);
-    transform-origin: center center;
-  }
-}
-
-@media (max-height: 840px) and (min-width: 993px) {
-  .phone-mockup.s23-ultra {
-    transform: scale(0.84);
-    transform-origin: center center;
+  .hero-metrics {
+    grid-template-columns: 1fr;
+    gap: 8px;
   }
 }
 
