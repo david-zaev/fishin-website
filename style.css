@@ -612,6 +612,7 @@ body {
   user-select: none;
   -webkit-user-drag: none;
   border-radius: 9px;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 /* Safe floating badges beside the mockup */
