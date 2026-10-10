@@ -17,20 +17,24 @@
     let time = 0;
     let mouse = { x: -1000, y: -1000, targetX: -1000, targetY: -1000 };
 
-    // Floating ambient water particles
-    const particleCount = 45;
-    const particles = [];
+    // Realistic Underwater Rising Bubbles
+    const bubbleCount = 60;
+    const bubbles = [];
 
-    function initParticles() {
-      particles.length = 0;
-      for (let i = 0; i < particleCount; i++) {
-        particles.push({
+    function initBubbles() {
+      bubbles.length = 0;
+      for (let i = 0; i < bubbleCount; i++) {
+        const radius = Math.random() < 0.25 
+          ? Math.random() * 12 + 10    // Large bubbles (10px - 22px)
+          : Math.random() * 6 + 3;     // Small & medium bubbles (3px - 9px)
+        bubbles.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          radius: Math.random() * 1.5 + 0.5,
-          speedY: Math.random() * 0.4 + 0.15,
-          speedX: (Math.random() - 0.5) * 0.2,
-          alpha: Math.random() * 0.25 + 0.05
+          radius: radius,
+          speedY: (radius * 0.04) + 0.45 + Math.random() * 0.6,
+          wobbleOffset: Math.random() * Math.PI * 2,
+          wobbleAmp: Math.random() * 3 + 1.5,
+          alpha: Math.random() * 0.35 + 0.22
         });
       }
     }
@@ -38,7 +42,7 @@
     function resize() {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-      initParticles();
+      initBubbles();
     }
 
     window.addEventListener('resize', resize);
@@ -63,23 +67,64 @@
 
       ctx.save();
 
-      // 1. Draw floating ambient particles (deep water floaters)
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        p.y -= p.speedY;
-        p.x += p.speedX;
+      // 1. Draw Rising Underwater Bubbles
+      for (let i = 0; i < bubbles.length; i++) {
+        const b = bubbles[i];
+        b.y -= b.speedY;
 
-        if (p.y < -10) {
-          p.y = height + 10;
-          p.x = Math.random() * width;
+        // Reset bubble to bottom with randomized x when it reaches the top
+        if (b.y < -30) {
+          b.y = height + 30 + Math.random() * 40;
+          b.x = Math.random() * width;
         }
-        if (p.x < -10) p.x = width + 10;
-        if (p.x > width + 10) p.x = -10;
 
+        // Sinusoidal wobble motion
+        const currentX = b.x + Math.sin(time * 3 + b.wobbleOffset) * b.wobbleAmp;
+
+        // Subtle mouse repulsion deflection
+        const dx = currentX - mouse.x;
+        const dy = b.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 140) {
+          const force = (1 - dist / 140) * 1.8;
+          b.x += (dx / (dist || 1)) * force;
+        }
+
+        // Outer membrane
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(240, 240, 245, ${p.alpha})`;
+        ctx.arc(currentX, b.y, b.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(255, 255, 255, ${b.alpha * 0.7})`;
+        ctx.lineWidth = Math.max(1, b.radius * 0.07);
+        ctx.stroke();
+
+        // Translucent spherical body fill
+        const grad = ctx.createRadialGradient(
+          currentX - b.radius * 0.3,
+          b.y - b.radius * 0.3,
+          b.radius * 0.1,
+          currentX,
+          b.y,
+          b.radius
+        );
+        grad.addColorStop(0, `rgba(255, 255, 255, ${b.alpha * 0.18})`);
+        grad.addColorStop(0.7, `rgba(255, 255, 255, ${b.alpha * 0.03})`);
+        grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+        ctx.fillStyle = grad;
         ctx.fill();
+
+        // Specular glint highlight (top-left reflection)
+        if (b.radius > 4.5) {
+          ctx.beginPath();
+          ctx.arc(
+            currentX - b.radius * 0.36,
+            b.y - b.radius * 0.36,
+            Math.max(1.2, b.radius * 0.22),
+            0,
+            Math.PI * 2
+          );
+          ctx.fillStyle = `rgba(255, 255, 255, ${b.alpha * 0.85})`;
+          ctx.fill();
+        }
       }
 
       // 2. Draw Bathymetric depth contours
