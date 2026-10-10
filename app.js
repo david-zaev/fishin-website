@@ -42,7 +42,7 @@
 
     function resize() {
       const container = canvas.parentElement;
-      width = container ? container.clientWidth : window.innerWidth;
+      width = Math.max(container ? container.clientWidth : 0, window.innerWidth);
       height = container ? container.clientHeight : window.innerHeight;
       dpr = Math.min(window.devicePixelRatio || 1, 3);
 
@@ -324,8 +324,8 @@
       }
     }
 
-    // Hero S23 Ultra Phone Mockup 3D Float & Tilt on Scroll
-    if (phoneWrapper && curY < 1200) {
+    // Hero S23 Ultra Phone Mockup 3D Float & Tilt on Scroll (Desktop only)
+    if (phoneWrapper && window.innerWidth > 992 && curY < 1200) {
       const translateY = curY * 0.12;
       const rotX = (mouseRelY * -3.5) + Math.min(curY * 0.012, 5);
       const rotY = mouseRelX * 4.5;
