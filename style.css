@@ -432,76 +432,99 @@ body {
   display: inline-block;
 }
 
-.phone-mockup {
-  width: 380px;
-  height: 720px;
-  background: #0a0a0b;
-  border-radius: 48px;
-  border: 4.5px solid #38383e;
-  box-shadow: 0 32px 84px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.14);
+.phone-mockup.s23-ultra {
+  width: 382px;
+  height: 748px;
+  background: #09090a;
+  border-radius: 6px; /* S23 Ultra Signature Boxy Corners */
+  border: 3.5px solid #2e2e34;
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 30px 80px rgba(0, 0, 0, 0.95),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.9);
   position: relative;
   overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-/* Status Bar */
+/* S23 Ultra Curved Side Edge Reflection */
+.s23-edge-sheen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0.05) 0%, 
+    transparent 3px, 
+    transparent calc(100% - 3px), 
+    rgba(255, 255, 255, 0.05) 100%);
+  z-index: 28;
+}
+
+/* Infinity-O Single Hole-Punch Camera */
+.s23-camera-hole {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #040405;
+  border: 1.5px solid #1c1c20;
+  box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.35);
+  z-index: 32;
+}
+
+/* Samsung One UI Status Bar */
 .phone-status-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 11px 20px 4px;
-  background: #0a0a0b;
+  padding: 8px 18px 4px;
+  background: #09090a;
   color: #f5f5f5;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   position: relative;
   z-index: 25;
 }
 
 .status-time {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: -0.01em;
-}
-
-.phone-island {
-  position: absolute;
-  top: 9px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 96px;
-  height: 22px;
-  background: #000000;
-  border-radius: 20px;
-  z-index: 30;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 8px;
-}
-
-.camera-lens {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: #141416;
-  border: 1px solid #232326;
-  box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.2);
+  font-family: var(--font-sans);
 }
 
 .status-icons {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 6px;
+}
+
+.status-net {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #a1a1a6;
+}
+
+.battery-pct {
+  font-size: 10px;
+  font-weight: 600;
+  color: #a1a1a6;
+  margin-left: 2px;
 }
 
 .battery-icon {
-  width: 20px;
-  height: 10px;
-  border: 1px solid #f5f5f5;
-  border-radius: 3px;
+  width: 18px;
+  height: 9px;
+  border: 1px solid #d4d4d8;
+  border-radius: 2px;
   padding: 1px;
   position: relative;
 }
@@ -510,45 +533,44 @@ body {
   content: "";
   position: absolute;
   right: -3px;
-  top: 2.5px;
+  top: 2px;
   width: 2px;
   height: 3px;
-  background: #f5f5f5;
+  background: #d4d4d8;
   border-radius: 0 1px 1px 0;
 }
 
 .battery-fill {
-  width: 85%;
+  width: 95%;
   height: 100%;
   background: #f5f5f5;
   border-radius: 1px;
 }
 
-/* Phone Screen (Authentic ForecastScreen) */
+/* Phone Screen (Authentic One UI ForecastScreen) */
 .phone-screen {
   flex: 1;
   background: #0a0a0b;
   color: #f5f5f5;
-  padding: 8px 18px 14px;
+  padding: 4px 14px 10px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   font-size: 13px;
 }
 
-/* TopBar from the App */
 .phone-top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
   padding: 0 2px;
 }
 
 .top-bar-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .top-bar-back {
@@ -558,78 +580,99 @@ body {
 }
 
 .top-bar-title {
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
   color: #ffffff;
 }
 
+.top-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
 .top-bar-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  background: #1d1d1f;
-  border: 1px solid #2a2a2e;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: #18181b;
+  border: 1px solid #27272a;
   display: grid;
   place-items: center;
-  color: #f5f5f5;
+  color: #f4f4f5;
+  transition: background 0.15s ease;
 }
 
 .phone-place-name {
-  font-size: 14px;
+  font-size: 12px;
   color: #a1a1a6;
-  margin: 0 0 12px 4px;
-}
-
-/* DayStrip from the App */
-.phone-day-strip {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 14px;
-  overflow-x: hidden;
-}
-
-.day-chip {
-  padding: 7px 16px;
-  border-radius: 16px;
-  font-size: 12.5px;
-  font-weight: 600;
-  white-space: nowrap;
+  margin: 0 0 10px 2px;
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
+.place-dot {
+  color: #52525b;
+}
+
+.place-status {
+  color: #a1a1a6;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+/* DayStrip */
+.phone-day-strip {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+  overflow-x: hidden;
+}
+
+.day-chip {
+  padding: 5px 13px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .day-chip.active {
-  background: #f2f2f2;
-  color: #0a0a0b;
+  background: #f4f4f5;
+  color: #09090b;
 }
 
 .day-chip:not(.active) {
-  background: #141415;
+  background: #141416;
   color: #a1a1a6;
-  border: 1px solid #232325;
+  border: 1px solid #232326;
 }
 
 .day-chip.locked {
-  color: #6c6c71;
+  color: #71717a;
 }
 
 /* Hero Card from ForecastComponents.kt */
 .hero-card-app {
-  background: #141415;
-  border: 1px solid #232325;
-  border-radius: 20px;
-  padding: 16px 18px;
+  background: linear-gradient(145deg, #161618 0%, #101012 100%);
+  border: 1px solid #26262a;
+  border-radius: 16px;
+  padding: 13px 14px;
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 10px;
+  gap: 14px;
+  margin-bottom: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
 
 .score-ring-wrap {
-  width: 96px;
-  height: 96px;
+  width: 84px;
+  height: 84px;
   position: relative;
   display: grid;
   place-items: center;
@@ -644,17 +687,17 @@ body {
 
 .score-ring-bg {
   fill: none;
-  stroke: #242428;
-  stroke-width: 7.5;
+  stroke: #222226;
+  stroke-width: 7;
 }
 
 .score-ring-progress {
   fill: none;
-  stroke: #f2f2f2;
-  stroke-width: 7.5;
+  stroke: #f4f4f5;
+  stroke-width: 7;
   stroke-linecap: round;
   stroke-dasharray: 245;
-  stroke-dashoffset: 20; /* 92% */
+  stroke-dashoffset: 20;
 }
 
 .score-ring-text {
@@ -666,137 +709,198 @@ body {
 }
 
 .score-ring-num {
-  font-size: 28px;
-  font-weight: 800;
+  font-size: 25px;
+  font-weight: 850;
   line-height: 1;
   color: #ffffff;
 }
 
 .score-ring-caption {
-  font-size: 10px;
+  font-size: 9px;
   color: #a1a1a6;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
 .hero-details {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 }
 
 .hero-subhead {
-  font-size: 10px;
+  font-size: 9px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #6c6c71;
-  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #a1a1a6;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.live-pulse {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  display: inline-block;
 }
 
 .hero-rating {
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 800;
   color: #ffffff;
   letter-spacing: -0.01em;
 }
 
 .hero-weather {
-  font-size: 12.5px;
+  font-size: 11px;
   color: #a1a1a6;
 }
 
 .hero-reasons {
-  font-size: 11px;
-  color: #71717a;
+  font-size: 10px;
+  color: #8e8e93;
   margin-top: 3px;
-  line-height: 1.4;
+  line-height: 1.35;
 }
 
-/* NowLine from ForecastComponents.kt */
+.hero-reasons span {
+  color: #ffffff;
+  font-weight: 700;
+  margin-right: 2px;
+}
+
+/* NowLine Telemetry */
 .now-line-app {
-  font-size: 11.5px;
+  font-size: 10.5px;
   font-family: var(--font-mono);
   color: #a1a1a6;
   padding: 0 4px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   white-space: nowrap;
+  letter-spacing: -0.01em;
 }
 
-/* AI Brief Card from ForecastComponents.kt */
+/* AI Brief Card */
 .ai-brief-card-app {
-  background: #141415;
-  border: 1px solid #232325;
-  border-radius: 18px;
-  padding: 14px 16px;
-  flex: 1;
+  background: linear-gradient(145deg, #151518 0%, #0f0f11 100%);
+  border: 1px solid #26262a;
+  border-radius: 14px;
+  padding: 11px 13px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 8px;
 }
 
 .brief-app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .brief-app-tag {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 700;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 750;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #a1a1a6;
 }
 
 .brief-app-pro {
-  font-size: 10px;
-  font-weight: 800;
-  background: #f2f2f2;
-  color: #0a0a0b;
-  padding: 2px 7px;
-  border-radius: 5px;
+  font-size: 9px;
+  font-weight: 850;
+  background: #f4f4f5;
+  color: #09090b;
+  padding: 2px 6px;
+  border-radius: 4px;
   letter-spacing: 0.04em;
 }
 
 .brief-app-headline {
-  font-size: 13.5px;
-  font-weight: 700;
+  font-size: 12.5px;
+  font-weight: 750;
   color: #ffffff;
   line-height: 1.35;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .brief-app-item {
-  font-size: 11.5px;
+  font-size: 10.5px;
   color: #a1a1a6;
-  line-height: 1.45;
-  margin-bottom: 5px;
-  padding-left: 9px;
-  border-left: 2px solid #38383c;
+  line-height: 1.4;
+  margin-bottom: 4px;
+  padding-left: 8px;
+  border-left: 2px solid #38383e;
 }
 
-/* Bottom Bar from Routes.kt */
+/* Solunar Strip Card (Fills screen void elegantly) */
+.solunar-strip-card {
+  background: #121214;
+  border: 1px solid #232326;
+  border-radius: 12px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 11px;
+}
+
+.solunar-strip-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #a1a1a6;
+  font-weight: 600;
+}
+
+.solunar-strip-time {
+  font-weight: 700;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+.badge-high {
+  font-size: 8.5px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-family: var(--font-sans);
+  font-weight: 700;
+}
+
+/* Bottom Bar */
 .app-bottom-bar {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding-top: 12px;
+  padding-top: 8px;
   margin-top: auto;
-  border-top: 1px solid #1a1a1c;
+  border-top: 1px solid #1c1c1f;
 }
 
 .app-tab-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  color: #6c6c71;
-  font-size: 10.5px;
+  gap: 3px;
+  color: #71717a;
+  font-size: 9.5px;
   font-weight: 600;
+  position: relative;
 }
 
 .app-tab-item.active {
@@ -804,17 +908,26 @@ body {
 }
 
 .app-tab-item svg {
-  width: 20px;
-  height: 20px;
+  width: 19px;
+  height: 19px;
   stroke-width: 2;
 }
 
+.active-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #ffffff;
+  position: absolute;
+  bottom: -4px;
+}
+
 .app-home-bar {
-  width: 104px;
+  width: 110px;
   height: 3.5px;
-  background: #38383c;
-  border-radius: 3px;
-  margin: 8px auto 0;
+  background: #3f3f46;
+  border-radius: 2px;
+  margin: 7px auto 0;
 }
 
 /* Safe floating badges beside the mockup */
@@ -1681,5 +1794,10 @@ main:not(.landing-main) footer {
     flex-direction: column;
     gap: 12px;
     text-align: center;
+  }
+
+  .phone-mockup.s23-ultra {
+    width: 330px;
+    height: 670px;
   }
 }
