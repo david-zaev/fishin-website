@@ -53,17 +53,29 @@
       mouse.targetY = e.clientY;
     });
 
-    // Bathymetric Depth Contour Lines
-    const numLines = 15;
-    const pointsPerLine = 36;
+    // Click shockwave ripples
+    const ripples = [];
+    window.addEventListener('click', function (e) {
+      ripples.push({
+        x: e.clientX,
+        y: e.clientY,
+        radius: 0,
+        maxRadius: Math.max(width, height) * 0.65,
+        alpha: 0.85
+      });
+    });
+
+    // Bathymetric Depth Contour Lines (Enhanced & Highly Visible)
+    const numLines = 18;
+    const pointsPerLine = 64;
 
     function draw() {
       time += 0.005;
       ctx.clearRect(0, 0, width, height);
 
       // Smooth mouse tracking
-      mouse.x += (mouse.targetX - mouse.x) * 0.05;
-      mouse.y += (mouse.targetY - mouse.y) * 0.05;
+      mouse.x += (mouse.targetX - mouse.x) * 0.06;
+      mouse.y += (mouse.targetY - mouse.y) * 0.06;
 
       ctx.save();
 
@@ -85,16 +97,16 @@
         const dx = currentX - mouse.x;
         const dy = b.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 140) {
-          const force = (1 - dist / 140) * 1.8;
+        if (dist < 160) {
+          const force = (1 - dist / 160) * 2.2;
           b.x += (dx / (dist || 1)) * force;
         }
 
         // Outer membrane
         ctx.beginPath();
         ctx.arc(currentX, b.y, b.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(255, 255, 255, ${b.alpha * 0.7})`;
-        ctx.lineWidth = Math.max(1, b.radius * 0.07);
+        ctx.strokeStyle = `rgba(255, 255, 255, ${b.alpha * 0.75})`;
+        ctx.lineWidth = Math.max(1, b.radius * 0.08);
         ctx.stroke();
 
         // Translucent spherical body fill
@@ -106,8 +118,8 @@
           b.y,
           b.radius
         );
-        grad.addColorStop(0, `rgba(255, 255, 255, ${b.alpha * 0.18})`);
-        grad.addColorStop(0.7, `rgba(255, 255, 255, ${b.alpha * 0.03})`);
+        grad.addColorStop(0, `rgba(255, 255, 255, ${b.alpha * 0.22})`);
+        grad.addColorStop(0.7, `rgba(255, 255, 255, ${b.alpha * 0.04})`);
         grad.addColorStop(1, 'rgba(255, 255, 255, 0)');
         ctx.fillStyle = grad;
         ctx.fill();
@@ -127,32 +139,54 @@
         }
       }
 
-      // 2. Draw Bathymetric depth contours
-      ctx.lineWidth = 1;
+      // 2. Draw Bathymetric Depth Contour Waves (Enhanced Visibility & Dynamic Mouse Ripple)
       for (let i = 0; i < numLines; i++) {
-        const lineOffset = (i / numLines) * (height * 1.1) - 40;
-        const alpha = 0.025 + (i / numLines) * 0.06;
-        ctx.strokeStyle = `rgba(245, 245, 245, ${alpha})`;
-
+        const lineOffset = (i / numLines) * (height * 1.15) - 30;
+        
+        // Dynamic proximity calculation for whole line
+        const dyLine = Math.abs(lineOffset - mouse.y);
+        const lineProximity = Math.max(0, 1 - dyLine / 380);
+        
+        // Base alpha (0.13 - 0.28) + proximity boost up to 0.65!
+        const alpha = Math.min(0.65, (0.13 + (i / numLines) * 0.15) + (lineProximity * 0.34));
+        
         ctx.beginPath();
+        ctx.lineWidth = 1.4 + lineProximity * 0.8; // Thicker when near mouse (up to 2.2px)
+        ctx.strokeStyle = `rgba(240, 240, 245, ${alpha})`;
+
         for (let j = 0; j <= pointsPerLine; j++) {
           const x = (j / pointsPerLine) * width;
           
-          // Organic undulating wave calculation
-          const wave1 = Math.sin(j * 0.22 + time * 1.4 + i * 0.55) * 32;
-          const wave2 = Math.cos(j * 0.16 - time * 0.8 + i * 0.28) * 20;
-          const wave3 = Math.sin((x / width) * 3.5 + time + i * 0.8) * 14;
+          // Organic undulating wave calculation with multi-frequency harmonics
+          const wave1 = Math.sin(j * 0.18 + time * 1.6 + i * 0.5) * 36;
+          const wave2 = Math.cos(j * 0.12 - time * 0.9 + i * 0.3) * 22;
+          const wave3 = Math.sin((x / (width || 1)) * 4.0 + time * 1.2 + i * 0.7) * 16;
 
-          // Mouse proximity ripple
+          // Interactive Mouse Ripple Swell
           const dx = x - mouse.x;
           const dy = (lineOffset + wave1) - mouse.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           let mouseInfluence = 0;
-          if (dist < 280) {
-            mouseInfluence = Math.sin((1 - dist / 280) * Math.PI) * 26;
+          if (dist < 360) {
+            const force = Math.sin((1 - dist / 360) * Math.PI);
+            const ripple = Math.cos((dist / 32) - time * 7);
+            mouseInfluence = (force * 38) + (ripple * force * 24);
           }
 
-          const y = lineOffset + wave1 + wave2 + wave3 + mouseInfluence;
+          // Active click shockwave influence
+          let rippleInfluence = 0;
+          for (let r = 0; r < ripples.length; r++) {
+            const rip = ripples[r];
+            const rdx = x - rip.x;
+            const rdy = (lineOffset + wave1) - rip.y;
+            const rDist = Math.sqrt(rdx * rdx + rdy * rdy);
+            const waveDist = Math.abs(rDist - rip.radius);
+            if (waveDist < 80) {
+              rippleInfluence += Math.sin((1 - waveDist / 80) * Math.PI) * 32 * rip.alpha;
+            }
+          }
+
+          const y = lineOffset + wave1 + wave2 + wave3 + mouseInfluence + rippleInfluence;
 
           if (j === 0) {
             ctx.moveTo(x, y);
@@ -163,15 +197,32 @@
         ctx.stroke();
       }
 
-      // 3. Sonar Pulse Ring (originating from depth center)
-      const sonarPeriod = (time * 0.6) % 1;
-      const sonarRadius = sonarPeriod * Math.max(width, height) * 0.7;
-      const sonarAlpha = (1 - sonarPeriod) * 0.07;
+      // Update & Draw Click Shockwave Rings
+      for (let r = ripples.length - 1; r >= 0; r--) {
+        const rip = ripples[r];
+        rip.radius += 7;
+        rip.alpha *= 0.96;
+
+        ctx.beginPath();
+        ctx.arc(rip.x, rip.y, rip.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(255, 255, 255, ${rip.alpha * 0.25})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        if (rip.alpha < 0.02 || rip.radius > rip.maxRadius) {
+          ripples.splice(r, 1);
+        }
+      }
+
+      // 3. Sonar Pulse Ring (originating from depth center - Crisp & Defined)
+      const sonarPeriod = (time * 0.5) % 1;
+      const sonarRadius = sonarPeriod * Math.max(width, height) * 0.75;
+      const sonarAlpha = (1 - sonarPeriod) * 0.16;
 
       ctx.beginPath();
-      ctx.arc(width * 0.5, height * 0.4, sonarRadius, 0, Math.PI * 2);
+      ctx.arc(width * 0.5, height * 0.38, sonarRadius, 0, Math.PI * 2);
       ctx.strokeStyle = `rgba(255, 255, 255, ${sonarAlpha})`;
-      ctx.lineWidth = 1.2;
+      ctx.lineWidth = 1.5;
       ctx.stroke();
 
       ctx.restore();
