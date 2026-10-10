@@ -48,6 +48,20 @@
     window.addEventListener('resize', resize);
     resize();
 
+    // Scroll Momentum & Parallax Tracking
+    let scrollY = window.scrollY || 0;
+    let targetScrollY = window.scrollY || 0;
+    let scrollVelocity = 0;
+    let lastScrollY = window.scrollY || 0;
+
+    window.addEventListener('scroll', function () {
+      const cur = window.scrollY || 0;
+      const diff = cur - lastScrollY;
+      scrollVelocity += diff * 0.18;
+      lastScrollY = cur;
+      targetScrollY = cur;
+    }, { passive: true });
+
     window.addEventListener('mousemove', function (e) {
       mouse.targetX = e.clientX;
       mouse.targetY = e.clientY;
@@ -65,9 +79,9 @@
       });
     });
 
-    // Bathymetric Depth Contour Lines (Enhanced & Highly Visible)
+    // Bathymetric Depth Contour Lines (Smooth Curving Splines)
     const numLines = 18;
-    const pointsPerLine = 64;
+    const pointsPerLine = 72;
 
     function draw() {
       time += 0.005;
@@ -77,16 +91,23 @@
       mouse.x += (mouse.targetX - mouse.x) * 0.06;
       mouse.y += (mouse.targetY - mouse.y) * 0.06;
 
+      // Smooth fluid scroll interpolation
+      scrollY += (targetScrollY - scrollY) * 0.08;
+      scrollVelocity *= 0.91; // natural water viscosity damping
+
       ctx.save();
 
-      // 1. Draw Rising Underwater Bubbles
+      // 1. Draw Rising Underwater Bubbles with Scroll Momentum
       for (let i = 0; i < bubbles.length; i++) {
         const b = bubbles[i];
-        b.y -= b.speedY;
+        b.y -= (b.speedY + scrollVelocity * 0.15);
 
         // Reset bubble to bottom with randomized x when it reaches the top
         if (b.y < -30) {
           b.y = height + 30 + Math.random() * 40;
+          b.x = Math.random() * width;
+        } else if (b.y > height + 60) {
+          b.y = -20;
           b.x = Math.random() * width;
         }
 
@@ -124,7 +145,7 @@
         ctx.fillStyle = grad;
         ctx.fill();
 
-        // Specular glint highlight (top-left reflection)
+        // Specular glint highlight
         if (b.radius > 4.5) {
           ctx.beginPath();
           ctx.arc(
@@ -139,41 +160,46 @@
         }
       }
 
-      // 2. Draw Bathymetric Depth Contour Waves (Enhanced Visibility & Dynamic Mouse Ripple)
+      // 2. Draw Bathymetric Waves with Quadratic Midpoint Smoothing (100% Curved, Zero Straight Segments)
       for (let i = 0; i < numLines; i++) {
-        const lineOffset = (i / numLines) * (height * 1.15) - 30;
+        // Multi-depth parallax reacting smoothly to scroll
+        const parallaxSpeed = 0.06 + (i / numLines) * 0.18;
+        const lineOffset = (i / numLines) * (height * 1.15) - 30 - ((scrollY * parallaxSpeed) % (height * 0.3));
         
-        // Dynamic proximity calculation for whole line
+        // Dynamic line proximity calculation
         const dyLine = Math.abs(lineOffset - mouse.y);
-        const lineProximity = Math.max(0, 1 - dyLine / 380);
+        const lineProximity = Math.max(0, 1 - dyLine / 400);
         
-        // Base alpha (0.13 - 0.28) + proximity boost up to 0.65!
-        const alpha = Math.min(0.65, (0.13 + (i / numLines) * 0.15) + (lineProximity * 0.34));
+        // Base alpha (0.13 - 0.28) + proximity illumination up to 0.65
+        const alpha = Math.min(0.65, (0.13 + (i / numLines) * 0.15) + (lineProximity * 0.35));
         
-        ctx.beginPath();
-        ctx.lineWidth = 1.4 + lineProximity * 0.8; // Thicker when near mouse (up to 2.2px)
-        ctx.strokeStyle = `rgba(240, 240, 245, ${alpha})`;
+        const pts = [];
 
         for (let j = 0; j <= pointsPerLine; j++) {
           const x = (j / pointsPerLine) * width;
           
-          // Organic undulating wave calculation with multi-frequency harmonics
-          const wave1 = Math.sin(j * 0.18 + time * 1.6 + i * 0.5) * 36;
-          const wave2 = Math.cos(j * 0.12 - time * 0.9 + i * 0.3) * 22;
-          const wave3 = Math.sin((x / (width || 1)) * 4.0 + time * 1.2 + i * 0.7) * 16;
+          // Organic undulating wave harmonics (smooth continuous curves)
+          const wave1 = Math.sin(j * 0.13 + time * 1.2 + i * 0.45) * 36;
+          const wave2 = Math.cos(j * 0.08 - time * 0.7 + i * 0.25) * 22;
+          const wave3 = Math.sin((x / (width || 1)) * 3.0 + time * 0.9 + i * 0.6) * 15;
 
-          // Interactive Mouse Ripple Swell
+          // Water momentum from scroll velocity (reactive ocean swell)
+          const scrollSurge = Math.sin(j * 0.15 + time * 1.8) * Math.min(scrollVelocity, 45) * 1.2;
+
+          // Silky smooth, organic interactive swell (Zero chop! Smooth cosine bell falloff)
           const dx = x - mouse.x;
           const dy = (lineOffset + wave1) - mouse.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           let mouseInfluence = 0;
-          if (dist < 360) {
-            const force = Math.sin((1 - dist / 360) * Math.PI);
-            const ripple = Math.cos((dist / 32) - time * 7);
-            mouseInfluence = (force * 38) + (ripple * force * 24);
+          if (dist < 420) {
+            // Raised cosine bell function: 0.5 * (1 + cos(pi * r / R))
+            // Continuous 1st and 2nd derivatives, absolutely zero jagged edges!
+            const norm = dist / 420;
+            const bell = 0.5 * (1 + Math.cos(norm * Math.PI));
+            mouseInfluence = bell * 50 * Math.sin(time * 2.0 + (x / (width || 1)) * 2.2);
           }
 
-          // Active click shockwave influence
+          // Click shockwave influence (smooth bell curve)
           let rippleInfluence = 0;
           for (let r = 0; r < ripples.length; r++) {
             const rip = ripples[r];
@@ -181,20 +207,31 @@
             const rdy = (lineOffset + wave1) - rip.y;
             const rDist = Math.sqrt(rdx * rdx + rdy * rdy);
             const waveDist = Math.abs(rDist - rip.radius);
-            if (waveDist < 80) {
-              rippleInfluence += Math.sin((1 - waveDist / 80) * Math.PI) * 32 * rip.alpha;
+            if (waveDist < 100) {
+              const rBell = 0.5 * (1 + Math.cos((waveDist / 100) * Math.PI));
+              rippleInfluence += rBell * 28 * rip.alpha;
             }
           }
 
-          const y = lineOffset + wave1 + wave2 + wave3 + mouseInfluence + rippleInfluence;
-
-          if (j === 0) {
-            ctx.moveTo(x, y);
-          } else {
-            ctx.lineTo(x, y);
-          }
+          const y = lineOffset + wave1 + wave2 + wave3 + scrollSurge + mouseInfluence + rippleInfluence;
+          pts.push({ x: x, y: y });
         }
-        ctx.stroke();
+
+        // Draw line with quadratic curve midpoint smoothing (100% curved, zero straight segments!)
+        if (pts.length > 2) {
+          ctx.beginPath();
+          ctx.lineWidth = 1.4 + lineProximity * 0.8;
+          ctx.strokeStyle = `rgba(240, 240, 245, ${alpha})`;
+
+          ctx.moveTo(pts[0].x, pts[0].y);
+          for (let k = 0; k < pts.length - 1; k++) {
+            const midX = (pts[k].x + pts[k + 1].x) * 0.5;
+            const midY = (pts[k].y + pts[k + 1].y) * 0.5;
+            ctx.quadraticCurveTo(pts[k].x, pts[k].y, midX, midY);
+          }
+          ctx.lineTo(pts[pts.length - 1].x, pts[pts.length - 1].y);
+          ctx.stroke();
+        }
       }
 
       // Update & Draw Click Shockwave Rings
@@ -242,18 +279,46 @@
   }
 
   // =========================================================================
-  // 2. Navigation Scroll Effect
+  // 2. Interactive Scrolling & Parallax Engine
   // =========================================================================
   const siteNav = document.querySelector('.site-nav');
-  if (siteNav) {
-    window.addEventListener('scroll', function () {
-      if (window.scrollY > 30) {
+  const scrollProgressBar = document.getElementById('scroll-progress-line');
+  const phoneWrapper = document.querySelector('.phone-wrapper');
+
+  let mouseRelX = 0;
+  let mouseRelY = 0;
+  window.addEventListener('mousemove', function (e) {
+    mouseRelX = (e.clientX - window.innerWidth * 0.5) / (window.innerWidth * 0.5);
+    mouseRelY = (e.clientY - window.innerHeight * 0.5) / (window.innerHeight * 0.5);
+  });
+
+  window.addEventListener('scroll', function () {
+    const curY = window.scrollY || 0;
+
+    // Nav blur background
+    if (siteNav) {
+      if (curY > 30) {
         siteNav.classList.add('scrolled');
       } else {
         siteNav.classList.remove('scrolled');
       }
-    });
-  }
+    }
+
+    // Top scroll depth progress line
+    if (scrollProgressBar) {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (curY / docHeight) * 100 : 0;
+      scrollProgressBar.style.width = pct + '%';
+    }
+
+    // Hero S23 Ultra Phone Mockup 3D Float & Tilt on Scroll
+    if (phoneWrapper && curY < 1200) {
+      const translateY = curY * 0.12;
+      const rotX = (mouseRelY * -3.5) + Math.min(curY * 0.012, 5);
+      const rotY = mouseRelX * 4.5;
+      phoneWrapper.style.transform = `translateY(${translateY}px) perspective(1200px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    }
+  }, { passive: true });
 
   // =========================================================================
   // 3. Interactive Intelligence Demo Terminal
@@ -542,21 +607,39 @@
   });
 
   // =========================================================================
-  // 4. Smooth Anchor Scrolling
+  // 5. Interactive 3D Card Hover Tilt & Scroll Reveal Animations
   // =========================================================================
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-      const targetEl = document.querySelector(targetId);
-      if (targetEl) {
-        e.preventDefault();
-        targetEl.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
+  const tiltCards = document.querySelectorAll('.feature-card, .pricing-card, .claude-pitch-item');
+  tiltCards.forEach(function (card) {
+    card.addEventListener('mousemove', function (e) {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotX = ((y - centerY) / centerY) * -3.5;
+      const rotY = ((x - centerX) / centerX) * 3.5;
+      card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-2px)`;
+    });
+    card.addEventListener('mouseleave', function () {
+      card.style.transform = '';
     });
   });
+
+  if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.feature-card, .metric-item, .arch-node, .pricing-card').forEach(function (el) {
+      el.classList.add('scroll-reveal-item');
+      revealObserver.observe(el);
+    });
+  }
 
 })();

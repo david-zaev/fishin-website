@@ -125,6 +125,19 @@ body {
 /* ==========================================================================
    Header & Navigation
    ========================================================================== */
+.scroll-progress-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2.5px;
+  width: 0%;
+  background: linear-gradient(90deg, #52525b, #ffffff, #a1a1aa);
+  z-index: 1000;
+  pointer-events: none;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+  transition: width 0.08s ease-out;
+}
+
 .site-nav {
   position: sticky;
   top: 0;
@@ -431,6 +444,10 @@ body {
 .phone-wrapper {
   position: relative;
   display: inline-block;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .phone-mockup.s23-ultra {
@@ -1888,4 +1905,26 @@ main:not(.landing-main) footer {
     transform: scale(0.84);
     transform-origin: center center;
   }
+}
+
+/* ==========================================================================
+   Interactive Scroll Reveals & Hover Transitions
+   ========================================================================== */
+.scroll-reveal-item {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal-item.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.feature-card,
+.pricing-card,
+.claude-pitch-item {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
 }
