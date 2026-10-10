@@ -1,26 +1,786 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FishIn: Fishing Log &amp; Spots</title>
-<meta name="description" content="FishIn: fishing spots, forecasts, a catch log and friends.">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FishIn · Next-Generation Angling Intelligence</title>
+  <meta name="description" content="FishIn is the AI-native fishing co-pilot: real-time tactical bite forecasts, multimodal tackle recognition, generative rig engineering, and global offline cartography.">
+  <meta name="theme-color" content="#0a0a0b">
+  
+  <!-- Open Graph / Meta -->
+  <meta property="og:title" content="FishIn · Next-Generation Angling Intelligence">
+  <meta property="og:description" content="AI bite forecasts, computer-vision tackle recognition, generative rig engineering, and offline global spot maps. Built for serious anglers.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/fishin-feature-1024x500.png">
+  
+  <link rel="icon" type="image/svg+xml" href="assets/fishin-icon.svg">
+  <link rel="apple-touch-icon" href="assets/fishin-icon-rounded-1024.png">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<main>
-  <header>
-    <div class="mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3-5 9-6 13-3l4-3v12l-4-3c-4 3-10 2-13-3zm12-1.2a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z"/></svg></div>
-    <a href="./">FishIn</a>
-  </header>
-  <h1>Fishing spots, forecasts and your catch log</h1>
-  <p class="muted">Find places to fish, see when fish are most likely to bite, log your catches and share them with friends.</p>
-  <div class="links">
-    <a href="privacy.html">Privacy policy<span>What FishIn collects, why, and your choices</span></a>
-    <a href="terms.html">Terms of use<span>The rules for using FishIn, the community and FishIn Pro</span></a>
-    <a href="delete-account.html">Delete your account<span>How to delete your FishIn account and what is removed</span></a>
+<body class="dark-mode">
+
+  <!-- Ambient Dynamic Video & Canvas Background -->
+  <div class="ambient-container" aria-hidden="true">
+    <video class="ambient-video" autoplay loop muted playsinline poster="assets/fishin-feature-1024x500.png">
+      <source src="assets/ambient.mp4" type="video/mp4">
+    </video>
+    <canvas id="bg-canvas"></canvas>
+    <div class="ambient-grid"></div>
+    <div class="ambient-overlay"></div>
   </div>
-  <footer>FishIn is made by an independent developer in North Macedonia.</footer>
-</main>
+
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a href="./" class="brand-wrap">
+        <div class="brand-icon">
+          <svg viewBox="18 18 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="108" height="108" fill="#0A0A0A"/>
+            <g transform="translate(30,78) scale(0.05)">
+              <path fill="#F2F2F2" d="M440-120q-100 0-170-70t-70-170v-192q0-14 12-19t22 5l138 138q11 11 11 27.5T372-372q-12 12-28.5 12T315-372l-35-35v47q0 66 47 113t113 47q66 0 113-47t47-113v-127q-36-14-58-44.5T520-600q0-38 22-68.5t58-44.5v-127q0-17 11.5-28.5T640-880q17 0 28.5 11.5T680-840v127q36 14 58 44.5t22 68.5q0 38-22 69t-58 44v127q0 100-70 170t-170 70Zm200-440q17 0 28.5-11.5T680-600q0-17-11.5-28.5T640-640q-17 0-28.5 11.5T600-600q0 17 11.5 28.5T640-560Zm0-40Z"/>
+            </g>
+          </svg>
+        </div>
+        <span class="brand-text">FishIn</span>
+        <span class="brand-tag">v2.4 Native</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#interactive-demo">Live Demo</a></li>
+        <li><a href="#architecture">Claude &amp; Architecture</a></li>
+        <li><a href="#pro">FishIn Pro</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+          <span>Get on Google Play</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="site-content">
+    
+    <!-- Hero Section -->
+    <header class="hero-section">
+      <div class="hero-copy">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>Next-Generation Angling Intelligence</span>
+        </div>
+        <h1 class="hero-title">
+          Precision Fishing.
+          <span>Powered by Multimodal AI.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Real-time tactical bite forecasting, multimodal tackle &amp; fish vision, generative rig engineering, and offline global cartography. Designed with uncompromising graphite precision.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener noreferrer" class="btn btn-play">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3.609 1.814L13.792 12 3.61 22.186a2.38 2.38 0 0 1-.61-1.636V3.45c0-.623.228-1.2.609-1.636zm11.24 11.24l2.502 2.502-12.27 7.086 9.768-9.588zm0-2.108L5.08 1.358l12.272 7.086-2.502 2.502zm1.488 1.054l3.528 2.037a1.67 1.67 0 0 1 0 2.906l-3.528 2.037-2.316-2.316 2.316-2.664z"/>
+            </svg>
+            <div class="btn-play-text">
+              <div class="btn-play-subtitle">Available Now On</div>
+              <div class="btn-play-title">Google Play</div>
+            </div>
+          </a>
+
+          <a href="#interactive-demo" class="btn btn-secondary">
+            <span>Explore Live Intelligence</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+          </a>
+        </div>
+
+        <div class="hero-metrics">
+          <div class="metric-item">
+            <div class="metric-value">100%</div>
+            <div class="metric-label">Offline-First Vector Atlas</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-value">&lt; 1.2s</div>
+            <div class="metric-label">Multimodal Vision Inference</div>
+          </div>
+          <div class="metric-item">
+            <div class="metric-value">12+ Var</div>
+            <div class="metric-label">Hydro &amp; Solunar Synthesis</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Visual Phone Mockup -->
+      <div class="hero-visual">
+        <div class="floating-badge badge-top-left">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Barometric Delta: -2.8 hPa</span>
+        </div>
+
+        <div class="phone-mockup">
+          <div class="phone-island"></div>
+          <div class="phone-screen">
+            <div class="app-bar">
+              <div class="app-title">Ohrid Lake · Kaneo</div>
+              <div class="app-badge-pro">PRO AI</div>
+            </div>
+
+            <!-- Bite Score Card -->
+            <div class="app-widget">
+              <div class="app-bite-score-row">
+                <div>
+                  <div style="font-size: 11px; text-transform: uppercase; color: #a1a1a6;">Calculated Fish Score</div>
+                  <div class="app-score-huge">92 <span style="font-size: 16px; color: #a1a1a6;">/ 100</span></div>
+                </div>
+                <div class="app-score-status">PEAK FEEDING</div>
+              </div>
+
+              <!-- Solunar Feeding Timeline -->
+              <div class="app-solunar-bar">
+                <div class="app-feed-window" style="left: 20%; width: 35%;"></div>
+                <div class="app-feed-label">06:15 - 08:30 (MAJOR SOLAR TRANSIT)</div>
+              </div>
+
+              <div class="app-pill-row">
+                <div class="app-pill">Water: 18.2°C</div>
+                <div class="app-pill">Trend: Dropping</div>
+                <div class="app-pill">Wind: 3.2 m/s NW</div>
+              </div>
+            </div>
+
+            <!-- AI Tactical Brief -->
+            <div class="app-brief-card">
+              <div class="app-brief-title">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                <span>AI Tactical Game Plan</span>
+              </div>
+              <div class="app-brief-headline">Deep Weedline Aggression: Fast Twitch Cadence</div>
+              
+              <div class="app-brief-item">
+                <b>Target Depth:</b> 3.5 - 5.0m suspended outside drop-off.
+              </div>
+              <div class="app-brief-item">
+                <b>Box Match:</b> 110mm Suspending Jerkbait (Ayu pattern).
+              </div>
+              <div class="app-brief-item">
+                <b>Knot &amp; Rig:</b> Palomar Knot on 14lb 100% Fluorocarbon.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="floating-badge badge-bottom-right">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>Zero Network · Offline Active</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Interactive Intelligence Demo Section -->
+    <section id="interactive-demo" class="demo-section">
+      <div class="section-container">
+        <div class="section-header">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Interactive Terminal</span>
+          </div>
+          <h2 class="section-title">Test the Intelligence Engine</h2>
+          <p class="section-desc">Experience the same structured AI outputs delivered natively to Android devices on the water.</p>
+        </div>
+
+        <div class="demo-terminal">
+          <div class="demo-topbar">
+            <div class="demo-controls-window">
+              <div class="window-dot"></div>
+              <div class="window-dot"></div>
+              <div class="window-dot"></div>
+              <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary); margin-left: 8px;">fishin-core // engine.preview</span>
+            </div>
+
+            <div class="demo-tabs">
+              <button class="demo-tab-btn active" data-tab="tab-brief">1. AI Tactical Brief</button>
+              <button class="demo-tab-btn" data-tab="tab-vision">2. Vision Scanner</button>
+              <button class="demo-tab-btn" data-tab="tab-rig">3. Rig Engineer</button>
+            </div>
+          </div>
+
+          <div class="demo-body">
+            
+            <!-- Pane 1: Tactical Brief -->
+            <div id="tab-brief" class="tab-pane active">
+              <div class="demo-form">
+                <div class="form-group">
+                  <label>Target Species</label>
+                  <div class="chip-select" data-group="species">
+                    <div class="chip-option selected" data-val="bass">Largemouth Bass</div>
+                    <div class="chip-option" data-val="pike">Northern Pike</div>
+                    <div class="chip-option" data-val="trout">Brown Trout</div>
+                    <div class="chip-option" data-val="walleye">Walleye / Zander</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Barometric &amp; Weather Front</label>
+                  <div class="chip-select" data-group="weather">
+                    <div class="chip-option selected" data-val="falling">Falling Pressure (Pre-Front)</div>
+                    <div class="chip-option" data-val="stable">Stable High (Bluebird Sky)</div>
+                    <div class="chip-option" data-val="overcast">Heavy Overcast &amp; Chop</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Water Body Context</label>
+                  <div class="chip-select" data-group="water">
+                    <div class="chip-option selected" data-val="lake">Deep Alpine Lake</div>
+                    <div class="chip-option" data-val="river">Rapid River Tailrace</div>
+                    <div class="chip-option" data-val="shallow">Shallow Vegetated Reservoir</div>
+                  </div>
+                </div>
+
+                <div style="font-size: 12px; color: var(--text-tertiary); display: flex; align-items: center; gap: 6px;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                  <span>Dynamic synthesis based on Pydantic `BriefRequest` schema</span>
+                </div>
+              </div>
+
+              <div class="demo-result-box">
+                <div class="result-header">
+                  <span class="result-tag">HTTP 200 · LATENCY 1.1s</span>
+                  <div class="result-score" id="brief-score">91 / 100</div>
+                </div>
+                <div class="result-headline" id="brief-headline">Aggressive Pre-Front Feed on Weedlines &amp; Drop-Offs</div>
+                <div class="result-summary" id="brief-summary">
+                  Barometer dropping 2.8 hPa over 3 hours. Feeding activity elevated across shallow windblown flats. Fish are aggressively ambushing baitfish before the incoming low-pressure front.
+                </div>
+
+                <div class="result-grid">
+                  <div class="result-metric">
+                    <div class="result-metric-label">Optimal Feeding Window</div>
+                    <div class="result-metric-val" id="brief-window">06:15 - 08:45 AM (Major)</div>
+                  </div>
+                  <div class="result-metric">
+                    <div class="result-metric-label">Matched Tackle Item</div>
+                    <div class="result-metric-val" id="brief-tackle">110mm Suspending Jerkbait</div>
+                  </div>
+                  <div class="result-metric" style="grid-column: span 2;">
+                    <div class="result-metric-label">Tactical Presentation</div>
+                    <div class="result-metric-val" id="brief-tactics">Erratic twitch-twitch-pause (3s pause cadence). Target secondary points and submerged timber edges.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pane 2: Vision Scanner -->
+            <div id="tab-vision" class="tab-pane">
+              <div class="demo-form">
+                <div class="form-group">
+                  <label>Select Sample Tackle Ingestion</label>
+                  <div class="lure-cards-grid">
+                    <div class="lure-select-card selected" data-lure="jerkbait">
+                      <h4>110mm Suspending Minnow</h4>
+                      <p>Slender hard bait with treble hooks</p>
+                    </div>
+                    <div class="lure-select-card" data-lure="paddletail">
+                      <h4>4.8" Soft Plastic Paddletail</h4>
+                      <p>Ribbed swimbait body, natural ayu</p>
+                    </div>
+                    <div class="lure-select-card" data-lure="spinnerbait">
+                      <h4>Double Willow Spinnerbait</h4>
+                      <p>Overhead wire frame with nickel blades</p>
+                    </div>
+                    <div class="lure-select-card" data-lure="frog">
+                      <h4>Hollow Body Topwater Frog</h4>
+                      <p>Collapsible weedless body for heavy mats</p>
+                    </div>
+                  </div>
+                </div>
+                <p style="font-size: 13px; color: var(--text-secondary);">
+                  FishIn's multimodal vision model ingests raw field photography taken on the boat or shore, parses lure geometry, and extracts physical dive characteristics.
+                </p>
+              </div>
+
+              <div class="demo-result-box">
+                <div class="result-header">
+                  <span class="result-tag" id="scan-confidence">99.4% Multimodal Match</span>
+                  <div style="font-size: 12px; font-weight: 700; color: #ffffff;">VISION INFERENCE</div>
+                </div>
+                <div class="result-headline" id="scan-name">Vision 110 Suspending Jerkbait</div>
+                <div class="result-summary">
+                  Multimodal classification maps camera frame against 12 lure taxonomies, calculating optimal water column delivery and retrieve dynamics.
+                </div>
+
+                <div class="result-grid">
+                  <div class="result-metric">
+                    <div class="result-metric-label">Lure Category</div>
+                    <div class="result-metric-val" id="scan-category">HARD PLASTIC / MINNOW</div>
+                  </div>
+                  <div class="result-metric">
+                    <div class="result-metric-label">Working Depth</div>
+                    <div class="result-metric-val" id="scan-depth">1.2 - 2.1m (Suspended)</div>
+                  </div>
+                  <div class="result-metric">
+                    <div class="result-metric-label">Optical Contrast Score</div>
+                    <div class="result-metric-val" id="scan-contrast">High Contrast Silver/Black Flake</div>
+                  </div>
+                  <div class="result-metric">
+                    <div class="result-metric-label">Kinetic Profile</div>
+                    <div class="result-metric-val" id="scan-action">Darting Lateral Slash + Flat Wobble</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pane 3: Rig Studio -->
+            <div id="tab-rig" class="tab-pane">
+              <div class="demo-form">
+                <div class="form-group">
+                  <label>Select Rig Architecture</label>
+                  <div class="chip-select" data-group="rig">
+                    <div class="chip-option selected rig-option" data-rig="texas">Texas Rig</div>
+                    <div class="chip-option rig-option" data-rig="dropshot">Drop Shot Rig</div>
+                    <div class="chip-option rig-option" data-rig="carolina">Carolina Rig</div>
+                    <div class="chip-option rig-option" data-rig="paternoster">Feeder Paternoster</div>
+                  </div>
+                </div>
+                <p style="font-size: 13px; color: var(--text-secondary);">
+                  FishIn's generative rig engine designs, verifies, and calculates component spacing (sinkers, swivels, stops, leaders) for specific bottom substrates and species.
+                </p>
+              </div>
+
+              <div class="demo-result-box">
+                <div class="result-header">
+                  <span class="result-tag">RIG SYNTHESIS ENGINE</span>
+                  <div style="font-size: 12px; font-weight: 700; color: #ffffff;">VERIFIED BALANCE</div>
+                </div>
+                <div class="result-headline" id="rig-name">Texas Rig (Weedless Bullet)</div>
+                <div class="result-summary">
+                  Optimized for snag-free penetration through dense aquatic vegetation and brush piles without fouling.
+                </div>
+
+                <div class="result-grid">
+                  <div class="result-metric">
+                    <div class="result-metric-label">Recommended Knot</div>
+                    <div class="result-metric-val" id="rig-knot">Palomar Knot (95% Knot Strength)</div>
+                  </div>
+                  <div class="result-metric">
+                    <div class="result-metric-label">Leader Material &amp; Test</div>
+                    <div class="result-metric-val" id="rig-leader">12-16 lb 100% Fluorocarbon</div>
+                  </div>
+                  <div class="result-metric">
+                    <div class="result-metric-label">Terminal Sinker Weight</div>
+                    <div class="result-metric-val" id="rig-sinker">3/16 oz Tungsten Bullet (Unpegged)</div>
+                  </div>
+                  <div class="result-metric">
+                    <div class="result-metric-label">Target Substrate</div>
+                    <div class="result-metric-val" id="rig-application">Thick hydrilla, lily pads, submerged timber</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Everything in the App: Feature Breakdown -->
+    <section id="features" class="section-container">
+      <div class="section-header">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>Engineered For Mastery</span>
+        </div>
+        <h2 class="section-title">Everything Built Inside FishIn</h2>
+        <p class="section-desc">A deep, comprehensive look into the features powering every cast, spot, and catch.</p>
+      </div>
+
+      <div class="features-grid">
+        
+        <!-- Feature 1 -->
+        <div class="feature-card col-span-2">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <h3>AI Tactical Bite Forecast &amp; Fish Score</h3>
+          <p>
+            Unlike generic weather forecasts, FishIn runs a multi-variable scoring model that synthesizes 3-hour barometric delta, solunar major/minor feeding peaks, solar elevation, lunar illumination, water temperature curves, and cloud cover into a unified 0-100 bite index. Delivers precise hour-by-hour tactical game plans.
+          </p>
+          <ul class="feature-meta-list">
+            <li>Solunar Major &amp; Minor feeding windows mapped to local coordinates</li>
+            <li>Barometric 3-hour pressure trend weighting calibrated per species</li>
+            <li>Generates customized tactical advice based on your actual tackle box inventory</li>
+          </ul>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          </div>
+          <h3>Multimodal Tackle Scanner</h3>
+          <p>
+            Snap a photo of any lure, fly, or soft plastic. FishIn's computer vision identifies lure category, diving depth, color contrast, and suggests exact water clarity conditions for maximum hookups.
+          </p>
+          <ul class="feature-meta-list">
+            <li>Identifies 12+ lure classifications from crankbaits to jigs</li>
+            <li>Suggests target species and optimal retrieval cadences</li>
+            <li>Stores lures in your digital tackle box for AI game planning</li>
+          </ul>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+          </div>
+          <h3>AI Fish Scanner &amp; Biometrics</h3>
+          <p>
+            Instant camera identification of freshwater and saltwater fish. Estimates specimen length, approximate weight range, and automatically populates catch log metadata.
+          </p>
+          <ul class="feature-meta-list">
+            <li>Species taxonomy identification with conservation alerts</li>
+            <li>Visual health and spawning condition assessment</li>
+            <li>Auto-fills catch log species, timestamp, and GPS coordinates</li>
+          </ul>
+        </div>
+
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>Adaptive AI Fishing Coach</h3>
+          <p>
+            Conversational domain coach adapted to the angler's skill level. Beginners receive step-by-step knot guides and safe bank spots; advanced anglers get micro-tuning on lure presentation and thermocline depth.
+          </p>
+          <ul class="feature-meta-list">
+            <li>Strict domain guardrails: no hallucinated advice or drift</li>
+            <li>Context-aware: factors in current spot conditions and weather</li>
+            <li>20 daily interactions for quick tackle tweaks on the water</li>
+          </ul>
+        </div>
+
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <h3>Rig Engineering &amp; Knot Studio</h3>
+          <p>
+            Interactive terminal for designing custom rigs. Calculates exact distances between floats, shot weights, swivels, and hooks. Includes step-by-step vector guides for Palomar, Uni, Blood, and FG knots.
+          </p>
+          <ul class="feature-meta-list">
+            <li>Rig design verification ensures components are balanced</li>
+            <li>Step-by-step illustrated knot guides with breaking-strength ratings</li>
+            <li>Community rig sharing and offline blueprint storage</li>
+          </ul>
+        </div>
+
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+          </div>
+          <h3>100% Offline Global Spot Atlas</h3>
+          <p>
+            Fishing happens beyond cellular towers. FishIn bundles compact spatial binary blocks (`world.bin`) allowing phones to query spots, depth boundaries, and country packs completely offline.
+          </p>
+          <ul class="feature-meta-list">
+            <li>Ultra-compact binary tile format for fast zero-lag map zooms</li>
+            <li>Country packs downloadable for remote expeditions</li>
+            <li>Local GPS positioning without consuming cellular data</li>
+          </ul>
+        </div>
+
+        <!-- Feature 7 -->
+        <div class="feature-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3>Automated Catch Logbook</h3>
+          <p>
+            Log catches in seconds. Automatically captures telemetry: exact weather, barometric pressure, solunar period, and lure used at the exact moment of the catch. Private by default.
+          </p>
+          <ul class="feature-meta-list">
+            <li>Private by design: spots are never leaked without consent</li>
+            <li>High-resolution photo backup to server with FishIn Pro</li>
+            <li>Personal catch statistics, weight trends, and seasonal heatmaps</li>
+          </ul>
+        </div>
+
+        <!-- Feature 8 -->
+        <div class="feature-card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Community Spots &amp; Friends</h3>
+          <p>
+            Connect with local anglers, share public catches, review community spots, and climb verified leaderboards without burning your private honeyholes.
+          </p>
+          <ul class="feature-meta-list">
+            <li>Community spot updates synchronized every 5 minutes</li>
+            <li>Spot ratings, hazard warnings, and recent activity reports</li>
+            <li>Granular privacy settings: choose what to share with friends</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Claude for Startups Program & Engineering Architecture Section -->
+    <section id="architecture" class="claude-program-section">
+      <div class="section-container" style="padding-top: 0; padding-bottom: 0;">
+        <div class="section-header">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Anthropic Claude Startup Program Application</span>
+          </div>
+          <h2 class="section-title">Built for Claude's Advanced Multimodal Intelligence</h2>
+          <p class="section-desc">
+            How FishIn leverages frontier LLMs to solve complex physical domain challenges on water.
+          </p>
+        </div>
+
+        <div class="architecture-diagram-box">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+            <h3 style="font-size: 20px; font-weight: 700; color: #ffffff;">End-to-End Intelligence Pipeline</h3>
+            <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary);">Production Architecture</span>
+          </div>
+
+          <div class="arch-flow">
+            <div class="arch-node">
+              <span class="arch-node-step">01. EDGE CLIENT</span>
+              <div class="arch-node-title">Native Android Client</div>
+              <div class="arch-node-desc">
+                Kotlin &amp; Jetpack Compose. Collects onboard GPS, local sensor telemetry, camera frame captures, and queries offline spatial index `world.bin`.
+              </div>
+            </div>
+
+            <div class="arch-node">
+              <span class="arch-node-step">02. API GATEWAY</span>
+              <div class="arch-node-title">FastAPI &amp; Pydantic</div>
+              <div class="arch-node-desc">
+                Strict Pydantic schemas enforce typed inputs. Sanitizes prompt parameters, verifies user tokens, and rate limits edge requests.
+              </div>
+            </div>
+
+            <div class="arch-node highlight-claude">
+              <span class="arch-node-step">03. COGNITIVE ENGINE</span>
+              <div class="arch-node-title">Claude 3.5 Sonnet / Vision</div>
+              <div class="arch-node-desc">
+                High-reasoning multimodal evaluation: analyzes unstructured visual lure/catch data, environmental vectors, and returns structured JSON schemas.
+              </div>
+            </div>
+
+            <div class="arch-node">
+              <span class="arch-node-step">04. PERSISTENCE</span>
+              <div class="arch-node-title">Supabase RLS &amp; Cloud</div>
+              <div class="arch-node-desc">
+                PostgreSQL with Row-Level Security, automated photo backups, real-time community spot sync, and Google Play billing verification.
+              </div>
+            </div>
+          </div>
+
+          <div class="claude-pitch-grid">
+            <div class="pitch-card">
+              <h4>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                Why Claude is Fundamental
+              </h4>
+              <p>
+                Natural ecosystems are inherently chaotic. Claude 3.5 Sonnet provides unmatched reasoning over multi-variable physical systems (barometric gradients, thermal stratification, lunar harmonics) with strict structured JSON schema adherence.
+              </p>
+            </div>
+
+            <div class="pitch-card">
+              <h4>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                Multimodal Computer Vision
+              </h4>
+              <p>
+                Anglers photograph tackle and fish in unpredictable outdoor lighting: glare, wet surfaces, water droplets, and low contrast. Claude's vision capabilities excel at subtle biological taxonomy and geometric tackle classification.
+              </p>
+            </div>
+
+            <div class="pitch-card">
+              <h4>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                Startup Program Roadmap
+              </h4>
+              <p>
+                The Claude for Startups Program ($1,000 API credits and 5 team seats) accelerates our transition to Claude 3.5 Sonnet for multi-turn conversational voice coaching on water, and builds automated ecological catch-and-release telemetry.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing / FishIn Pro Section -->
+    <section id="pro" class="section-container">
+      <div class="section-header">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>Transparent Pricing</span>
+        </div>
+        <h2 class="section-title">Free For Every Angler. Pro For The Obsessed.</h2>
+        <p class="section-desc">Get started completely free or upgrade to FishIn Pro for unlimited multimodal AI intelligence.</p>
+      </div>
+
+      <div class="pricing-grid">
+        
+        <!-- Standard Free -->
+        <div class="pricing-card">
+          <div class="plan-name">Standard Angler</div>
+          <div class="plan-price">$0 <span>/ forever</span></div>
+          <div class="plan-desc">Everything needed for daily fishing and logging your personal catches.</div>
+
+          <ul class="plan-features">
+            <li class="included">
+              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+              Unlimited offline spots in home region
+            </li>
+            <li class="included">
+              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+              Full offline catch log &amp; tackle box
+            </li>
+            <li class="included">
+              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+              Solunar major/minor feeding times
+            </li>
+            <li class="included">
+              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+              Community spot browsing &amp; friends
+            </li>
+            <li style="color: var(--text-tertiary);">
+              — Advanced AI Tactical Game Plans
+            </li>
+            <li style="color: var(--text-tertiary);">
+              — Multimodal Tackle &amp; Fish Scans
+            </li>
+          </ul>
+
+          <a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <span>Download Free on Google Play</span>
+          </a>
+        </div>
+
+        <!-- Pro Tier -->
+        <div class="pricing-card featured">
+          <div class="pricing-badge">MOST POPULAR</div>
+          <div class="plan-name">FishIn Pro</div>
+          <div class="plan-price">$4.99 <span>/ mo ($49.99/yr)</span></div>
+          <div class="plan-desc">Full access to the multimodal AI intelligence engine and global features.</div>
+
+          <ul class="plan-features">
+            <li class="included">
+              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+              <b>Unlimited AI Tactical Game Plans</b>
+            </li>
+            <li class="included">
+              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+              <b>Multimodal Vision: Scan Tackle &amp; Fish</b>
+            </li>
+            <li class="included">
+              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+              <b>Conversational AI Fishing Coach (20/day)</b>
+            </li>
+            <li class="included">
+              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+              <b>High-Res Cloud Photo Backup for catches &amp; lures</b>
+            </li>
+            <li class="included">
+              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+              <b>Global Country Spot Packs for offline travel</b>
+            </li>
+            <li class="included">
+              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+              <b>Full Community Country Packs &amp; live cluster sync</b>
+            </li>
+          </ul>
+
+          <a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+            <span>Upgrade in App via Google Play</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Download Banner -->
+    <div class="download-banner">
+      <h2>Ready To Elevate Every Day On The Water?</h2>
+      <p>
+        Download FishIn today on Google Play. Zero intrusive ads. Zero location selling. 100% focused on catching fish.
+      </p>
+
+      <div class="download-btns">
+        <a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener noreferrer" class="btn btn-play" style="padding: 14px 28px;">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width: 26px; height: 26px;">
+            <path d="M3.609 1.814L13.792 12 3.61 22.186a2.38 2.38 0 0 1-.61-1.636V3.45c0-.623.228-1.2.609-1.636zm11.24 11.24l2.502 2.502-12.27 7.086 9.768-9.588zm0-2.108L5.08 1.358l12.272 7.086-2.502 2.502zm1.488 1.054l3.528 2.037a1.67 1.67 0 0 1 0 2.906l-3.528 2.037-2.316-2.316 2.316-2.664z"/>
+          </svg>
+          <div class="btn-play-text">
+            <div class="btn-play-subtitle">Direct Download From</div>
+            <div class="btn-play-title" style="font-size: 17px;">Google Play Store</div>
+          </div>
+        </a>
+      </div>
+      <div style="margin-top: 18px; font-size: 13px; color: var(--text-tertiary);">
+        Requires Android 8.0+ · Verified Clean · Native Performance
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h4>FishIn</h4>
+        <p>
+          Next-generation tactical angling intelligence. Crafted by an independent engineer in North Macedonia for anglers worldwide.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Product</h5>
+        <ul class="footer-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#interactive-demo">Live Demo</a></li>
+          <li><a href="#architecture">Claude Architecture</a></li>
+          <li><a href="#pro">FishIn Pro</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener">Google Play Store</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Legal &amp; Privacy</h5>
+        <ul class="footer-links">
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+          <li><a href="delete-account.html">Delete Account</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Technical Stack</h5>
+        <ul class="footer-links">
+          <li><a href="#architecture">Kotlin &amp; Compose</a></li>
+          <li><a href="#architecture">FastAPI &amp; Pydantic</a></li>
+          <li><a href="#architecture">Claude 3.5 Sonnet</a></li>
+          <li><a href="#architecture">Supabase &amp; PostGIS</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 FishIn. All rights reserved. Package: <code>com.daev.fishin</code></div>
+      <div>Designed with pure graphite monochrome aesthetics.</div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
 </body>
 </html>
