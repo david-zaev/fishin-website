@@ -339,6 +339,8 @@
   const tabPanes = document.querySelectorAll('.tab-pane');
   const modeTabBtns = document.querySelectorAll('.mode-tab-btn');
 
+  let resizeHydroCanvasFn = null;
+
   function setActiveDemoTab(targetTabId) {
     if (!targetTabId) return;
 
@@ -351,6 +353,10 @@
     tabPanes.forEach(pane => {
       pane.classList.toggle('active', pane.id === targetTabId);
     });
+
+    if (targetTabId === 'tab-brief' && typeof resizeHydroCanvasFn === 'function') {
+      setTimeout(resizeHydroCanvasFn, 20);
+    }
   }
 
   modeTabBtns.forEach(btn => {
@@ -490,27 +496,29 @@
 
   let selectedSpecies = 'bass';
   let selectedWeather = 'falling';
-  let selectedSolunar = 'dawn';
+  let currentSimMinutes = 390; // 06:30 AM (Dawn Major default)
+  let isSimRunning = false;
+  let simRafId = null;
+  let displayedScore = 91;
 
-  const solunarWindows = {
-    'dawn': '06:15 - 08:45 AM (Dawn Major)',
-    'midday': '12:30 - 14:00 PM (Midday Minor)',
-    'dusk': '18:45 - 21:00 PM (Dusk Major)'
-  };
+  // Species and Weather Selector Buttons
+  const specBtns = document.querySelectorAll('.motion-spec-btn');
+  const weathBtns = document.querySelectorAll('.motion-weath-btn');
 
-  chipOptions.forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      const parent = this.closest('.chip-select');
-      const groupType = parent.getAttribute('data-group');
+  specBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      specBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      selectedSpecies = this.getAttribute('data-val');
+      updateTacticalBrief();
+    });
+  });
 
-      parent.querySelectorAll('.chip-option').forEach(c => c.classList.remove('selected'));
-      this.classList.add('selected');
-
-      const val = this.getAttribute('data-val');
-      if (groupType === 'species') selectedSpecies = val;
-      if (groupType === 'weather') selectedWeather = val;
-      if (groupType === 'solunar') selectedSolunar = val;
-
+  weathBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      weathBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      selectedWeather = this.getAttribute('data-val');
       updateTacticalBrief();
     });
   });
@@ -525,46 +533,305 @@
     'overcast': 'ACTIVE ROAMING FEED'
   };
 
+  // Smooth Rolling Digit Odometer
+  let scoreAnimRaf = null;
+  function animateScoreTo(targetVal) {
+    if (!briefScoreNum) return;
+    if (scoreAnimRaf) cancelAnimationFrame(scoreAnimRaf);
+
+    const startVal = displayedScore;
+    const startTime = performance.now();
+    const duration = 280;
+
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      const current = Math.round(startVal + (targetVal - startVal) * ease);
+
+      displayedScore = current;
+      briefScoreNum.textContent = current;
+
+      if (briefGaugeBar) {
+        const circumference = 125.66;
+        const offset = circumference - (current / 100) * circumference;
+        briefGaugeBar.style.strokeDashoffset = offset.toFixed(2);
+      }
+
+      if (progress < 1) {
+        scoreAnimRaf = requestAnimationFrame(step);
+      }
+    }
+    scoreAnimRaf = requestAnimationFrame(step);
+  }
+
+  // Calculate dynamic score depending on hour of day
+  function calculateTimeScore(baseScore, minutes) {
+    // Dawn peak ~390 (06:30 AM), Dusk peak ~1170 (07:30 PM)
+    const dawnDist = Math.abs(minutes - 390);
+    const duskDist = Math.abs(minutes - 1170);
+    const nearestPeakDist = Math.min(dawnDist, duskDist);
+
+    let multiplier = 1.0;
+    if (nearestPeakDist < 120) {
+      multiplier = 1.0 - (nearestPeakDist / 120) * 0.08;
+    } else if (minutes > 600 && minutes < 900) {
+      multiplier = 0.78; // Solar noon slump
+    } else {
+      multiplier = 0.65; // Night or off-peak
+    }
+    return Math.max(48, Math.min(98, Math.round(baseScore * multiplier)));
+  }
+
+  function formatMinutes(min) {
+    const h = Math.floor(min / 60) % 24;
+    const m = Math.floor(min % 60);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const displayH = h % 12 === 0 ? 12 : h % 12;
+    const displayM = m < 10 ? '0' + m : m;
+    return `${displayH}:${displayM} ${ampm}`;
+  }
+
   function updateTacticalBrief() {
     const data = tacticalDatabase[selectedSpecies]?.[selectedWeather] || tacticalDatabase['bass']['falling'];
     if (briefHeadline) briefHeadline.textContent = data.headline;
     if (briefSummary) briefSummary.textContent = data.summary;
-    if (briefScore) briefScore.textContent = data.score;
-    if (briefScoreNum) {
-      const match = data.score.match(/\d+/);
-      const scoreVal = match ? parseInt(match[0], 10) : 91;
-      briefScoreNum.textContent = scoreVal;
 
-      if (briefGaugeBar) {
-        // Radius is 20 -> 2 * PI * 20 = 125.66
-        const circumference = 125.66;
-        const offset = circumference - (scoreVal / 100) * circumference;
-        briefGaugeBar.style.strokeDashoffset = offset.toFixed(2);
-        briefGaugeBar.style.stroke = '#ffffff';
-      }
-      if (briefScoreStatus) {
-        briefScoreStatus.style.color = '#ffffff';
-      }
-    }
+    const baseVal = parseInt(data.score.match(/\d+/)[0], 10);
+    const dynamicScore = calculateTimeScore(baseVal, currentSimMinutes);
+    animateScoreTo(dynamicScore);
+
     if (briefScoreStatus) {
-      briefScoreStatus.textContent = statusMap[selectedWeather] || 'FEEDING ELEVATED';
+      if (currentSimMinutes >= 330 && currentSimMinutes <= 510) {
+        briefScoreStatus.textContent = 'DAWN MAJOR AMBUSH';
+      } else if (currentSimMinutes >= 1110 && currentSimMinutes <= 1260) {
+        briefScoreStatus.textContent = 'DUSK MAJOR FEEDING';
+      } else if (currentSimMinutes >= 660 && currentSimMinutes <= 840) {
+        briefScoreStatus.textContent = 'SOLAR NOON SUSPENDED';
+      } else {
+        briefScoreStatus.textContent = statusMap[selectedWeather] || 'FEEDING ELEVATED';
+      }
     }
-    if (briefWindow) briefWindow.textContent = solunarWindows[selectedSolunar] || data.window;
+
+    if (briefWindow) {
+      briefWindow.textContent = `${formatMinutes(currentSimMinutes)} (${data.window.split('(')[1] || 'Real-Time'})`;
+    }
     if (briefTackle) briefTackle.textContent = data.tackle;
     if (briefTactics) briefTactics.textContent = data.tactics;
   }
 
-  // Initialize brief readout on load
+  // =========================================================================
+  // Kinetic 24-Hour Solunar Hydro-Wave Canvas
+  // =========================================================================
+  const hydroCanvas = document.getElementById('hydro-motion-canvas');
+  const simSlider = document.getElementById('sim-time-slider');
+  const btnToggleSim = document.getElementById('btn-toggle-sim');
+  const simBtnText = document.getElementById('sim-btn-text');
+  const scrubberJumps = document.querySelectorAll('.scrubber-quick-jump');
+
+  let hydroCtx = null;
+  let wavePhase = 0;
+
+  if (hydroCanvas) {
+    hydroCtx = hydroCanvas.getContext('2d');
+
+    function resizeHydroCanvas() {
+      if (!hydroCanvas.parentElement) return;
+      const dpr = window.devicePixelRatio || 1;
+      const rect = hydroCanvas.parentElement.getBoundingClientRect();
+      hydroCanvas.width = rect.width * dpr;
+      hydroCanvas.height = 120 * dpr;
+      hydroCtx.scale(dpr, dpr);
+    }
+    window.addEventListener('resize', resizeHydroCanvas);
+    resizeHydroCanvas();
+    resizeHydroCanvasFn = resizeHydroCanvas;
+
+    function renderHydroWave() {
+      if (!hydroCtx) return;
+      const w = hydroCanvas.parentElement.clientWidth;
+      const h = 120;
+
+      hydroCtx.clearRect(0, 0, w, h);
+      wavePhase += 0.025;
+
+      // Draw subtle horizontal grid lines
+      hydroCtx.strokeStyle = '#1e1e22';
+      hydroCtx.lineWidth = 1;
+      for (let y = 25; y < h; y += 30) {
+        hydroCtx.beginPath();
+        hydroCtx.moveTo(0, y);
+        hydroCtx.lineTo(w, y);
+        hydroCtx.stroke();
+      }
+
+      // Compute Curve Points across 24h (0 to w)
+      hydroCtx.beginPath();
+      hydroCtx.moveTo(0, h);
+
+      const points = [];
+      const steps = 70;
+      for (let i = 0; i <= steps; i++) {
+        const x = (i / steps) * w;
+        const minVal = (i / steps) * 1440;
+
+        // Gaussian peaks for Dawn (~390) and Dusk (~1170)
+        const d1 = Math.exp(-Math.pow((minVal - 390) / 140, 2)) * 52;
+        const d2 = Math.exp(-Math.pow((minVal - 1170) / 150, 2)) * 46;
+        const noon = Math.exp(-Math.pow((minVal - 740) / 100, 2)) * 14;
+        const ripple = Math.sin(wavePhase + i * 0.18) * 3.5;
+
+        // Invert to canvas Y coordinate (high activity = lower Y / near top)
+        const peakHeight = d1 + d2 + noon + ripple + 22;
+        const y = Math.max(16, h - 18 - peakHeight);
+        points.push({ x, y });
+      }
+
+      // Draw smooth curve using cardinal spline / bezier
+      hydroCtx.beginPath();
+      hydroCtx.moveTo(points[0].x, points[0].y);
+      for (let i = 1; i < points.length - 1; i++) {
+        const xc = (points[i].x + points[i + 1].x) / 2;
+        const yc = (points[i].y + points[i + 1].y) / 2;
+        hydroCtx.quadraticCurveTo(points[i].x, points[i].y, xc, yc);
+      }
+      hydroCtx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
+
+      // Line Stroke
+      hydroCtx.strokeStyle = '#ffffff';
+      hydroCtx.lineWidth = 2.2;
+      hydroCtx.shadowColor = 'rgba(255, 255, 255, 0.4)';
+      hydroCtx.shadowBlur = 8;
+      hydroCtx.stroke();
+      hydroCtx.shadowBlur = 0;
+
+      // Fill beneath curve
+      hydroCtx.lineTo(w, h);
+      hydroCtx.lineTo(0, h);
+      hydroCtx.closePath();
+      const grad = hydroCtx.createLinearGradient(0, 20, 0, h);
+      grad.addColorStop(0, 'rgba(255, 255, 255, 0.12)');
+      grad.addColorStop(1, 'rgba(255, 255, 255, 0.0)');
+      hydroCtx.fillStyle = grad;
+      hydroCtx.fill();
+
+      // Draw Live Scrubber Needle
+      const needleX = (currentSimMinutes / 1440) * w;
+      hydroCtx.strokeStyle = '#ffffff';
+      hydroCtx.lineWidth = 2;
+      hydroCtx.setLineDash([4, 3]);
+      hydroCtx.beginPath();
+      hydroCtx.moveTo(needleX, 0);
+      hydroCtx.lineTo(needleX, h);
+      hydroCtx.stroke();
+      hydroCtx.setLineDash([]);
+
+      // Beacon Dot at needle intersection
+      const sampleIdx = Math.min(steps, Math.max(0, Math.round((currentSimMinutes / 1440) * steps)));
+      const needleY = points[sampleIdx] ? points[sampleIdx].y : 40;
+
+      hydroCtx.fillStyle = '#ffffff';
+      hydroCtx.beginPath();
+      hydroCtx.arc(needleX, needleY, 5, 0, Math.PI * 2);
+      hydroCtx.fill();
+      hydroCtx.strokeStyle = '#0a0a0b';
+      hydroCtx.lineWidth = 2;
+      hydroCtx.stroke();
+
+      // Continuous loop
+      requestAnimationFrame(renderHydroWave);
+    }
+    renderHydroWave();
+  }
+
+  // Interactive Time Scrubber Input Handler
+  if (simSlider) {
+    simSlider.addEventListener('input', function () {
+      if (isSimRunning) stopSimulation();
+      currentSimMinutes = parseInt(this.value, 10);
+      updateTacticalBrief();
+      updateQuickJumpActive();
+    });
+  }
+
+  function updateQuickJumpActive() {
+    scrubberJumps.forEach(function (btn) {
+      const timeVal = parseInt(btn.getAttribute('data-time'), 10);
+      if (Math.abs(timeVal - currentSimMinutes) < 40) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  scrubberJumps.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (isSimRunning) stopSimulation();
+      const timeVal = parseInt(this.getAttribute('data-time'), 10);
+      currentSimMinutes = timeVal;
+      if (simSlider) simSlider.value = timeVal;
+      updateQuickJumpActive();
+      updateTacticalBrief();
+    });
+  });
+
+  // Auto-Simulate 24h Loop
+  function startSimulation() {
+    isSimRunning = true;
+    if (btnToggleSim) btnToggleSim.classList.add('is-playing');
+    if (simBtnText) simBtnText.textContent = 'Pause Simulation';
+
+    let lastTime = performance.now();
+    function simTick(now) {
+      if (!isSimRunning) return;
+      const delta = now - lastTime;
+      lastTime = now;
+
+      // Advance ~4 minutes per frame for a smooth 10s 24-hour cycle
+      currentSimMinutes = (currentSimMinutes + 2.8) % 1440;
+      if (simSlider) simSlider.value = Math.round(currentSimMinutes);
+
+      updateQuickJumpActive();
+      updateTacticalBrief();
+
+      simRafId = requestAnimationFrame(simTick);
+    }
+    simRafId = requestAnimationFrame(simTick);
+  }
+
+  function stopSimulation() {
+    isSimRunning = false;
+    if (simRafId) cancelAnimationFrame(simRafId);
+    if (btnToggleSim) btnToggleSim.classList.remove('is-playing');
+    if (simBtnText) simBtnText.textContent = 'Auto-Simulate 24h';
+  }
+
+  if (btnToggleSim) {
+    btnToggleSim.addEventListener('click', function () {
+      if (isSimRunning) {
+        stopSimulation();
+      } else {
+        startSimulation();
+      }
+    });
+  }
+
+  // Initialize brief on load
   updateTacticalBrief();
 
-  // Tab 2: Multimodal Lure Scanner Demo
-  const lureCards = document.querySelectorAll('.lure-select-card');
+  // =========================================================================
+  // Tab 2: Multimodal Lure Scanner Demo (Laser Viewfinder)
+  // =========================================================================
+  const lurePillBtns = document.querySelectorAll('.lure-pill-btn');
   const scanName = document.getElementById('scan-name');
   const scanCategory = document.getElementById('scan-category');
   const scanDepth = document.getElementById('scan-depth');
   const scanContrast = document.getElementById('scan-contrast');
   const scanAction = document.getElementById('scan-action');
   const scanConfidence = document.getElementById('scan-confidence');
+  const scanTargetLock = document.getElementById('scan-target-lock');
+  const wireframeName = document.getElementById('wireframe-name');
 
   const lureSpecs = {
     'jerkbait': {
@@ -573,7 +840,8 @@
       depth: '1.2 - 2.1m (Suspended)',
       contrast: 'High Contrast Silver/Black Flake',
       action: 'Darting Lateral Slash + Flat Wobble',
-      confidence: '99.4% Multimodal Match'
+      confidence: '99.4% Multimodal Match',
+      caption: 'VISION 110 SUSPENDING JERKBAIT'
     },
     'paddletail': {
       name: 'Keitech 4.8" Fat Swing Impact',
@@ -581,7 +849,8 @@
       depth: '0.5 - 6.0m (Weight Dependent)',
       contrast: 'Ayu / Ghost Smoke Translucent',
       action: 'Vigorous Tail Kick + Body Roll',
-      confidence: '98.8% Multimodal Match'
+      confidence: '98.8% Multimodal Match',
+      caption: 'KEITECH 4.8" FAT SWING SWIMBAIT'
     },
     'spinnerbait': {
       name: 'Booyah Tandem Willow Spinnerbait',
@@ -589,7 +858,8 @@
       depth: '1.0 - 3.5m (Subsurface)',
       contrast: 'Nickel Double Willow / White Skirt',
       action: 'High-Frequency Vibration + Flash',
-      confidence: '99.1% Multimodal Match'
+      confidence: '99.1% Multimodal Match',
+      caption: 'BOOYAH TANDEM WILLOW BLADE'
     },
     'frog': {
       name: 'Hollow Body Topwater Walking Frog',
@@ -597,14 +867,15 @@
       depth: '0.0m (Surface Film)',
       contrast: 'Matte Black / Green Silhouette',
       action: 'Walk-the-Dog + Weed Mat Slither',
-      confidence: '99.7% Multimodal Match'
+      confidence: '99.7% Multimodal Match',
+      caption: 'HOLLOW BODY WEEDLESS FROG'
     }
   };
 
-  lureCards.forEach(function (card) {
-    card.addEventListener('click', function () {
-      lureCards.forEach(c => c.classList.remove('selected'));
-      this.classList.add('selected');
+  lurePillBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      lurePillBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
       const key = this.getAttribute('data-lure');
       const spec = lureSpecs[key];
       if (spec) {
@@ -614,17 +885,35 @@
         if (scanContrast) scanContrast.textContent = spec.contrast;
         if (scanAction) scanAction.textContent = spec.action;
         if (scanConfidence) scanConfidence.textContent = spec.confidence;
+        if (wireframeName) wireframeName.textContent = spec.caption;
+
+        if (scanTargetLock) {
+          scanTargetLock.textContent = 'ACQUIRING RETICLE...';
+          setTimeout(function () {
+            scanTargetLock.textContent = `TARGET LOCKED: ${spec.confidence.split(' ')[0]}`;
+          }, 240);
+        }
       }
     });
   });
 
-  // Tab 3: Rig Studio Demo
-  const rigChips = document.querySelectorAll('.rig-option');
+  // =========================================================================
+  // Tab 3: Dynamic Rig Studio & Tension Vector Simulator
+  // =========================================================================
+  const rigBtns = document.querySelectorAll('.motion-rig-btn');
   const rigName = document.getElementById('rig-name');
   const rigKnot = document.getElementById('rig-knot');
   const rigLeader = document.getElementById('rig-leader');
   const rigSinker = document.getElementById('rig-sinker');
   const rigApplication = document.getElementById('rig-application');
+
+  const rigTensionSlider = document.getElementById('rig-tension-slider');
+  const tensionLoadVal = document.getElementById('tension-load-val');
+  const svgLinePath = document.getElementById('svg-line-path');
+  const svgWeightNode = document.getElementById('svg-weight-node');
+  const svgBeadNode = document.getElementById('svg-bead-node');
+  const svgHookNode = document.getElementById('svg-hook-node');
+  const svgTensionText = document.getElementById('svg-tension-text');
 
   const rigSpecs = {
     'texas': {
@@ -657,10 +946,10 @@
     }
   };
 
-  rigChips.forEach(function (chip) {
-    chip.addEventListener('click', function () {
-      rigChips.forEach(c => c.classList.remove('selected'));
-      this.classList.add('selected');
+  rigBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      rigBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
       const key = this.getAttribute('data-rig');
       const spec = rigSpecs[key];
       if (spec) {
@@ -672,6 +961,35 @@
       }
     });
   });
+
+  // Dynamic SVG Deflection Math on Tension Slider
+  if (rigTensionSlider) {
+    rigTensionSlider.addEventListener('input', function () {
+      const tension = parseFloat(this.value);
+      if (tensionLoadVal) tensionLoadVal.textContent = `${tension.toFixed(1)} lbs`;
+
+      // Bow curve: higher tension = line straightens closer to Y=20; lower tension = deep bow down to Y=65
+      const deflectionY = Math.round(70 - (tension / 18) * 36);
+      const hookY = Math.round(80 - (tension / 18) * 20);
+
+      if (svgLinePath) {
+        svgLinePath.setAttribute('d', `M 20 20 Q 200 ${deflectionY} 370 ${hookY}`);
+      }
+      if (svgWeightNode) {
+        svgWeightNode.setAttribute('cy', deflectionY);
+      }
+      if (svgBeadNode) {
+        svgBeadNode.setAttribute('cy', deflectionY + 3);
+      }
+      if (svgHookNode) {
+        svgHookNode.setAttribute('d', `M 370 ${hookY} L 380 ${hookY + 12} A 6 6 0 0 1 372 ${hookY + 20} L 368 ${hookY + 15}`);
+      }
+      if (svgTensionText) {
+        const mm = Math.round((20 - tension) * 2.8);
+        svgTensionText.textContent = `DEFLECTION: ${mm}mm · STRAIN: ${(tension * 5.2).toFixed(0)}%`;
+      }
+    });
+  }
 
   // =========================================================================
   // 5. Interactive 3D Card Hover Tilt (Instant Zero-Lag Reaction on Desktop)

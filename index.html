@@ -165,299 +165,363 @@
 
           <div class="demo-body">
             
-            <!-- Pane 1: Tactical Brief -->
+            <!-- Pane 1: Tactical Brief & 24h Hydro-Motion Deck -->
             <div id="tab-brief" class="tab-pane active">
-              <div class="demo-form tactical-cockpit">
-                <div class="form-group tactical-module">
-                  <div class="field-badge-header">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-                    <span class="field-title">TARGET SPECIES</span>
+              
+              <!-- Kinetic Motion Deck: Live 24h Bite Curve & Scrubber -->
+              <div class="motion-deck-wrap">
+                <div class="motion-deck-header">
+                  <div class="motion-deck-title">
+                    <span class="motion-beacon-dot"></span>
+                    <span class="motion-title-label">24-HOUR BITE PROBABILITY &amp; HYDRO-HARMONIC RADAR</span>
+                    <span class="motion-live-badge">REAL-TIME INFERENCE</span>
                   </div>
-                  <div class="chip-select tactical-chips" data-group="species">
-                    <div class="chip-option selected" data-val="bass" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Largemouth Bass
-                    </div>
-                    <div class="chip-option" data-val="pike" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Northern Pike
-                    </div>
-                    <div class="chip-option" data-val="trout" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Brown Trout
-                    </div>
-                    <div class="chip-option" data-val="walleye" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Walleye / Zander
-                    </div>
+                  <div class="motion-deck-actions">
+                    <button type="button" class="btn-motion-sim" id="btn-toggle-sim" aria-label="Auto-run 24-hour simulation">
+                      <svg class="sim-icon-play" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                      <span id="sim-btn-text">Auto-Simulate 24h</span>
+                    </button>
                   </div>
                 </div>
 
-                <div class="form-group tactical-module">
-                  <div class="field-badge-header">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
-                    <span class="field-title">BAROMETRIC PRESSURE &amp; SKY</span>
-                  </div>
-                  <div class="chip-select tactical-chips" data-group="weather">
-                    <div class="chip-option selected" data-val="falling" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Falling Pressure (Pre-Front)
-                    </div>
-                    <div class="chip-option" data-val="stable" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Stable High (Bluebird Sky)
-                    </div>
-                    <div class="chip-option" data-val="overcast" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Heavy Overcast &amp; Chop
-                    </div>
+                <!-- Live Canvas Waveform Viewport -->
+                <div class="motion-canvas-container">
+                  <canvas id="hydro-motion-canvas" height="130"></canvas>
+                  <div class="motion-canvas-overlay-labels">
+                    <span>00:00 · NIGHT</span>
+                    <span>06:30 · DAWN MAJOR</span>
+                    <span>12:00 · SOLAR NOON</span>
+                    <span>19:30 · DUSK MAJOR</span>
+                    <span>24:00</span>
                   </div>
                 </div>
 
-                <div class="form-group tactical-module">
-                  <div class="field-badge-header">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
-                    <span class="field-title">WATER BODY &amp; BASIN</span>
+                <!-- Interactive Time Scrubber Track -->
+                <div class="motion-scrubber-track">
+                  <div class="scrubber-input-wrap">
+                    <input type="range" id="sim-time-slider" min="0" max="1440" step="5" value="390" class="sim-range-input" aria-label="Simulated Time Scrubber">
                   </div>
-                  <div class="chip-select tactical-chips" data-group="water">
-                    <div class="chip-option selected" data-val="lake" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Deep Alpine Lake
-                    </div>
-                    <div class="chip-option" data-val="river" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Rapid River Tailrace
-                    </div>
-                    <div class="chip-option" data-val="shallow" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Shallow Vegetated Reservoir
-                    </div>
+                  <div class="scrubber-markers-row">
+                    <button type="button" class="scrubber-quick-jump active" data-time="390">
+                      <span class="jump-time">06:30 AM</span>
+                      <span class="jump-label">Dawn Major Peak</span>
+                    </button>
+                    <button type="button" class="scrubber-quick-jump" data-time="720">
+                      <span class="jump-time">12:00 PM</span>
+                      <span class="jump-label">Solar Noon Slump</span>
+                    </button>
+                    <button type="button" class="scrubber-quick-jump" data-time="1170">
+                      <span class="jump-time">07:30 PM</span>
+                      <span class="jump-label">Dusk Major Peak</span>
+                    </button>
+                    <button type="button" class="scrubber-quick-jump" data-time="1380">
+                      <span class="jump-time">11:00 PM</span>
+                      <span class="jump-label">Night Feeding Slump</span>
+                    </button>
                   </div>
-                </div>
-
-                <div class="form-group tactical-module">
-                  <div class="field-badge-header">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a7 7 0 1 0 10 10"/></svg>
-                    <span class="field-title">SOLUNAR FEEDING WINDOW</span>
-                  </div>
-                  <div class="chip-select tactical-chips" data-group="solunar">
-                    <div class="chip-option selected" data-val="dawn" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Dawn Major (06:15 - 08:45)
-                    </div>
-                    <div class="chip-option" data-val="midday" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Midday Minor (12:30 - 14:00)
-                    </div>
-                    <div class="chip-option" data-val="dusk" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Dusk Major (18:45 - 21:00)
-                    </div>
-                  </div>
-                </div>
-
-                <div class="tactical-footer-note">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-                  <span>Dynamic synthesis integrating barometric delta, solunar cycle, and species thermal curves</span>
                 </div>
               </div>
 
-              <!-- Tactical HUD Output Console -->
-              <div class="demo-result-box tactical-hud-card">
-                <div class="hud-top-telemetry">
-                  <div class="hud-latency-pill">
-                    <span class="hud-live-dot"></span>
-                    <span>FIELD CO-PILOT · ACTIVE INFERENCE</span>
+              <!-- Lower Split Section: Streamlined Controls (Left) + Tactical HUD (Right) -->
+              <div class="motion-cockpit-split">
+                
+                <!-- Left Column: Compact Tactile Dials -->
+                <div class="motion-controls-panel">
+                  <!-- Target Species Profile -->
+                  <div class="control-pod">
+                    <div class="control-pod-header">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                      <span>TARGET SPECIES PROFILE</span>
+                    </div>
+                    <div class="motion-species-grid">
+                      <button type="button" class="motion-spec-btn active" data-val="bass">
+                        <span class="spec-bullet"></span>
+                        <span class="spec-txt">Largemouth Bass</span>
+                      </button>
+                      <button type="button" class="motion-spec-btn" data-val="pike">
+                        <span class="spec-bullet"></span>
+                        <span class="spec-txt">Northern Pike</span>
+                      </button>
+                      <button type="button" class="motion-spec-btn" data-val="trout">
+                        <span class="spec-bullet"></span>
+                        <span class="spec-txt">Brown Trout</span>
+                      </button>
+                      <button type="button" class="motion-spec-btn" data-val="walleye">
+                        <span class="spec-bullet"></span>
+                        <span class="spec-txt">Walleye / Zander</span>
+                      </button>
+                    </div>
                   </div>
-                  <!-- Tactical Bite Score Gauge with animated SVG ring -->
-                  <div class="hud-score-gauge">
-                    <div class="gauge-ring-svg-wrap">
-                      <svg class="gauge-radial-svg" viewBox="0 0 48 48">
-                        <circle class="gauge-bg-circle" cx="24" cy="24" r="20" />
-                        <circle class="gauge-bar-circle" id="brief-gauge-bar" cx="24" cy="24" r="20" stroke-dasharray="125.66" stroke-dashoffset="11.3" />
-                      </svg>
-                      <div class="gauge-ring-value">
-                        <span class="gauge-num" id="brief-score-num">91</span>
+
+                  <!-- Atmospheric Pressure Gradient -->
+                  <div class="control-pod">
+                    <div class="control-pod-header">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+                      <span>ATMOSPHERIC PRESSURE GRADIENT</span>
+                    </div>
+                    <div class="motion-weather-row">
+                      <button type="button" class="motion-weath-btn active" data-val="falling">
+                        <span class="weath-indicator"></span>
+                        <span>Pre-Front Falling</span>
+                      </button>
+                      <button type="button" class="motion-weath-btn" data-val="stable">
+                        <span class="weath-indicator"></span>
+                        <span>Stable High Baro</span>
+                      </button>
+                      <button type="button" class="motion-weath-btn" data-val="overcast">
+                        <span class="weath-indicator"></span>
+                        <span>Overcast Chop</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="tactical-footer-note">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                    <span>Drag the 24h timeline scrubber or click "Auto-Simulate" to watch the model compute real-time bite harmonics.</span>
+                  </div>
+                </div>
+
+                <!-- Right Column: Tactical HUD Output Console -->
+                <div class="demo-result-box tactical-hud-card">
+                  <div class="hud-top-telemetry">
+                    <div class="hud-latency-pill">
+                      <span class="hud-live-dot"></span>
+                      <span>FIELD CO-PILOT · ACTIVE INFERENCE</span>
+                    </div>
+                    <!-- Tactical Bite Score Gauge with animated SVG ring and rolling digits -->
+                    <div class="hud-score-gauge">
+                      <div class="gauge-ring-svg-wrap">
+                        <svg class="gauge-radial-svg" viewBox="0 0 48 48">
+                          <circle class="gauge-bg-circle" cx="24" cy="24" r="20" />
+                          <circle class="gauge-bar-circle" id="brief-gauge-bar" cx="24" cy="24" r="20" stroke-dasharray="125.66" stroke-dashoffset="11.3" />
+                        </svg>
+                        <div class="gauge-ring-value">
+                          <span class="gauge-num" id="brief-score-num">91</span>
+                        </div>
+                      </div>
+                      <div class="gauge-caption">
+                        <span class="gauge-title">BITE ACTIVITY INDEX</span>
+                        <span class="gauge-status" id="brief-score-status">ELEVATED PRE-FRONT</span>
                       </div>
                     </div>
-                    <div class="gauge-caption">
-                      <span class="gauge-title">BITE ACTIVITY INDEX</span>
-                      <span class="gauge-status" id="brief-score-status">ELEVATED PRE-FRONT</span>
+                  </div>
+
+                  <div class="hud-headline-wrap">
+                    <div class="hud-accent-bar"></div>
+                    <div class="result-headline" id="brief-headline">Aggressive Pre-Front Feed on Weedlines &amp; Drop-Offs</div>
+                  </div>
+
+                  <div class="result-summary" id="brief-summary">
+                    Barometer dropping 2.8 hPa over 3 hours. Feeding activity elevated across shallow windblown flats. Fish are aggressively ambushing baitfish before the incoming low-pressure front.
+                  </div>
+
+                  <div class="hud-metrics-grid">
+                    <div class="hud-metric-cell">
+                      <div class="hud-metric-label">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                        <span>ACTIVE WINDOW</span>
+                      </div>
+                      <div class="hud-metric-val" id="brief-window">06:15 - 08:45 AM (Dawn Major)</div>
+                    </div>
+                    <div class="hud-metric-cell">
+                      <div class="hud-metric-label">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/></svg>
+                        <span>MATCHED TACKLE</span>
+                      </div>
+                      <div class="hud-metric-val" id="brief-tackle">110mm Suspending Jerkbait</div>
+                    </div>
+                    <div class="hud-metric-cell hud-metric-cell-full">
+                      <div class="hud-metric-label">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <span>TACTICAL PRESENTATION &amp; RETRIEVAL CADENCE</span>
+                      </div>
+                      <div class="hud-metric-val" id="brief-tactics">Erratic twitch-twitch-pause (3s pause cadence). Target secondary points and submerged timber edges.</div>
                     </div>
                   </div>
                 </div>
 
-                <div class="hud-headline-wrap">
-                  <div class="hud-accent-bar"></div>
-                  <div class="result-headline" id="brief-headline">Aggressive Pre-Front Feed on Weedlines &amp; Drop-Offs</div>
-                </div>
-
-                <div class="result-summary" id="brief-summary">
-                  Barometer dropping 2.8 hPa over 3 hours. Feeding activity elevated across shallow windblown flats. Fish are aggressively ambushing baitfish before the incoming low-pressure front.
-                </div>
-
-                <div class="hud-metrics-grid">
-                  <div class="hud-metric-cell">
-                    <div class="hud-metric-label">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-                      <span>PEAK FEEDING WINDOW</span>
-                    </div>
-                    <div class="hud-metric-val" id="brief-window">06:15 - 08:45 AM (Dawn Major)</div>
-                  </div>
-                  <div class="hud-metric-cell">
-                    <div class="hud-metric-label">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/></svg>
-                      <span>MATCHED TACKLE ITEM</span>
-                    </div>
-                    <div class="hud-metric-val" id="brief-tackle">110mm Suspending Jerkbait</div>
-                  </div>
-                  <div class="hud-metric-cell hud-metric-cell-full">
-                    <div class="hud-metric-label">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                      <span>TACTICAL PRESENTATION &amp; RETRIEVAL CADENCE</span>
-                    </div>
-                    <div class="hud-metric-val" id="brief-tactics">Erratic twitch-twitch-pause (3s pause cadence). Target secondary points and submerged timber edges.</div>
-                  </div>
-                </div>
               </div>
             </div>
 
-            <!-- Pane 2: Vision Scanner -->
+            <!-- Pane 2: Vision Scanner (Neural Viewfinder + Kinetic Cadence) -->
             <div id="tab-vision" class="tab-pane">
-              <div class="demo-form tactical-cockpit">
-                <div class="form-group tactical-module">
-                  <div class="field-badge-header">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                    <span class="field-title">SELECT TACKLE INGESTION SAMPLE</span>
+              <div class="vision-scan-deck">
+                <!-- Neural Viewfinder with Moving Laser Line -->
+                <div class="vision-viewfinder-box">
+                  <div class="viewfinder-header-telemetry">
+                    <div class="viewfinder-tag-left">
+                      <span class="motion-beacon-dot"></span>
+                      <span>OPTICAL INFERENCE RETICLE [4K]</span>
+                    </div>
+                    <div class="viewfinder-tag-right" id="scan-target-lock">TARGET LOCKED: 99.4%</div>
                   </div>
-                  <div class="lure-cards-grid">
-                    <div class="lure-select-card selected" data-lure="jerkbait" role="button" tabindex="0">
-                      <div class="lure-card-header">
-                        <span class="lure-tag">Hard Plastic</span>
-                      </div>
-                      <h4>110mm Suspending Minnow</h4>
-                      <p>Slender hard bait with treble hooks</p>
-                    </div>
-                    <div class="lure-select-card" data-lure="paddletail" role="button" tabindex="0">
-                      <div class="lure-card-header">
-                        <span class="lure-tag">Soft Plastic</span>
-                      </div>
-                      <h4>4.8" Soft Plastic Paddletail</h4>
-                      <p>Ribbed swimbait body, natural ayu</p>
-                    </div>
-                    <div class="lure-select-card" data-lure="spinnerbait" role="button" tabindex="0">
-                      <div class="lure-card-header">
-                        <span class="lure-tag">Wire Bait</span>
-                      </div>
-                      <h4>Double Willow Spinnerbait</h4>
-                      <p>Overhead wire frame with nickel blades</p>
-                    </div>
-                    <div class="lure-select-card" data-lure="frog" role="button" tabindex="0">
-                      <div class="lure-card-header">
-                        <span class="lure-tag">Topwater</span>
-                      </div>
-                      <h4>Hollow Body Topwater Frog</h4>
-                      <p>Collapsible weedless body for heavy mats</p>
+
+                  <!-- Viewfinder Screen with animated laser line -->
+                  <div class="viewfinder-screen">
+                    <div class="reticle-bracket top-left"></div>
+                    <div class="reticle-bracket top-right"></div>
+                    <div class="reticle-bracket bottom-left"></div>
+                    <div class="reticle-bracket bottom-right"></div>
+                    <div class="crosshair-center"></div>
+                    <div class="laser-scanner-beam"></div>
+
+                    <!-- Dynamic Wireframe Representation -->
+                    <div class="lure-wireframe-display" id="lure-wireframe">
+                      <div class="wireframe-caption" id="wireframe-name">VISION 110 SUSPENDING JERKBAIT</div>
+                      <div class="wireframe-tag">CLASSIFICATION: HARD PLASTIC · WEIGHT: 1/2oz · RETRIEVE: ERRATIC</div>
                     </div>
                   </div>
-                </div>
-                <div class="tactical-footer-note">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-                  <span>Multimodal vision parses raw field photography on boat or bank, extracting lure geometry, buoyancy, and dive curves.</span>
-                </div>
-              </div>
 
-              <div class="demo-result-box tactical-hud-card">
-                <div class="hud-top-telemetry">
-                  <div class="hud-latency-pill">
-                    <span class="hud-live-dot"></span>
-                    <span id="scan-confidence">99.4% Multimodal Match</span>
+                  <!-- Lure Selection Pills -->
+                  <div class="vision-lure-pills-row">
+                    <button type="button" class="lure-pill-btn active" data-lure="jerkbait">110mm Minnow</button>
+                    <button type="button" class="lure-pill-btn" data-lure="paddletail">4.8" Swimbait</button>
+                    <button type="button" class="lure-pill-btn" data-lure="spinnerbait">Double Willow</button>
+                    <button type="button" class="lure-pill-btn" data-lure="frog">Topwater Frog</button>
                   </div>
-                  <div class="telemetry-badge-tag">VISION INFERENCE · 0.9s</div>
                 </div>
 
-                <div class="hud-headline-wrap">
-                  <div class="hud-accent-bar"></div>
-                  <div class="result-headline" id="scan-name">Vision 110 Suspending Jerkbait</div>
-                </div>
+                <!-- Telemetry Output & Cadence Rhythmer -->
+                <div class="demo-result-box tactical-hud-card">
+                  <div class="hud-top-telemetry">
+                    <div class="hud-latency-pill">
+                      <span class="hud-live-dot"></span>
+                      <span id="scan-confidence">99.4% Multimodal Match</span>
+                    </div>
+                    <div class="telemetry-badge-tag">VISION INFERENCE · 0.9s</div>
+                  </div>
 
-                <div class="result-summary">
-                  Multimodal classification maps camera frame against 12 lure taxonomies, calculating optimal water column delivery and retrieve dynamics.
-                </div>
+                  <div class="hud-headline-wrap">
+                    <div class="hud-accent-bar"></div>
+                    <div class="result-headline" id="scan-name">Vision 110 Suspending Jerkbait</div>
+                  </div>
 
-                <div class="hud-metrics-grid">
-                  <div class="hud-metric-cell">
-                    <div class="hud-metric-label">LURE CATEGORY</div>
-                    <div class="hud-metric-val" id="scan-category">HARD PLASTIC / MINNOW</div>
+                  <div class="result-summary">
+                    Multimodal computer vision classifies raw photo telemetry against 12 lure taxonomies, calculating optimal water column delivery and retrieve dynamics.
                   </div>
-                  <div class="hud-metric-cell">
-                    <div class="hud-metric-label">WORKING DEPTH</div>
-                    <div class="hud-metric-val" id="scan-depth">1.2 - 2.1m (Suspended)</div>
+
+                  <div class="hud-metrics-grid">
+                    <div class="hud-metric-cell">
+                      <div class="hud-metric-label">LURE CATEGORY</div>
+                      <div class="hud-metric-val" id="scan-category">HARD PLASTIC / MINNOW</div>
+                    </div>
+                    <div class="hud-metric-cell">
+                      <div class="hud-metric-label">WORKING DEPTH</div>
+                      <div class="hud-metric-val" id="scan-depth">1.2 - 2.1m (Suspended)</div>
+                    </div>
+                    <div class="hud-metric-cell">
+                      <div class="hud-metric-label">OPTICAL CONTRAST</div>
+                      <div class="hud-metric-val" id="scan-contrast">High Contrast Silver/Black Flake</div>
+                    </div>
+                    <div class="hud-metric-cell">
+                      <div class="hud-metric-label">KINETIC PROFILE</div>
+                      <div class="hud-metric-val" id="scan-action">Darting Lateral Slash + Flat Wobble</div>
+                    </div>
                   </div>
-                  <div class="hud-metric-cell">
-                    <div class="hud-metric-label">OPTICAL CONTRAST SCORE</div>
-                    <div class="hud-metric-val" id="scan-contrast">High Contrast Silver/Black Flake</div>
-                  </div>
-                  <div class="hud-metric-cell">
-                    <div class="hud-metric-label">KINETIC PROFILE</div>
-                    <div class="hud-metric-val" id="scan-action">Darting Lateral Slash + Flat Wobble</div>
+
+                  <!-- Retrieve Cadence Rhythmer -->
+                  <div class="cadence-rhythmer-box">
+                    <div class="cadence-rhythmer-label">SIMULATED RETRIEVE CADENCE RHYTHM</div>
+                    <div class="cadence-meter-track">
+                      <div class="cadence-bar beat-active">TWITCH</div>
+                      <div class="cadence-bar beat-active">TWITCH</div>
+                      <div class="cadence-bar beat-pause">PAUSE (3s)</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Pane 3: Rig Studio -->
+            <!-- Pane 3: Rig Studio (Dynamic Vector Tension Schematic) -->
             <div id="tab-rig" class="tab-pane">
-              <div class="demo-form tactical-cockpit">
-                <div class="form-group tactical-module">
-                  <div class="field-badge-header">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-                    <span class="field-title">SELECT RIG ARCHITECTURE</span>
-                  </div>
-                  <div class="chip-select tactical-chips" data-group="rig">
-                    <div class="chip-option selected rig-option" data-rig="texas" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Texas Rig
+              <div class="rig-studio-deck">
+                
+                <!-- Rig Controls on Left -->
+                <div class="rig-controls-box">
+                  <div class="control-pod">
+                    <div class="control-pod-header">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                      <span>SELECT RIG ARCHITECTURE</span>
                     </div>
-                    <div class="chip-option rig-option" data-rig="dropshot" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Drop Shot Rig
-                    </div>
-                    <div class="chip-option rig-option" data-rig="carolina" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Carolina Rig
-                    </div>
-                    <div class="chip-option rig-option" data-rig="paternoster" role="button" tabindex="0">
-                      <span class="chip-dot"></span>Feeder Paternoster
+                    <div class="motion-rig-grid">
+                      <button type="button" class="motion-rig-btn active" data-rig="texas">Texas Rig</button>
+                      <button type="button" class="motion-rig-btn" data-rig="dropshot">Drop Shot</button>
+                      <button type="button" class="motion-rig-btn" data-rig="carolina">Carolina Rig</button>
+                      <button type="button" class="motion-rig-btn" data-rig="paternoster">Feeder Rig</button>
                     </div>
                   </div>
-                </div>
-                <div class="tactical-footer-note">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-                  <span>Generative rig engine designs and calculates component spacing (sinkers, swivels, stops, leaders) for specific bottom substrates.</span>
-                </div>
-              </div>
 
-              <div class="demo-result-box tactical-hud-card">
-                <div class="hud-top-telemetry">
-                  <div class="hud-latency-pill">
-                    <span class="hud-live-dot"></span>
-                    <span>RIG SYNTHESIS ENGINE</span>
+                  <!-- Dynamic Tension Simulation Slider -->
+                  <div class="control-pod">
+                    <div class="control-pod-header">
+                      <span>SIMULATED LINE TENSION LOAD: <b id="tension-load-val" style="color: #ffffff;">8.5 lbs</b></span>
+                    </div>
+                    <input type="range" id="rig-tension-slider" min="1" max="18" value="8" step="0.5" class="sim-range-input" aria-label="Line Tension Slider">
+                    <div class="tension-extremes">
+                      <span>Slack (1.0 lb)</span>
+                      <span>Heavy Strike Load (18.0 lbs)</span>
+                    </div>
                   </div>
-                  <div class="telemetry-badge-tag">VERIFIED BALANCE</div>
-                </div>
 
-                <div class="hud-headline-wrap">
-                  <div class="hud-accent-bar"></div>
-                  <div class="result-headline" id="rig-name">Texas Rig (Weedless Bullet)</div>
+                  <div class="tactical-footer-note">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                    <span>Drag the tension slider to simulate line deflection, knot strain, and sinker balance under water resistance.</span>
+                  </div>
                 </div>
 
-                <div class="result-summary">
-                  Optimized for snag-free penetration through dense aquatic vegetation and brush piles without fouling.
+                <!-- Dynamic Rig Schematic Blueprint -->
+                <div class="demo-result-box tactical-hud-card">
+                  <div class="hud-top-telemetry">
+                    <div class="hud-latency-pill">
+                      <span class="hud-live-dot"></span>
+                      <span>RIG SYNTHESIS ENGINE</span>
+                    </div>
+                    <div class="telemetry-badge-tag">DYNAMIC DEFLECTION VECTOR</div>
+                  </div>
+
+                  <div class="rig-schematic-viewport">
+                    <svg id="rig-vector-svg" viewBox="0 0 400 95" class="rig-svg-canvas">
+                      <!-- Dynamically rendered and animated by JS based on tension slider! -->
+                      <line x1="20" y1="20" x2="380" y2="20" stroke="#262629" stroke-dasharray="4 4" stroke-width="1" />
+                      <path id="svg-line-path" d="M 20 20 Q 200 48 370 70" stroke="#ffffff" stroke-width="2" fill="none" />
+                      <circle id="svg-weight-node" cx="200" cy="48" r="7" fill="#ffffff" />
+                      <circle id="svg-bead-node" cx="220" cy="52" r="4" fill="#a1a1a6" />
+                      <path id="svg-hook-node" d="M 370 70 L 380 82 A 6 6 0 0 1 372 90 L 368 85" stroke="#ffffff" stroke-width="2" fill="none" />
+                      <text x="25" y="15" fill="#71717a" font-size="9" font-family="monospace">ROD TIP</text>
+                      <text id="svg-tension-text" x="200" y="32" fill="#a1a1a6" font-size="9" font-family="monospace" text-anchor="middle">DEFLECTION: 28mm</text>
+                      <text x="350" y="65" fill="#ffffff" font-size="9" font-family="monospace">HOOK &amp; BAIT</text>
+                    </svg>
+                  </div>
+
+                  <div class="hud-headline-wrap">
+                    <div class="hud-accent-bar"></div>
+                    <div class="result-headline" id="rig-name">Texas Rig (Weedless Bullet)</div>
+                  </div>
+
+                  <div class="result-summary">
+                    Optimized for snag-free penetration through dense aquatic vegetation and brush piles without fouling.
+                  </div>
+
+                  <div class="hud-metrics-grid">
+                    <div class="hud-metric-cell">
+                      <div class="hud-metric-label">RECOMMENDED KNOT</div>
+                      <div class="hud-metric-val" id="rig-knot">Palomar Knot (95% Knot Strength)</div>
+                    </div>
+                    <div class="hud-metric-cell">
+                      <div class="hud-metric-label">LEADER MATERIAL &amp; TEST</div>
+                      <div class="hud-metric-val" id="rig-leader">12-16 lb 100% Fluorocarbon</div>
+                    </div>
+                    <div class="hud-metric-cell">
+                      <div class="hud-metric-label">TERMINAL SINKER WEIGHT</div>
+                      <div class="hud-metric-val" id="rig-sinker">3/16 oz Tungsten Bullet (Unpegged)</div>
+                    </div>
+                    <div class="hud-metric-cell">
+                      <div class="hud-metric-label">TARGET SUBSTRATE</div>
+                      <div class="hud-metric-val" id="rig-application">Thick hydrilla, lily pads, submerged timber</div>
+                    </div>
+                  </div>
                 </div>
 
-                <div class="hud-metrics-grid">
-                  <div class="hud-metric-cell">
-                    <div class="hud-metric-label">RECOMMENDED KNOT</div>
-                    <div class="hud-metric-val" id="rig-knot">Palomar Knot (95% Knot Strength)</div>
-                  </div>
-                  <div class="hud-metric-cell">
-                    <div class="hud-metric-label">LEADER MATERIAL &amp; TEST</div>
-                    <div class="hud-metric-val" id="rig-leader">12-16 lb 100% Fluorocarbon</div>
-                  </div>
-                  <div class="hud-metric-cell">
-                    <div class="hud-metric-label">TERMINAL SINKER WEIGHT</div>
-                    <div class="hud-metric-val" id="rig-sinker">3/16 oz Tungsten Bullet (Unpegged)</div>
-                  </div>
-                  <div class="hud-metric-cell">
-                    <div class="hud-metric-label">TARGET SUBSTRATE</div>
-                    <div class="hud-metric-val" id="rig-application">Thick hydrilla, lily pads, submerged timber</div>
-                  </div>
-                </div>
               </div>
             </div>
 
