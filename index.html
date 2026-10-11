@@ -139,71 +139,39 @@
     <section id="interactive-demo" class="demo-section">
       <div class="section-container">
         <div class="section-header">
-          <h2 class="section-title">Test the Intelligence Engine</h2>
-          <p class="section-desc">Experience the same structured AI outputs delivered natively to Android devices on the water.</p>
+          <div class="section-kicker">
+            <span class="pulse-beacon"></span>
+            <span>Interactive On-Water Field Simulator</span>
+          </div>
+          <h2 class="section-title">Test the FishIn Intelligence Engine</h2>
+          <p class="section-desc">Experience real-time AI tactical bite forecasts, multimodal tackle computer vision, and generative rig engineering.</p>
         </div>
 
-        <div class="demo-terminal" id="demo-workstation">
-          <!-- Top Right Quarter Circle Revolver Selector -->
-          <div class="corner-quarter-revolver" id="corner-quarter-revolver" role="tablist" aria-label="Tactical Mode Revolver">
-            <svg class="quarter-circle-svg" viewBox="0 0 220 220" preserveAspectRatio="none">
-              <!-- Quarter circle background canvas -->
-              <path class="qc-bg" d="M 220,0 L 220,220 A 220,220 0 0,1 0,0 Z" />
-
-              <!-- Sector 3: Rig Engineer (Bottom: 0° to 30°) -->
-              <g class="qc-wedge" data-tab="tab-rig" data-chamber="2" role="tab" aria-selected="false" tabindex="0">
-                <path class="qc-wedge-path" d="M 220,52 L 220,214 A 214,214 0 0,1 113,185.3 L 194,45 A 52,52 0 0,0 220,52 Z" />
-                <text class="qc-label" x="184" y="138" transform="rotate(-75 184 138)">Rig Engineer</text>
-                <circle class="qc-pip" cx="206" cy="192" r="3" />
-              </g>
-
-              <!-- Sector 2: Vision Scanner (Middle: 30° to 60°) -->
-              <g class="qc-wedge" data-tab="tab-vision" data-chamber="1" role="tab" aria-selected="false" tabindex="0">
-                <path class="qc-wedge-path" d="M 194,45 L 113,185.3 A 214,214 0 0,1 34.7,107 L 174.9,26 A 52,52 0 0,0 194,45 Z" />
-                <text class="qc-label" x="122" y="96" transform="rotate(-45 122 96)">Vision Scanner</text>
-                <circle class="qc-pip" cx="78" cy="154" r="3" />
-              </g>
-
-              <!-- Sector 1: Tactical Brief (Top: 60° to 90°) -->
-              <g class="qc-wedge active" data-tab="tab-brief" data-chamber="0" role="tab" aria-selected="true" tabindex="0">
-                <path class="qc-wedge-path" d="M 174.9,26 L 34.7,107 A 214,214 0 0,1 6,0 L 168,0 A 52,52 0 0,0 174.9,26 Z" />
-                <text class="qc-label" x="88" y="32" transform="rotate(-15 88 32)">Tactical Brief</text>
-                <circle class="qc-pip" cx="24" cy="38" r="3" />
-              </g>
-
-              <!-- Corner Hub / Revolver Cylinder Center -->
-              <path class="qc-hub-plate" d="M 220,0 L 220,48 A 48,48 0 0,1 172,0 Z" />
-              <g class="qc-hub-drum" id="qc-hub-drum" title="Revolver Cylinder Hub">
-                <circle cx="220" cy="0" r="38" class="qc-hub-circle" />
-                <!-- 3 Revolver Chamber Bores -->
-                <circle cx="220" cy="24" r="4.5" class="qc-hub-bore b-2" />
-                <circle cx="199.2" cy="12" r="4.5" class="qc-hub-bore b-1" />
-                <circle cx="196" cy="0" r="4.5" class="qc-hub-bore b-0 active" />
-                <!-- Center Arbor -->
-                <circle cx="220" cy="0" r="14" class="qc-hub-arbor" />
-              </g>
-            </svg>
-          </div>
-
-          <!-- Topbar -->
-          <div class="demo-topbar">
-            <div class="demo-controls-window">
-              <div class="window-dot red"></div>
-              <div class="window-dot yellow"></div>
-              <div class="window-dot green"></div>
-              <div class="demo-workstation-tag">
-                <span class="mono-brand">fishin-core</span>
-                <span class="mono-sep">//</span>
-                <span class="mono-sub">tactical.workstation</span>
+        <div class="demo-terminal tactical-console" id="demo-workstation">
+          <!-- Command Header & Mode Selector -->
+          <div class="console-header">
+            <div class="console-system-status">
+              <span class="system-beacon"></span>
+              <div class="system-meta">
+                <span class="system-brand">FishIn AI Field Engine</span>
+                <span class="system-badge">On-Water Multimodal</span>
               </div>
-              <span class="demo-model-chip">CLAUDE 5.5 HAIKU</span>
             </div>
 
-            <!-- Mobile / Compact Segmented Tabs (Syncs with the quarter circle) -->
-            <div class="demo-compact-modes" id="demo-compact-modes">
-              <button class="compact-mode-btn active" data-tab="tab-brief" data-chamber="0">1. Tactical Brief</button>
-              <button class="compact-mode-btn" data-tab="tab-vision" data-chamber="1">2. Vision Scanner</button>
-              <button class="compact-mode-btn" data-tab="tab-rig" data-chamber="2">3. Rig Engineer</button>
+            <!-- Sleek Angler Mode Tabs -->
+            <div class="console-mode-tabs" role="tablist" aria-label="Field Simulator Modes">
+              <button type="button" class="mode-tab-btn active" data-tab="tab-brief" role="tab" aria-selected="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <span>Tactical Bite Forecast</span>
+              </button>
+              <button type="button" class="mode-tab-btn" data-tab="tab-vision" role="tab" aria-selected="false">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                <span>Tackle Vision Scanner</span>
+              </button>
+              <button type="button" class="mode-tab-btn" data-tab="tab-rig" role="tab" aria-selected="false">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                <span>Rig Engineering Studio</span>
+              </button>
             </div>
           </div>
 
@@ -214,20 +182,20 @@
               <div class="demo-form tactical-cockpit">
                 <div class="form-group tactical-module">
                   <div class="field-badge-header">
-                    <span class="field-num">01</span>
-                    <span class="field-title">TARGET SPECIES TAXONOMY</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                    <span class="field-title">TARGET SPECIES</span>
                   </div>
                   <div class="chip-select tactical-chips" data-group="species">
-                    <div class="chip-option selected" data-val="bass">
+                    <div class="chip-option selected" data-val="bass" role="button" tabindex="0">
                       <span class="chip-dot"></span>Largemouth Bass
                     </div>
-                    <div class="chip-option" data-val="pike">
+                    <div class="chip-option" data-val="pike" role="button" tabindex="0">
                       <span class="chip-dot"></span>Northern Pike
                     </div>
-                    <div class="chip-option" data-val="trout">
+                    <div class="chip-option" data-val="trout" role="button" tabindex="0">
                       <span class="chip-dot"></span>Brown Trout
                     </div>
-                    <div class="chip-option" data-val="walleye">
+                    <div class="chip-option" data-val="walleye" role="button" tabindex="0">
                       <span class="chip-dot"></span>Walleye / Zander
                     </div>
                   </div>
@@ -235,17 +203,17 @@
 
                 <div class="form-group tactical-module">
                   <div class="field-badge-header">
-                    <span class="field-num">02</span>
-                    <span class="field-title">BAROMETRIC GRADIENT &amp; SKY</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+                    <span class="field-title">BAROMETRIC PRESSURE &amp; SKY</span>
                   </div>
                   <div class="chip-select tactical-chips" data-group="weather">
-                    <div class="chip-option selected" data-val="falling">
+                    <div class="chip-option selected" data-val="falling" role="button" tabindex="0">
                       <span class="chip-dot"></span>Falling Pressure (Pre-Front)
                     </div>
-                    <div class="chip-option" data-val="stable">
+                    <div class="chip-option" data-val="stable" role="button" tabindex="0">
                       <span class="chip-dot"></span>Stable High (Bluebird Sky)
                     </div>
-                    <div class="chip-option" data-val="overcast">
+                    <div class="chip-option" data-val="overcast" role="button" tabindex="0">
                       <span class="chip-dot"></span>Heavy Overcast &amp; Chop
                     </div>
                   </div>
@@ -253,17 +221,17 @@
 
                 <div class="form-group tactical-module">
                   <div class="field-badge-header">
-                    <span class="field-num">03</span>
-                    <span class="field-title">HYDRODYNAMIC BASIN CONTEXT</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6c.6.5 1.2 1 2.5 1C7 7 7 5 9.5 5c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 12c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1M2 18c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2 2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2 1.3 0 1.9.5 2.5 1"/></svg>
+                    <span class="field-title">WATER BODY &amp; BASIN</span>
                   </div>
                   <div class="chip-select tactical-chips" data-group="water">
-                    <div class="chip-option selected" data-val="lake">
+                    <div class="chip-option selected" data-val="lake" role="button" tabindex="0">
                       <span class="chip-dot"></span>Deep Alpine Lake
                     </div>
-                    <div class="chip-option" data-val="river">
+                    <div class="chip-option" data-val="river" role="button" tabindex="0">
                       <span class="chip-dot"></span>Rapid River Tailrace
                     </div>
-                    <div class="chip-option" data-val="shallow">
+                    <div class="chip-option" data-val="shallow" role="button" tabindex="0">
                       <span class="chip-dot"></span>Shallow Vegetated Reservoir
                     </div>
                   </div>
@@ -271,17 +239,17 @@
 
                 <div class="form-group tactical-module">
                   <div class="field-badge-header">
-                    <span class="field-num">04</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a7 7 0 1 0 10 10"/></svg>
                     <span class="field-title">SOLUNAR FEEDING WINDOW</span>
                   </div>
                   <div class="chip-select tactical-chips" data-group="solunar">
-                    <div class="chip-option selected" data-val="dawn">
+                    <div class="chip-option selected" data-val="dawn" role="button" tabindex="0">
                       <span class="chip-dot"></span>Dawn Major (06:15 - 08:45)
                     </div>
-                    <div class="chip-option" data-val="midday">
+                    <div class="chip-option" data-val="midday" role="button" tabindex="0">
                       <span class="chip-dot"></span>Midday Minor (12:30 - 14:00)
                     </div>
-                    <div class="chip-option" data-val="dusk">
+                    <div class="chip-option" data-val="dusk" role="button" tabindex="0">
                       <span class="chip-dot"></span>Dusk Major (18:45 - 21:00)
                     </div>
                   </div>
@@ -289,7 +257,7 @@
 
                 <div class="tactical-footer-note">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-                  <span>Dynamic synthesis based on Pydantic `BriefRequest` schema &amp; real-time pressure deltas</span>
+                  <span>Dynamic synthesis integrating barometric delta, solunar cycle, and species thermal curves</span>
                 </div>
               </div>
 
@@ -298,16 +266,21 @@
                 <div class="hud-top-telemetry">
                   <div class="hud-latency-pill">
                     <span class="hud-live-dot"></span>
-                    <span>HTTP 200 · LATENCY 1.1s</span>
+                    <span>FIELD CO-PILOT · ACTIVE INFERENCE</span>
                   </div>
-                  <!-- Tactical Bite Score Gauge -->
+                  <!-- Tactical Bite Score Gauge with animated SVG ring -->
                   <div class="hud-score-gauge">
-                    <div class="gauge-ring">
-                      <span class="gauge-num" id="brief-score-num">91</span>
-                      <span class="gauge-max">/100</span>
+                    <div class="gauge-ring-svg-wrap">
+                      <svg class="gauge-radial-svg" viewBox="0 0 48 48">
+                        <circle class="gauge-bg-circle" cx="24" cy="24" r="20" />
+                        <circle class="gauge-bar-circle" id="brief-gauge-bar" cx="24" cy="24" r="20" stroke-dasharray="125.66" stroke-dashoffset="11.3" />
+                      </svg>
+                      <div class="gauge-ring-value">
+                        <span class="gauge-num" id="brief-score-num">91</span>
+                      </div>
                     </div>
                     <div class="gauge-caption">
-                      <span class="gauge-title">BITE INDEX</span>
+                      <span class="gauge-title">BITE ACTIVITY INDEX</span>
                       <span class="gauge-status" id="brief-score-status">ELEVATED PRE-FRONT</span>
                     </div>
                   </div>
@@ -324,15 +297,24 @@
 
                 <div class="hud-metrics-grid">
                   <div class="hud-metric-cell">
-                    <div class="hud-metric-label">PEAK FEEDING WINDOW</div>
+                    <div class="hud-metric-label">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                      <span>PEAK FEEDING WINDOW</span>
+                    </div>
                     <div class="hud-metric-val" id="brief-window">06:15 - 08:45 AM (Dawn Major)</div>
                   </div>
                   <div class="hud-metric-cell">
-                    <div class="hud-metric-label">MATCHED TACKLE ITEM</div>
+                    <div class="hud-metric-label">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/></svg>
+                      <span>MATCHED TACKLE ITEM</span>
+                    </div>
                     <div class="hud-metric-val" id="brief-tackle">110mm Suspending Jerkbait</div>
                   </div>
-                  <div class="hud-metric-cell" style="grid-column: span 2;">
-                    <div class="hud-metric-label">TACTICAL PRESENTATION &amp; RETRIEVAL CADENCE</div>
+                  <div class="hud-metric-cell hud-metric-cell-full">
+                    <div class="hud-metric-label">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                      <span>TACTICAL PRESENTATION &amp; RETRIEVAL CADENCE</span>
+                    </div>
                     <div class="hud-metric-val" id="brief-tactics">Erratic twitch-twitch-pause (3s pause cadence). Target secondary points and submerged timber edges.</div>
                   </div>
                 </div>
@@ -341,59 +323,83 @@
 
             <!-- Pane 2: Vision Scanner -->
             <div id="tab-vision" class="tab-pane">
-              <div class="demo-form">
-                <div class="form-group">
-                  <label>Select Sample Tackle Ingestion</label>
+              <div class="demo-form tactical-cockpit">
+                <div class="form-group tactical-module">
+                  <div class="field-badge-header">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                    <span class="field-title">SELECT TACKLE INGESTION SAMPLE</span>
+                  </div>
                   <div class="lure-cards-grid">
-                    <div class="lure-select-card selected" data-lure="jerkbait">
+                    <div class="lure-select-card selected" data-lure="jerkbait" role="button" tabindex="0">
+                      <div class="lure-card-header">
+                        <span class="lure-tag">Hard Plastic</span>
+                      </div>
                       <h4>110mm Suspending Minnow</h4>
                       <p>Slender hard bait with treble hooks</p>
                     </div>
-                    <div class="lure-select-card" data-lure="paddletail">
+                    <div class="lure-select-card" data-lure="paddletail" role="button" tabindex="0">
+                      <div class="lure-card-header">
+                        <span class="lure-tag">Soft Plastic</span>
+                      </div>
                       <h4>4.8" Soft Plastic Paddletail</h4>
                       <p>Ribbed swimbait body, natural ayu</p>
                     </div>
-                    <div class="lure-select-card" data-lure="spinnerbait">
+                    <div class="lure-select-card" data-lure="spinnerbait" role="button" tabindex="0">
+                      <div class="lure-card-header">
+                        <span class="lure-tag">Wire Bait</span>
+                      </div>
                       <h4>Double Willow Spinnerbait</h4>
                       <p>Overhead wire frame with nickel blades</p>
                     </div>
-                    <div class="lure-select-card" data-lure="frog">
+                    <div class="lure-select-card" data-lure="frog" role="button" tabindex="0">
+                      <div class="lure-card-header">
+                        <span class="lure-tag">Topwater</span>
+                      </div>
                       <h4>Hollow Body Topwater Frog</h4>
                       <p>Collapsible weedless body for heavy mats</p>
                     </div>
                   </div>
                 </div>
-                <p style="font-size: 13px; color: var(--text-secondary);">
-                  FishIn's multimodal vision model ingests raw field photography taken on the boat or shore, parses lure geometry, and extracts physical dive characteristics.
-                </p>
+                <div class="tactical-footer-note">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                  <span>Multimodal vision parses raw field photography on boat or bank, extracting lure geometry, buoyancy, and dive curves.</span>
+                </div>
               </div>
 
-              <div class="demo-result-box">
-                <div class="result-header">
-                  <span class="result-tag" id="scan-confidence">99.4% Multimodal Match</span>
-                  <div style="font-size: 12px; font-weight: 700; color: #ffffff;">VISION INFERENCE</div>
+              <div class="demo-result-box tactical-hud-card">
+                <div class="hud-top-telemetry">
+                  <div class="hud-latency-pill">
+                    <span class="hud-live-dot"></span>
+                    <span id="scan-confidence">99.4% Multimodal Match</span>
+                  </div>
+                  <div class="telemetry-badge-tag">VISION INFERENCE · 0.9s</div>
                 </div>
-                <div class="result-headline" id="scan-name">Vision 110 Suspending Jerkbait</div>
+
+                <div class="hud-headline-wrap">
+                  <div class="hud-accent-bar"></div>
+                  <div class="result-headline" id="scan-name">Vision 110 Suspending Jerkbait</div>
+                </div>
+
                 <div class="result-summary">
                   Multimodal classification maps camera frame against 12 lure taxonomies, calculating optimal water column delivery and retrieve dynamics.
                 </div>
 
-                <div class="result-grid">
-                  <div class="result-metric">
-                    <div class="result-metric-label">Lure Category</div>
-                    <div class="result-metric-val" id="scan-category">HARD PLASTIC / MINNOW</div>
+                <div class="hud-metrics-grid">
+                  <div class="hud-metric-cell">
+                    <div class="hud-metric-label">LURE CATEGORY</div>
+                    <div class="hud-metric-val" id="scan-category">HARD PLASTIC / MINNOW</div>
                   </div>
-                  <div class="result-metric">
-                    <div class="result-metric-label">Working Depth</div>
-                    <div class="result-metric-val" id="scan-depth">1.2 - 2.1m (Suspended)</div>
+                  <div class="hud-metric-cell">
+                    <div class="hud-metric-label">WORKING DEPTH</div>
+                    <div class="hud-metric-val" id="scan-depth">1.2 - 2.1m (Suspended)</div>
                   </div>
-                  <div class="result-metric">
-                    <div class="result-metric-label">Optical Contrast Score</div>
-                    <div class="result-metric-val" id="scan-contrast">High Contrast Silver/Black Flake</div>
+                  <div class="hud-metric-cell">
+                    <div class="hud-metric-label">OPTICAL CONTRAST SCORE</div>
+                    <div class="hud-metric-val" id="scan-contrast">High Contrast Silver/Black Flake</div>
                   </div>
-                  <div class="result-metric">
-                    <div class="result-metric-label">Kinetic Profile</div>
-                    <div class="result-metric-val" id="scan-action">Darting Lateral Slash + Flat Wobble</div>
+                  <div class="hud-metric-cell">
+                    <div class="hud-metric-label">KINETIC PROFILE</div>
+                    <div class="hud-metric-val" id="scan-action">Darting Lateral Slash + Flat Wobble</div>
                   </div>
                 </div>
               </div>
@@ -401,47 +407,67 @@
 
             <!-- Pane 3: Rig Studio -->
             <div id="tab-rig" class="tab-pane">
-              <div class="demo-form">
-                <div class="form-group">
-                  <label>Select Rig Architecture</label>
-                  <div class="chip-select" data-group="rig">
-                    <div class="chip-option selected rig-option" data-rig="texas">Texas Rig</div>
-                    <div class="chip-option rig-option" data-rig="dropshot">Drop Shot Rig</div>
-                    <div class="chip-option rig-option" data-rig="carolina">Carolina Rig</div>
-                    <div class="chip-option rig-option" data-rig="paternoster">Feeder Paternoster</div>
+              <div class="demo-form tactical-cockpit">
+                <div class="form-group tactical-module">
+                  <div class="field-badge-header">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                    <span class="field-title">SELECT RIG ARCHITECTURE</span>
+                  </div>
+                  <div class="chip-select tactical-chips" data-group="rig">
+                    <div class="chip-option selected rig-option" data-rig="texas" role="button" tabindex="0">
+                      <span class="chip-dot"></span>Texas Rig
+                    </div>
+                    <div class="chip-option rig-option" data-rig="dropshot" role="button" tabindex="0">
+                      <span class="chip-dot"></span>Drop Shot Rig
+                    </div>
+                    <div class="chip-option rig-option" data-rig="carolina" role="button" tabindex="0">
+                      <span class="chip-dot"></span>Carolina Rig
+                    </div>
+                    <div class="chip-option rig-option" data-rig="paternoster" role="button" tabindex="0">
+                      <span class="chip-dot"></span>Feeder Paternoster
+                    </div>
                   </div>
                 </div>
-                <p style="font-size: 13px; color: var(--text-secondary);">
-                  FishIn's generative rig engine designs, verifies, and calculates component spacing (sinkers, swivels, stops, leaders) for specific bottom substrates and species.
-                </p>
+                <div class="tactical-footer-note">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                  <span>Generative rig engine designs and calculates component spacing (sinkers, swivels, stops, leaders) for specific bottom substrates.</span>
+                </div>
               </div>
 
-              <div class="demo-result-box">
-                <div class="result-header">
-                  <span class="result-tag">RIG SYNTHESIS ENGINE</span>
-                  <div style="font-size: 12px; font-weight: 700; color: #ffffff;">VERIFIED BALANCE</div>
+              <div class="demo-result-box tactical-hud-card">
+                <div class="hud-top-telemetry">
+                  <div class="hud-latency-pill">
+                    <span class="hud-live-dot"></span>
+                    <span>RIG SYNTHESIS ENGINE</span>
+                  </div>
+                  <div class="telemetry-badge-tag">VERIFIED BALANCE</div>
                 </div>
-                <div class="result-headline" id="rig-name">Texas Rig (Weedless Bullet)</div>
+
+                <div class="hud-headline-wrap">
+                  <div class="hud-accent-bar"></div>
+                  <div class="result-headline" id="rig-name">Texas Rig (Weedless Bullet)</div>
+                </div>
+
                 <div class="result-summary">
                   Optimized for snag-free penetration through dense aquatic vegetation and brush piles without fouling.
                 </div>
 
-                <div class="result-grid">
-                  <div class="result-metric">
-                    <div class="result-metric-label">Recommended Knot</div>
-                    <div class="result-metric-val" id="rig-knot">Palomar Knot (95% Knot Strength)</div>
+                <div class="hud-metrics-grid">
+                  <div class="hud-metric-cell">
+                    <div class="hud-metric-label">RECOMMENDED KNOT</div>
+                    <div class="hud-metric-val" id="rig-knot">Palomar Knot (95% Knot Strength)</div>
                   </div>
-                  <div class="result-metric">
-                    <div class="result-metric-label">Leader Material &amp; Test</div>
-                    <div class="result-metric-val" id="rig-leader">12-16 lb 100% Fluorocarbon</div>
+                  <div class="hud-metric-cell">
+                    <div class="hud-metric-label">LEADER MATERIAL &amp; TEST</div>
+                    <div class="hud-metric-val" id="rig-leader">12-16 lb 100% Fluorocarbon</div>
                   </div>
-                  <div class="result-metric">
-                    <div class="result-metric-label">Terminal Sinker Weight</div>
-                    <div class="result-metric-val" id="rig-sinker">3/16 oz Tungsten Bullet (Unpegged)</div>
+                  <div class="hud-metric-cell">
+                    <div class="hud-metric-label">TERMINAL SINKER WEIGHT</div>
+                    <div class="hud-metric-val" id="rig-sinker">3/16 oz Tungsten Bullet (Unpegged)</div>
                   </div>
-                  <div class="result-metric">
-                    <div class="result-metric-label">Target Substrate</div>
-                    <div class="result-metric-val" id="rig-application">Thick hydrilla, lily pads, submerged timber</div>
+                  <div class="hud-metric-cell">
+                    <div class="hud-metric-label">TARGET SUBSTRATE</div>
+                    <div class="hud-metric-val" id="rig-application">Thick hydrilla, lily pads, submerged timber</div>
                   </div>
                 </div>
               </div>

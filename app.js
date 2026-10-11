@@ -334,114 +334,37 @@
   }, { passive: true });
 
   // =========================================================================
-  // 3. Interactive Intelligence Demo Terminal (Quarter Circle Revolver)
+  // 3. Interactive Intelligence Demo Terminal (Mode Tabs Navigation)
   // =========================================================================
   const tabPanes = document.querySelectorAll('.tab-pane');
-  const qcWedges = document.querySelectorAll('.qc-wedge');
-  const qcHubDrum = document.getElementById('qc-hub-drum');
-  const qcHubBores = document.querySelectorAll('.qc-hub-bore');
-  const compactModeBtns = document.querySelectorAll('.compact-mode-btn');
+  const modeTabBtns = document.querySelectorAll('.mode-tab-btn');
 
-  let currentChamberIndex = 0;
-  const drumAngles = [0, -60, -120];
+  function setActiveDemoTab(targetTabId) {
+    if (!targetTabId) return;
 
-  // Synthesized Mechanical Click Audio (Pure Web Audio API)
-  let revolverAudioCtx = null;
-  function playRevolverClick() {
-    try {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (!AudioCtx) return;
-      if (!revolverAudioCtx) revolverAudioCtx = new AudioCtx();
-      if (revolverAudioCtx.state === 'suspended') revolverAudioCtx.resume();
-      
-      const now = revolverAudioCtx.currentTime;
-      const osc = revolverAudioCtx.createOscillator();
-      const gain = revolverAudioCtx.createGain();
-      
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(880, now);
-      osc.frequency.exponentialRampToValueAtTime(115, now + 0.035);
-      
-      gain.gain.setValueAtTime(0.16, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
-      
-      osc.connect(gain);
-      gain.connect(revolverAudioCtx.destination);
-      osc.start(now);
-      osc.stop(now + 0.04);
-    } catch (e) {}
-  }
-
-  function setRevolverChamber(chamberIdx, playSound = true) {
-    if (chamberIdx < 0 || chamberIdx > 2) chamberIdx = 0;
-    currentChamberIndex = chamberIdx;
-
-    // 1. Rotate the Corner Revolver Cylinder Drum
-    if (qcHubDrum) {
-      qcHubDrum.style.transform = `rotate(${drumAngles[chamberIdx]}deg)`;
-    }
-
-    // 2. Update Quarter-Circle Wedges (The 3 Slices)
-    let activeTargetId = 'tab-brief';
-    qcWedges.forEach(w => {
-      const idx = parseInt(w.getAttribute('data-chamber'), 10);
-      const isTarget = idx === chamberIdx;
-      w.classList.toggle('active', isTarget);
-      w.setAttribute('aria-selected', isTarget ? 'true' : 'false');
-      if (isTarget) {
-        activeTargetId = w.getAttribute('data-tab');
-      }
+    modeTabBtns.forEach(btn => {
+      const isMatch = btn.getAttribute('data-tab') === targetTabId;
+      btn.classList.toggle('active', isMatch);
+      btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
     });
 
-    // 3. Update Cylinder Bores
-    qcHubBores.forEach(b => {
-      const isMatch = b.classList.contains(`b-${chamberIdx}`);
-      b.classList.toggle('active', isMatch);
-    });
-
-    // 4. Update Compact Mobile Buttons
-    compactModeBtns.forEach(btn => {
-      const idx = parseInt(btn.getAttribute('data-chamber'), 10);
-      btn.classList.toggle('active', idx === chamberIdx);
-    });
-
-    // 5. Switch Active Tab Pane
     tabPanes.forEach(pane => {
-      pane.classList.toggle('active', pane.id === activeTargetId);
+      pane.classList.toggle('active', pane.id === targetTabId);
     });
-
-    if (playSound) playRevolverClick();
   }
 
-  // Click on Quarter-Circle Wedges
-  qcWedges.forEach(w => {
-    w.addEventListener('click', function () {
-      const idx = parseInt(this.getAttribute('data-chamber'), 10);
-      setRevolverChamber(idx, true);
+  modeTabBtns.forEach(btn => {
+    btn.addEventListener('click', function () {
+      const tabId = this.getAttribute('data-tab');
+      setActiveDemoTab(tabId);
     });
-    // Keyboard navigation (Enter / Space)
-    w.addEventListener('keydown', function (e) {
+
+    btn.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        const idx = parseInt(this.getAttribute('data-chamber'), 10);
-        setRevolverChamber(idx, true);
+        const tabId = this.getAttribute('data-tab');
+        setActiveDemoTab(tabId);
       }
-    });
-  });
-
-  // Click on Corner Hub Drum to spin to next chamber
-  if (qcHubDrum) {
-    qcHubDrum.addEventListener('click', function () {
-      const nextIdx = (currentChamberIndex + 1) % 3;
-      setRevolverChamber(nextIdx, true);
-    });
-  }
-
-  // Click on Compact Mode Buttons
-  compactModeBtns.forEach(btn => {
-    btn.addEventListener('click', function () {
-      const idx = parseInt(this.getAttribute('data-chamber'), 10);
-      setRevolverChamber(idx, true);
     });
   });
 
@@ -594,6 +517,7 @@
 
   const briefScoreNum = document.getElementById('brief-score-num');
   const briefScoreStatus = document.getElementById('brief-score-status');
+  const briefGaugeBar = document.getElementById('brief-gauge-bar');
 
   const statusMap = {
     'falling': 'PRE-FRONT FEEDING AMBUSH',
@@ -608,7 +532,26 @@
     if (briefScore) briefScore.textContent = data.score;
     if (briefScoreNum) {
       const match = data.score.match(/\d+/);
-      briefScoreNum.textContent = match ? match[0] : '91';
+      const scoreVal = match ? parseInt(match[0], 10) : 91;
+      briefScoreNum.textContent = scoreVal;
+
+      if (briefGaugeBar) {
+        // Radius is 20 -> 2 * PI * 20 = 125.66
+        const circumference = 125.66;
+        const offset = circumference - (scoreVal / 100) * circumference;
+        briefGaugeBar.style.strokeDashoffset = offset.toFixed(2);
+
+        if (scoreVal >= 85) {
+          briefGaugeBar.style.stroke = '#10b981';
+          if (briefScoreStatus) briefScoreStatus.style.color = '#10b981';
+        } else if (scoreVal >= 70) {
+          briefGaugeBar.style.stroke = '#06b6d4';
+          if (briefScoreStatus) briefScoreStatus.style.color = '#06b6d4';
+        } else {
+          briefGaugeBar.style.stroke = '#f59e0b';
+          if (briefScoreStatus) briefScoreStatus.style.color = '#f59e0b';
+        }
+      }
     }
     if (briefScoreStatus) {
       briefScoreStatus.textContent = statusMap[selectedWeather] || 'FEEDING ELEVATED';
@@ -617,6 +560,9 @@
     if (briefTackle) briefTackle.textContent = data.tackle;
     if (briefTactics) briefTactics.textContent = data.tactics;
   }
+
+  // Initialize brief readout on load
+  updateTacticalBrief();
 
   // Tab 2: Multimodal Lure Scanner Demo
   const lureCards = document.querySelectorAll('.lure-select-card');

@@ -659,247 +659,181 @@ body {
 /* ==========================================================================
    Interactive Intelligence Demo Terminal
    ========================================================================== */
+/* ==========================================================================
+   Interactive Intelligence Demo / On-Water Field Simulator
+   ========================================================================== */
 .demo-section {
   background: var(--bg-base);
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
   position: relative;
-}
-
-.demo-terminal {
-  position: relative;
   overflow: hidden;
-  background: #0d0d10;
-  border: 1px solid #242429;
-  border-radius: 20px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-/* ==========================================================================
-   TOP RIGHT CORNER QUARTER-CIRCLE REVOLVER SELECTOR
-   ========================================================================== */
-.corner-quarter-revolver {
+/* Subtle ambient backdrop radar glow */
+.demo-section::before {
+  content: "";
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 220px;
-  height: 220px;
-  z-index: 25;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 650px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.04) 0%, rgba(6, 182, 212, 0.02) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.quarter-circle-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-/* Background quarter-circle track */
-.qc-bg {
-  fill: #141417;
-  stroke: #25252b;
-  stroke-width: 1.5;
-  filter: drop-shadow(-4px 4px 16px rgba(0, 0, 0, 0.6));
-}
-
-/* Wedges (The 3 Mode Slices) */
-.qc-wedge {
-  cursor: pointer;
-  outline: none;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.qc-wedge-path {
-  fill: #18181b;
-  stroke: #2a2a30;
-  stroke-width: 1.5;
-  transition: fill 0.2s ease, stroke 0.2s ease, filter 0.2s ease;
-}
-
-.qc-label {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
-  font-size: 11px;
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
   font-weight: 700;
-  fill: #8e8e93;
-  text-anchor: middle;
-  letter-spacing: 0.02em;
-  pointer-events: none;
-  transition: fill 0.2s ease;
-  user-select: none;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 14px;
 }
 
-.qc-pip {
-  fill: #3e3e46;
-  transition: all 0.25s ease;
-  pointer-events: none;
+.pulse-beacon {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: beaconPing 2s infinite cubic-bezier(0, 0, 0.2, 1);
 }
 
-/* Hover State */
-.qc-wedge:hover .qc-wedge-path {
-  fill: #222227;
-  stroke: #484852;
+@keyframes beaconPing {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
-.qc-wedge:hover .qc-label {
-  fill: #ffffff;
+/* Main Console Container */
+.demo-terminal,
+.tactical-console {
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(180deg, #111319 0%, #0c0d12 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 40px rgba(6, 182, 212, 0.03);
+  overflow: hidden;
 }
 
-.qc-wedge:hover .qc-pip {
-  fill: #a1a1a6;
-}
-
-/* Active State */
-.qc-wedge.active .qc-wedge-path {
-  fill: #26262d;
-  stroke: #ffffff;
-  stroke-width: 2;
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
-}
-
-.qc-wedge.active .qc-label {
-  fill: #ffffff;
-  font-weight: 800;
-}
-
-.qc-wedge.active .qc-pip {
-  fill: #ffffff;
-  filter: drop-shadow(0 0 5px #ffffff);
-}
-
-/* Center Hub / Revolver Cylinder Drum in Corner */
-.qc-hub-plate {
-  fill: #121214;
-  stroke: #2c2c33;
-  stroke-width: 1.5;
-}
-
-.qc-hub-drum {
-  transform-origin: 220px 0px;
-  transition: transform 0.45s cubic-bezier(0.2, 1.4, 0.4, 1);
-  cursor: pointer;
-}
-
-.qc-hub-circle {
-  fill: #222226;
-  stroke: #3c3c44;
-  stroke-width: 1.5;
-}
-
-.qc-hub-bore {
-  fill: #0c0c0e;
-  stroke: #28282e;
-  stroke-width: 1;
-  transition: all 0.2s;
-}
-
-.qc-hub-bore.active {
-  fill: #ffffff;
-  stroke: #ffffff;
-  filter: drop-shadow(0 0 4px #ffffff);
-}
-
-.qc-hub-arbor {
-  fill: #121214;
-  stroke: #4a4a54;
-  stroke-width: 1.5;
-}
-
-/* ==========================================================================
-   Topbar (Accommodates the Quarter Circle on Desktop)
-   ========================================================================== */
-.demo-topbar {
-  background: #141416;
-  border-bottom: 1px solid #232327;
-  padding: 16px 24px;
-  padding-right: 230px;
+/* Console Header Bar */
+.console-header {
+  background: rgba(17, 19, 26, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 14px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 58px;
+  gap: 16px;
   box-sizing: border-box;
 }
 
-.demo-controls-window {
+.console-system-status {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
-.window-dot {
-  width: 11px;
-  height: 11px;
+.system-beacon {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--border-strong);
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
 }
 
-.window-dot.red { background: #ff5f56; }
-.window-dot.yellow { background: #ffbd2e; }
-.window-dot.green { background: #27c93f; }
-
-.demo-workstation-tag {
+.system-meta {
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  margin-left: 6px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-.mono-brand {
+.system-brand {
+  font-size: 13px;
   font-weight: 700;
   color: #ffffff;
+  letter-spacing: -0.01em;
 }
 
-.mono-sep {
-  color: var(--text-tertiary);
-}
-
-.mono-sub {
-  color: #a1a1a6;
-}
-
-.demo-model-chip {
+.system-badge {
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 700;
-  color: #a1a1a6;
+  color: #94a3b8;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 3px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
   border-radius: 4px;
   letter-spacing: 0.04em;
 }
 
-/* Compact / Mobile Modes Header */
-.demo-compact-modes {
-  display: none;
+/* Mode Switcher Tabs */
+.console-mode-tabs {
+  display: flex;
+  align-items: center;
   gap: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 4px;
+  border-radius: 10px;
 }
 
-.compact-mode-btn {
+.mode-tab-btn {
   background: transparent;
-  border: 1px solid #26262a;
-  color: #8e8e93;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 12px;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  padding: 7px 14px;
+  border-radius: 7px;
+  font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
 }
 
-.compact-mode-btn:hover {
+.mode-tab-btn svg {
+  color: #64748b;
+  transition: color 0.2s ease;
+}
+
+.mode-tab-btn:hover {
+  color: #ffffff;
   background: rgba(255, 255, 255, 0.04);
+}
+
+.mode-tab-btn:hover svg {
   color: #ffffff;
 }
 
-.compact-mode-btn.active {
-  background: #ffffff;
-  color: #000000;
-  border-color: #ffffff;
+.mode-tab-btn.active {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
+.mode-tab-btn.active svg {
+  color: #10b981;
+}
+
+/* Console Body & Grid Layout */
 .demo-body {
-  padding: 32px;
+  padding: 28px 30px;
 }
 
 .tab-pane {
@@ -908,13 +842,11 @@ body {
 
 .tab-pane.active {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 28px;
 }
 
-/* ==========================================================================
-   Tactical Input Cockpit (Left Column)
-   ========================================================================== */
+/* Cockpit Form Inputs (Left Column) */
 .tactical-cockpit {
   display: flex;
   flex-direction: column;
@@ -923,15 +855,16 @@ body {
 
 .tactical-module {
   background: rgba(255, 255, 255, 0.015);
-  border: 1px solid #1e1e22;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
   padding: 14px 16px;
   margin-bottom: 0;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .tactical-module:hover {
-  border-color: #2b2b32;
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.025);
 }
 
 .field-badge-header {
@@ -939,91 +872,89 @@ body {
   align-items: center;
   gap: 8px;
   margin-bottom: 10px;
+  color: #94a3b8;
 }
 
-.field-num {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 800;
-  color: #8e8e93;
-  background: #19191d;
-  padding: 2px 6px;
-  border-radius: 4px;
-  border: 1px solid #27272c;
+.field-badge-header svg {
+  color: #10b981;
 }
 
 .field-title {
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  color: #c7c7cc;
+  letter-spacing: 0.06em;
+  color: #cbd5e1;
 }
 
 .tactical-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 7px;
+  gap: 8px;
 }
 
 .tactical-chips .chip-option {
-  background: #141416;
-  border: 1px solid #26262a;
-  color: #8e8e93;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
   padding: 7px 13px;
-  border-radius: 7px;
+  border-radius: 8px;
   font-size: 12.5px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   user-select: none;
 }
 
 .tactical-chips .chip-option:hover {
-  background: #1b1b1e;
+  background: rgba(255, 255, 255, 0.06);
   color: #ffffff;
-  border-color: #3e3e44;
+  border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-1px);
 }
 
 .tactical-chips .chip-option.selected {
   background: #ffffff;
-  color: #000000;
+  color: #0c0d12;
   border-color: #ffffff;
   font-weight: 700;
-  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.14);
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.15);
 }
 
 .chip-dot {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #3c3c44;
+  background: #475569;
   transition: background 0.15s;
 }
 
 .tactical-chips .chip-option.selected .chip-dot {
-  background: #000000;
+  background: #0c0d12;
 }
 
 .tactical-footer-note {
   font-size: 12px;
-  color: var(--text-tertiary);
+  color: #64748b;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   padding-top: 4px;
+  line-height: 1.4;
 }
 
-/* ==========================================================================
-   Tactical HUD Output Console (Right Column)
-   ========================================================================== */
+.tactical-footer-note svg {
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+/* Tactical HUD Output Console (Right Column) */
 .tactical-hud-card {
-  background: radial-gradient(circle at 100% 0%, #17171b, #0d0d0f 70%);
-  border: 1px solid #27272c;
+  background: radial-gradient(circle at 100% 0%, #151822 0%, #0d0e14 75%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 24px;
   display: flex;
@@ -1038,46 +969,89 @@ body {
   align-items: center;
   padding-bottom: 14px;
   margin-bottom: 16px;
-  border-bottom: 1px solid #1f1f23;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .hud-latency-pill {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: #8e8e93;
-  display: flex;
+  font-weight: 700;
+  color: #cbd5e1;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   background: rgba(255, 255, 255, 0.03);
-  padding: 4px 9px;
-  border-radius: 5px;
-  border: 1px solid #222227;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .hud-live-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 6px #22c55e;
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
 }
 
+.telemetry-badge-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* Circular SVG Gauge for Bite Index */
 .hud-score-gauge {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
-.gauge-ring {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: #141417;
-  border: 2px solid #ffffff;
+.gauge-ring-svg-wrap {
+  width: 48px;
+  height: 48px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+
+.gauge-radial-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.gauge-bg-circle {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 4;
+}
+
+.gauge-bar-circle {
+  fill: none;
+  stroke: #10b981;
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s ease;
+  filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.4));
+}
+
+.gauge-ring-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
 }
 
 .gauge-num {
@@ -1085,10 +1059,7 @@ body {
   font-size: 17px;
   font-weight: 900;
   color: #ffffff;
-}
-
-.gauge-max {
-  display: none;
+  line-height: 1;
 }
 
 .gauge-caption {
@@ -1100,101 +1071,147 @@ body {
   font-family: var(--font-mono);
   font-size: 9.5px;
   font-weight: 700;
-  color: #8e8e93;
-  letter-spacing: 0.04em;
+  color: #94a3b8;
+  letter-spacing: 0.06em;
 }
 
 .gauge-status {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 800;
-  color: #ffffff;
+  color: #10b981;
+  transition: color 0.3s ease;
 }
 
+/* Headline & Summary */
 .hud-headline-wrap {
   display: flex;
   align-items: stretch;
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 12px;
 }
 
 .hud-accent-bar {
   width: 3px;
-  background: #ffffff;
+  background: linear-gradient(180deg, #10b981 0%, #06b6d4 100%);
   border-radius: 2px;
   flex-shrink: 0;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
 }
 
-.hud-headline-wrap .result-headline {
+.result-headline {
+  font-size: 17.5px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.35;
   margin-bottom: 0;
 }
 
+.result-summary {
+  font-size: 13.5px;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+/* Metrics Grid */
 .hud-metrics-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
   margin-top: auto;
-  padding-top: 18px;
+  padding-top: 14px;
 }
 
 .hud-metric-cell {
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid #1e1e22;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 9px;
   padding: 10px 12px;
+}
+
+.hud-metric-cell.hud-metric-cell-full {
+  grid-column: span 2;
 }
 
 .hud-metric-label {
   font-family: var(--font-mono);
   font-size: 9.5px;
   font-weight: 700;
-  color: #8e8e93;
-  letter-spacing: 0.04em;
-  margin-bottom: 4px;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.hud-metric-label svg {
+  color: #10b981;
 }
 
 .hud-metric-val {
   font-size: 12.5px;
   font-weight: 600;
   color: #ffffff;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
-/* Tab 2: Vision Scanner Demo */
+/* Tab 2: Tackle Vision Cards Grid */
 .lure-cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 10px;
 }
 
 .lure-select-card {
-  background: var(--bg-surface-raised);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
-  padding: 14px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 12px 14px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .lure-select-card:hover {
-  border-color: var(--border-strong);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
 }
 
 .lure-select-card.selected {
-  border-color: var(--text-primary);
-  background: var(--bg-surface-high);
+  border-color: #10b981;
+  background: rgba(16, 185, 129, 0.06);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.1);
+}
+
+.lure-card-header {
+  margin-bottom: 4px;
+}
+
+.lure-tag {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 1px 6px;
+  border-radius: 4px;
 }
 
 .lure-select-card h4 {
-  font-size: 14px;
-  margin-bottom: 4px;
-  color: var(--text-primary);
+  font-size: 13.5px;
+  font-weight: 700;
+  margin-bottom: 3px;
+  color: #ffffff;
 }
 
 .lure-select-card p {
-  font-size: 12px;
-  color: var(--text-secondary);
+  font-size: 11.5px;
+  color: #94a3b8;
+  line-height: 1.35;
+  margin: 0;
 }
 
 /* ==========================================================================
@@ -1971,56 +1988,40 @@ main:not(.landing-main) footer {
     padding: 0;
   }
 
-  .demo-terminal {
+  .demo-terminal,
+  .tactical-console {
     border-radius: 16px;
   }
 
-  .corner-quarter-revolver {
-    display: none;
-  }
-
-  .demo-topbar {
-    padding: 12px 14px;
-    padding-right: 14px;
+  .console-header {
+    padding: 14px 16px;
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
   }
 
-  .demo-compact-modes {
-    display: flex;
-    width: 100%;
-    overflow-x: auto;
-    gap: 6px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+  .console-system-status {
+    justify-content: flex-start;
   }
 
-  .demo-compact-modes::-webkit-scrollbar {
+  .console-mode-tabs {
+    width: 100%;
+    overflow-x: auto;
+    gap: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    box-sizing: border-box;
+  }
+
+  .console-mode-tabs::-webkit-scrollbar {
     display: none;
   }
 
-  .compact-mode-btn {
-    flex-shrink: 0;
-    padding: 7px 13px;
+  .mode-tab-btn {
+    flex: 1 0 auto;
+    padding: 8px 12px;
     font-size: 12px;
-    white-space: nowrap;
-  }
-
-  .demo-tabs {
-    width: 100%;
-    overflow-x: auto;
-    display: flex;
-    gap: 6px;
-    padding-bottom: 4px;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .demo-tab-btn {
-    flex-shrink: 0;
-    padding: 7px 12px;
-    font-size: 12px;
+    justify-content: center;
     white-space: nowrap;
   }
 
@@ -2028,23 +2029,28 @@ main:not(.landing-main) footer {
     padding: 18px 14px;
   }
 
-  .chip-option {
+  .tab-pane.active {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .tactical-chips .chip-option {
     padding: 7px 11px;
     font-size: 12px;
+  }
+
+  .hud-metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .hud-metric-cell.hud-metric-cell-full {
+    grid-column: span 1;
   }
 
   .lure-cards-grid {
     grid-template-columns: 1fr;
     gap: 10px;
-  }
-
-  .result-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .result-metric {
-    grid-column: span 1 !important;
   }
 
   /* Features & Cards Mobile Tuning */
