@@ -667,28 +667,161 @@ body {
 }
 
 .demo-terminal {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-xl);
+  position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  background: #0d0d10;
+  border: 1px solid #242429;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
+/* ==========================================================================
+   TOP RIGHT CORNER QUARTER-CIRCLE REVOLVER SELECTOR
+   ========================================================================== */
+.corner-quarter-revolver {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 220px;
+  height: 220px;
+  z-index: 25;
+}
+
+.quarter-circle-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Background quarter-circle track */
+.qc-bg {
+  fill: #141417;
+  stroke: #25252b;
+  stroke-width: 1.5;
+  filter: drop-shadow(-4px 4px 16px rgba(0, 0, 0, 0.6));
+}
+
+/* Wedges (The 3 Mode Slices) */
+.qc-wedge {
+  cursor: pointer;
+  outline: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.qc-wedge-path {
+  fill: #18181b;
+  stroke: #2a2a30;
+  stroke-width: 1.5;
+  transition: fill 0.2s ease, stroke 0.2s ease, filter 0.2s ease;
+}
+
+.qc-label {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  fill: #8e8e93;
+  text-anchor: middle;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  transition: fill 0.2s ease;
+  user-select: none;
+}
+
+.qc-pip {
+  fill: #3e3e46;
+  transition: all 0.25s ease;
+  pointer-events: none;
+}
+
+/* Hover State */
+.qc-wedge:hover .qc-wedge-path {
+  fill: #222227;
+  stroke: #484852;
+}
+
+.qc-wedge:hover .qc-label {
+  fill: #ffffff;
+}
+
+.qc-wedge:hover .qc-pip {
+  fill: #a1a1a6;
+}
+
+/* Active State */
+.qc-wedge.active .qc-wedge-path {
+  fill: #26262d;
+  stroke: #ffffff;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
+}
+
+.qc-wedge.active .qc-label {
+  fill: #ffffff;
+  font-weight: 800;
+}
+
+.qc-wedge.active .qc-pip {
+  fill: #ffffff;
+  filter: drop-shadow(0 0 5px #ffffff);
+}
+
+/* Center Hub / Revolver Cylinder Drum in Corner */
+.qc-hub-plate {
+  fill: #121214;
+  stroke: #2c2c33;
+  stroke-width: 1.5;
+}
+
+.qc-hub-drum {
+  transform-origin: 220px 0px;
+  transition: transform 0.45s cubic-bezier(0.2, 1.4, 0.4, 1);
+  cursor: pointer;
+}
+
+.qc-hub-circle {
+  fill: #222226;
+  stroke: #3c3c44;
+  stroke-width: 1.5;
+}
+
+.qc-hub-bore {
+  fill: #0c0c0e;
+  stroke: #28282e;
+  stroke-width: 1;
+  transition: all 0.2s;
+}
+
+.qc-hub-bore.active {
+  fill: #ffffff;
+  stroke: #ffffff;
+  filter: drop-shadow(0 0 4px #ffffff);
+}
+
+.qc-hub-arbor {
+  fill: #121214;
+  stroke: #4a4a54;
+  stroke-width: 1.5;
+}
+
+/* ==========================================================================
+   Topbar (Accommodates the Quarter Circle on Desktop)
+   ========================================================================== */
 .demo-topbar {
-  background: var(--bg-surface-raised);
-  border-bottom: 1px solid var(--border-default);
-  padding: 14px 20px;
+  background: #141416;
+  border-bottom: 1px solid #232327;
+  padding: 16px 24px;
+  padding-right: 230px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
+  min-height: 58px;
+  box-sizing: border-box;
 }
 
 .demo-controls-window {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
 .window-dot {
@@ -698,288 +831,71 @@ body {
   background: var(--border-strong);
 }
 
-/* ==========================================================================
-   Tactical Revolver Selector (Top Right Mode Switcher)
-   ========================================================================== */
-.demo-revolver-system {
+.window-dot.red { background: #ff5f56; }
+.window-dot.yellow { background: #ffbd2e; }
+.window-dot.green { background: #27c93f; }
+
+.demo-workstation-tag {
   display: flex;
   align-items: center;
-  gap: 14px;
-}
-
-.revolver-telemetry {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 12px;
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-default);
-}
-
-.telemetry-pin {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #ffffff;
-  box-shadow: 0 0 6px #ffffff;
-  animation: telemetryPulse 2.4s ease-in-out infinite;
-}
-
-@keyframes telemetryPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.35; transform: scale(0.85); }
-}
-
-.telemetry-text {
+  gap: 5px;
   font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--text-secondary);
+  font-size: 12px;
+  margin-left: 6px;
 }
 
-.revolver-assembly {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* Mechanical Cylinder Button & Rotating Drum */
-.revolver-cylinder-btn {
-  position: relative;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #2a2a2e, #141415 75%);
-  border: 1.5px solid #38383e;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: inset 0 2px 4px rgba(255,255,255,0.08), 0 4px 12px rgba(0,0,0,0.65);
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
-  user-select: none;
-  flex-shrink: 0;
-}
-
-.revolver-cylinder-btn:hover {
-  border-color: #666670;
-  transform: scale(1.06);
-  box-shadow: inset 0 2px 4px rgba(255,255,255,0.12), 0 6px 16px rgba(0,0,0,0.8);
-}
-
-.revolver-cylinder-btn:active {
-  transform: scale(0.96);
-}
-
-.cylinder-index-notch {
-  position: absolute;
-  top: -5px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 5px solid #ffffff;
-  z-index: 6;
-  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.9));
-  pointer-events: none;
-}
-
-.revolver-drum {
-  position: relative;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: #18181a;
-  border: 1px solid #2e2e34;
-  transition: transform 0.45s cubic-bezier(0.2, 1.4, 0.4, 1);
-  transform-origin: center center;
-  pointer-events: none;
-}
-
-.cylinder-center-arbor {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #44444c, #161618 80%);
-  border: 1px solid #5a5a64;
-  box-shadow: 0 0 4px rgba(0,0,0,0.9);
-  z-index: 4;
-}
-
-/* 6 Chambers arranged around cylinder perimeter */
-.cylinder-chamber {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #0d0d0f;
-  border: 1px solid #28282e;
-  top: 50%;
-  left: 50%;
-  margin-top: -4px;
-  margin-left: -4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.25s ease;
-}
-
-/* Polar coordinates (r=11px, 60deg intervals) */
-.cylinder-chamber.c-0 { transform: rotate(0deg) translateY(-11px); }
-.cylinder-chamber.c-1 { transform: rotate(60deg) translateY(-11px); }
-.cylinder-chamber.c-2 { transform: rotate(120deg) translateY(-11px); }
-.cylinder-chamber.c-3 { transform: rotate(180deg) translateY(-11px); }
-.cylinder-chamber.c-4 { transform: rotate(240deg) translateY(-11px); }
-.cylinder-chamber.c-5 { transform: rotate(300deg) translateY(-11px); }
-
-.bullet-primer {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #e5e5ea, #8e8e93);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.4);
-}
-
-.cylinder-chamber.active {
-  background: #ffffff;
-  border-color: #ffffff;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.95);
-}
-
-.cylinder-chamber.active .bullet-primer {
-  background: #ffffff;
-}
-
-.cylinder-chamber.empty {
-  background: #08080a;
-  border-color: #1a1a1e;
-}
-
-/* Cylinder flutes for realistic metal geometry */
-.cylinder-flute {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 2px;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.04);
-  margin-top: -12px;
-  margin-left: -1px;
-  pointer-events: none;
-}
-.cylinder-flute.fl-1 { transform: rotate(30deg); }
-.cylinder-flute.fl-2 { transform: rotate(90deg); }
-.cylinder-flute.fl-3 { transform: rotate(150deg); }
-
-/* Mode Chambers List (The 3 Slices from LO's sketch) */
-.revolver-chambers-list {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-
-.revolver-chamber-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border-radius: 8px;
-  background: transparent;
-  border: 1px solid transparent;
-  color: var(--text-secondary);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  font-family: var(--font-sans);
-}
-
-.revolver-chamber-btn:hover {
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--text-primary);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.revolver-chamber-btn.active {
-  background: #141415;
+.mono-brand {
+  font-weight: 700;
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.35);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.chamber-num {
+.mono-sep {
+  color: var(--text-tertiary);
+}
+
+.mono-sub {
+  color: #a1a1a6;
+}
+
+.demo-model-chip {
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 700;
-  color: var(--text-tertiary);
-  padding: 2px 5px;
-  border-radius: 4px;
+  color: #a1a1a6;
   background: rgba(255, 255, 255, 0.05);
-  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
 }
 
-.revolver-chamber-btn.active .chamber-num {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.18);
+/* Compact / Mobile Modes Header */
+.demo-compact-modes {
+  display: none;
+  gap: 6px;
 }
 
-.chamber-name {
-  letter-spacing: -0.01em;
-}
-
-.chamber-indicator {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #ffffff;
-  opacity: 0;
-  transform: scale(0.5);
-  transition: all 0.2s ease;
-}
-
-.revolver-chamber-btn.active .chamber-indicator {
-  opacity: 1;
-  transform: scale(1);
-  box-shadow: 0 0 6px #ffffff;
-}
-
-.demo-tabs {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.demo-tab-btn {
+.compact-mode-btn {
   background: transparent;
-  border: 1px solid transparent;
-  color: var(--text-secondary);
-  padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 13px;
+  border: 1px solid #26262a;
+  color: #8e8e93;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.demo-tab-btn:hover {
-  color: var(--text-primary);
+.compact-mode-btn:hover {
   background: rgba(255, 255, 255, 0.04);
+  color: #ffffff;
 }
 
-.demo-tab-btn.active {
-  background: var(--bg-surface-high);
-  color: var(--text-primary);
-  border-color: var(--border-strong);
+.compact-mode-btn.active {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
 }
 
 .demo-body {
@@ -996,133 +912,253 @@ body {
   gap: 32px;
 }
 
-.demo-form {
+/* ==========================================================================
+   Tactical Input Cockpit (Left Column)
+   ========================================================================== */
+.tactical-cockpit {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
 }
 
-.form-group label {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
+.tactical-module {
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid #1e1e22;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 0;
+  transition: border-color 0.2s ease;
 }
 
-.chip-select {
+.tactical-module:hover {
+  border-color: #2b2b32;
+}
+
+.field-badge-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.field-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  color: #8e8e93;
+  background: #19191d;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #27272c;
+}
+
+.field-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #c7c7cc;
+}
+
+.tactical-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 7px;
 }
 
-.chip-option {
-  padding: 8px 14px;
-  background: var(--bg-surface-raised);
-  border: 1px solid var(--border-default);
-  border-radius: 8px;
-  color: var(--text-secondary);
-  font-size: 13px;
+.tactical-chips .chip-option {
+  background: #141416;
+  border: 1px solid #26262a;
+  color: #8e8e93;
+  padding: 7px 13px;
+  border-radius: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   user-select: none;
 }
 
-.chip-option:hover {
-  border-color: var(--border-strong);
-  color: var(--text-primary);
+.tactical-chips .chip-option:hover {
+  background: #1b1b1e;
+  color: #ffffff;
+  border-color: #3e3e44;
+  transform: translateY(-1px);
 }
 
-.chip-option.selected {
-  background: var(--text-primary);
-  color: var(--text-inverse);
-  border-color: var(--text-primary);
-  font-weight: 600;
+.tactical-chips .chip-option.selected {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.14);
 }
 
-.demo-result-box {
-  background: var(--bg-base);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-lg);
+.chip-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #3c3c44;
+  transition: background 0.15s;
+}
+
+.tactical-chips .chip-option.selected .chip-dot {
+  background: #000000;
+}
+
+.tactical-footer-note {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-top: 4px;
+}
+
+/* ==========================================================================
+   Tactical HUD Output Console (Right Column)
+   ========================================================================== */
+.tactical-hud-card {
+  background: radial-gradient(circle at 100% 0%, #17171b, #0d0d0f 70%);
+  border: 1px solid #27272c;
+  border-radius: 16px;
   padding: 24px;
   display: flex;
   flex-direction: column;
-  font-family: var(--font-sans);
   position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
-.result-header {
+.hud-top-telemetry {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 14px;
   margin-bottom: 16px;
-  border-bottom: 1px solid var(--border-subtle);
+  border-bottom: 1px solid #1f1f23;
 }
 
-.result-tag {
+.hud-latency-pill {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--text-tertiary);
+  color: #8e8e93;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 4px 9px;
+  border-radius: 5px;
+  border: 1px solid #222227;
 }
 
-.result-score {
+.hud-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+}
+
+.hud-score-gauge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.gauge-ring {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #141417;
+  border: 2px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+}
+
+.gauge-num {
   font-family: var(--font-mono);
   font-size: 17px;
-  font-weight: 800;
+  font-weight: 900;
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  padding: 4px 12px;
-  border-radius: 8px;
-  letter-spacing: -0.01em;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.04);
-  display: inline-flex;
-  align-items: center;
 }
 
-.result-headline {
-  font-size: 18px;
+.gauge-max {
+  display: none;
+}
+
+.gauge-caption {
+  display: flex;
+  flex-direction: column;
+}
+
+.gauge-title {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  color: #8e8e93;
+  letter-spacing: 0.04em;
+}
+
+.gauge-status {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
   color: #ffffff;
+}
+
+.hud-headline-wrap {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
   margin-bottom: 12px;
 }
 
-.result-summary {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.55;
-  margin-bottom: 20px;
+.hud-accent-bar {
+  width: 3px;
+  background: #ffffff;
+  border-radius: 2px;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
 }
 
-.result-grid {
+.hud-headline-wrap .result-headline {
+  margin-bottom: 0;
+}
+
+.hud-metrics-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 10px;
   margin-top: auto;
+  padding-top: 18px;
 }
 
-.result-metric {
-  background: var(--bg-surface-raised);
-  border: 1px solid var(--border-subtle);
-  border-radius: 10px;
-  padding: 12px;
+.hud-metric-cell {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid #1e1e22;
+  border-radius: 9px;
+  padding: 10px 12px;
 }
 
-.result-metric-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
+.hud-metric-label {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #8e8e93;
+  letter-spacing: 0.04em;
   margin-bottom: 4px;
 }
 
-.result-metric-val {
-  font-size: 13px;
+.hud-metric-val {
+  font-size: 12.5px;
   font-weight: 600;
-  color: var(--text-primary);
+  color: #ffffff;
+  line-height: 1.4;
 }
 
 /* Tab 2: Vision Scanner Demo */
@@ -1939,51 +1975,34 @@ main:not(.landing-main) footer {
     border-radius: 16px;
   }
 
+  .corner-quarter-revolver {
+    display: none;
+  }
+
   .demo-topbar {
     padding: 12px 14px;
+    padding-right: 14px;
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
   }
 
-  .demo-revolver-system {
-    width: 100%;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-
-  .revolver-telemetry {
-    align-self: flex-start;
-    padding: 3px 8px;
-    font-size: 10px;
-  }
-
-  .revolver-assembly {
-    width: 100%;
+  .demo-compact-modes {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: flex-start;
-  }
-
-  .revolver-chambers-list {
-    flex: 1;
+    width: 100%;
     overflow-x: auto;
-    display: flex;
     gap: 6px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding-bottom: 2px;
   }
 
-  .revolver-chambers-list::-webkit-scrollbar {
+  .demo-compact-modes::-webkit-scrollbar {
     display: none;
   }
 
-  .revolver-chamber-btn {
+  .compact-mode-btn {
     flex-shrink: 0;
-    padding: 6px 11px;
+    padding: 7px 13px;
     font-size: 12px;
     white-space: nowrap;
   }

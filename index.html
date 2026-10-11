@@ -143,61 +143,67 @@
           <p class="section-desc">Experience the same structured AI outputs delivered natively to Android devices on the water.</p>
         </div>
 
-        <div class="demo-terminal">
+        <div class="demo-terminal" id="demo-workstation">
+          <!-- Top Right Quarter Circle Revolver Selector -->
+          <div class="corner-quarter-revolver" id="corner-quarter-revolver" role="tablist" aria-label="Tactical Mode Revolver">
+            <svg class="quarter-circle-svg" viewBox="0 0 220 220" preserveAspectRatio="none">
+              <!-- Quarter circle background canvas -->
+              <path class="qc-bg" d="M 220,0 L 220,220 A 220,220 0 0,1 0,0 Z" />
+
+              <!-- Sector 3: Rig Engineer (Bottom: 0° to 30°) -->
+              <g class="qc-wedge" data-tab="tab-rig" data-chamber="2" role="tab" aria-selected="false" tabindex="0">
+                <path class="qc-wedge-path" d="M 220,52 L 220,214 A 214,214 0 0,1 113,185.3 L 194,45 A 52,52 0 0,0 220,52 Z" />
+                <text class="qc-label" x="184" y="138" transform="rotate(-75 184 138)">Rig Engineer</text>
+                <circle class="qc-pip" cx="206" cy="192" r="3" />
+              </g>
+
+              <!-- Sector 2: Vision Scanner (Middle: 30° to 60°) -->
+              <g class="qc-wedge" data-tab="tab-vision" data-chamber="1" role="tab" aria-selected="false" tabindex="0">
+                <path class="qc-wedge-path" d="M 194,45 L 113,185.3 A 214,214 0 0,1 34.7,107 L 174.9,26 A 52,52 0 0,0 194,45 Z" />
+                <text class="qc-label" x="122" y="96" transform="rotate(-45 122 96)">Vision Scanner</text>
+                <circle class="qc-pip" cx="78" cy="154" r="3" />
+              </g>
+
+              <!-- Sector 1: Tactical Brief (Top: 60° to 90°) -->
+              <g class="qc-wedge active" data-tab="tab-brief" data-chamber="0" role="tab" aria-selected="true" tabindex="0">
+                <path class="qc-wedge-path" d="M 174.9,26 L 34.7,107 A 214,214 0 0,1 6,0 L 168,0 A 52,52 0 0,0 174.9,26 Z" />
+                <text class="qc-label" x="88" y="32" transform="rotate(-15 88 32)">Tactical Brief</text>
+                <circle class="qc-pip" cx="24" cy="38" r="3" />
+              </g>
+
+              <!-- Corner Hub / Revolver Cylinder Center -->
+              <path class="qc-hub-plate" d="M 220,0 L 220,48 A 48,48 0 0,1 172,0 Z" />
+              <g class="qc-hub-drum" id="qc-hub-drum" title="Revolver Cylinder Hub">
+                <circle cx="220" cy="0" r="38" class="qc-hub-circle" />
+                <!-- 3 Revolver Chamber Bores -->
+                <circle cx="220" cy="24" r="4.5" class="qc-hub-bore b-2" />
+                <circle cx="199.2" cy="12" r="4.5" class="qc-hub-bore b-1" />
+                <circle cx="196" cy="0" r="4.5" class="qc-hub-bore b-0 active" />
+                <!-- Center Arbor -->
+                <circle cx="220" cy="0" r="14" class="qc-hub-arbor" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Topbar -->
           <div class="demo-topbar">
             <div class="demo-controls-window">
-              <div class="window-dot"></div>
-              <div class="window-dot"></div>
-              <div class="window-dot"></div>
-              <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary); margin-left: 8px;">fishin-core // engine.preview</span>
+              <div class="window-dot red"></div>
+              <div class="window-dot yellow"></div>
+              <div class="window-dot green"></div>
+              <div class="demo-workstation-tag">
+                <span class="mono-brand">fishin-core</span>
+                <span class="mono-sep">//</span>
+                <span class="mono-sub">tactical.workstation</span>
+              </div>
+              <span class="demo-model-chip">CLAUDE 5.5 HAIKU</span>
             </div>
 
-            <!-- Top Right Revolver Mode Selector -->
-            <div class="demo-revolver-system" id="demo-revolver-system" role="tablist" aria-label="Engine Mode Revolver">
-              <!-- Telemetry badge -->
-              <div class="revolver-telemetry">
-                <span class="telemetry-pin"></span>
-                <span class="telemetry-text" id="revolver-telemetry-text">CHAMBER 01 // TACTICAL BRIEF</span>
-              </div>
-
-              <!-- Mechanical Revolver Cylinder & Mode Chambers -->
-              <div class="revolver-assembly">
-                <!-- Authentic Revolver Cylinder Drum -->
-                <button class="revolver-cylinder-btn" id="revolver-cylinder-trigger" title="Click to spin revolver cylinder to next mode" aria-label="Spin Revolver Cylinder">
-                  <div class="cylinder-index-notch" aria-hidden="true"></div>
-                  <div class="revolver-drum" id="revolver-drum">
-                    <div class="cylinder-chamber c-0 active" data-chamber="0"><div class="bullet-primer"></div></div>
-                    <div class="cylinder-chamber c-1" data-chamber="1"><div class="bullet-primer"></div></div>
-                    <div class="cylinder-chamber c-2" data-chamber="2"><div class="bullet-primer"></div></div>
-                    <div class="cylinder-chamber c-3 empty" data-chamber="3"></div>
-                    <div class="cylinder-chamber c-4 empty" data-chamber="4"></div>
-                    <div class="cylinder-chamber c-5 empty" data-chamber="5"></div>
-                    <div class="cylinder-center-arbor"></div>
-                    <div class="cylinder-flute fl-1"></div>
-                    <div class="cylinder-flute fl-2"></div>
-                    <div class="cylinder-flute fl-3"></div>
-                  </div>
-                </button>
-
-                <!-- 3 Revolver Mode Chambers (Tactical Brief, Vision Scanner, Rig Engineer) -->
-                <div class="revolver-chambers-list">
-                  <button class="revolver-chamber-btn active" data-tab="tab-brief" data-chamber="0" data-label="CHAMBER 01 // TACTICAL BRIEF" role="tab" aria-selected="true" id="rev-tab-brief">
-                    <span class="chamber-num">01</span>
-                    <span class="chamber-name">Tactical Brief</span>
-                    <span class="chamber-indicator"></span>
-                  </button>
-                  <button class="revolver-chamber-btn" data-tab="tab-vision" data-chamber="1" data-label="CHAMBER 02 // VISION SCANNER" role="tab" aria-selected="false" id="rev-tab-vision">
-                    <span class="chamber-num">02</span>
-                    <span class="chamber-name">Vision Scanner</span>
-                    <span class="chamber-indicator"></span>
-                  </button>
-                  <button class="revolver-chamber-btn" data-tab="tab-rig" data-chamber="2" data-label="CHAMBER 03 // RIG ENGINEER" role="tab" aria-selected="false" id="rev-tab-rig">
-                    <span class="chamber-num">03</span>
-                    <span class="chamber-name">Rig Engineer</span>
-                    <span class="chamber-indicator"></span>
-                  </button>
-                </div>
-              </div>
+            <!-- Mobile / Compact Segmented Tabs (Syncs with the quarter circle) -->
+            <div class="demo-compact-modes" id="demo-compact-modes">
+              <button class="compact-mode-btn active" data-tab="tab-brief" data-chamber="0">1. Tactical Brief</button>
+              <button class="compact-mode-btn" data-tab="tab-vision" data-chamber="1">2. Vision Scanner</button>
+              <button class="compact-mode-btn" data-tab="tab-rig" data-chamber="2">3. Rig Engineer</button>
             </div>
           </div>
 
@@ -205,72 +211,129 @@
             
             <!-- Pane 1: Tactical Brief -->
             <div id="tab-brief" class="tab-pane active">
-              <div class="demo-form">
-                <div class="form-group">
-                  <label>Target Species</label>
-                  <div class="chip-select" data-group="species">
-                    <div class="chip-option selected" data-val="bass">Largemouth Bass</div>
-                    <div class="chip-option" data-val="pike">Northern Pike</div>
-                    <div class="chip-option" data-val="trout">Brown Trout</div>
-                    <div class="chip-option" data-val="walleye">Walleye / Zander</div>
+              <div class="demo-form tactical-cockpit">
+                <div class="form-group tactical-module">
+                  <div class="field-badge-header">
+                    <span class="field-num">01</span>
+                    <span class="field-title">TARGET SPECIES TAXONOMY</span>
+                  </div>
+                  <div class="chip-select tactical-chips" data-group="species">
+                    <div class="chip-option selected" data-val="bass">
+                      <span class="chip-dot"></span>Largemouth Bass
+                    </div>
+                    <div class="chip-option" data-val="pike">
+                      <span class="chip-dot"></span>Northern Pike
+                    </div>
+                    <div class="chip-option" data-val="trout">
+                      <span class="chip-dot"></span>Brown Trout
+                    </div>
+                    <div class="chip-option" data-val="walleye">
+                      <span class="chip-dot"></span>Walleye / Zander
+                    </div>
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label>Barometric &amp; Weather Front</label>
-                  <div class="chip-select" data-group="weather">
-                    <div class="chip-option selected" data-val="falling">Falling Pressure (Pre-Front)</div>
-                    <div class="chip-option" data-val="stable">Stable High (Bluebird Sky)</div>
-                    <div class="chip-option" data-val="overcast">Heavy Overcast &amp; Chop</div>
+                <div class="form-group tactical-module">
+                  <div class="field-badge-header">
+                    <span class="field-num">02</span>
+                    <span class="field-title">BAROMETRIC GRADIENT &amp; SKY</span>
+                  </div>
+                  <div class="chip-select tactical-chips" data-group="weather">
+                    <div class="chip-option selected" data-val="falling">
+                      <span class="chip-dot"></span>Falling Pressure (Pre-Front)
+                    </div>
+                    <div class="chip-option" data-val="stable">
+                      <span class="chip-dot"></span>Stable High (Bluebird Sky)
+                    </div>
+                    <div class="chip-option" data-val="overcast">
+                      <span class="chip-dot"></span>Heavy Overcast &amp; Chop
+                    </div>
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label>Water Body Context</label>
-                  <div class="chip-select" data-group="water">
-                    <div class="chip-option selected" data-val="lake">Deep Alpine Lake</div>
-                    <div class="chip-option" data-val="river">Rapid River Tailrace</div>
-                    <div class="chip-option" data-val="shallow">Shallow Vegetated Reservoir</div>
+                <div class="form-group tactical-module">
+                  <div class="field-badge-header">
+                    <span class="field-num">03</span>
+                    <span class="field-title">HYDRODYNAMIC BASIN CONTEXT</span>
+                  </div>
+                  <div class="chip-select tactical-chips" data-group="water">
+                    <div class="chip-option selected" data-val="lake">
+                      <span class="chip-dot"></span>Deep Alpine Lake
+                    </div>
+                    <div class="chip-option" data-val="river">
+                      <span class="chip-dot"></span>Rapid River Tailrace
+                    </div>
+                    <div class="chip-option" data-val="shallow">
+                      <span class="chip-dot"></span>Shallow Vegetated Reservoir
+                    </div>
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label>Solunar Feeding Window</label>
-                  <div class="chip-select" data-group="solunar">
-                    <div class="chip-option selected" data-val="dawn">Dawn Major (06:15 - 08:45)</div>
-                    <div class="chip-option" data-val="midday">Midday Minor (12:30 - 14:00)</div>
-                    <div class="chip-option" data-val="dusk">Dusk Major (18:45 - 21:00)</div>
+                <div class="form-group tactical-module">
+                  <div class="field-badge-header">
+                    <span class="field-num">04</span>
+                    <span class="field-title">SOLUNAR FEEDING WINDOW</span>
+                  </div>
+                  <div class="chip-select tactical-chips" data-group="solunar">
+                    <div class="chip-option selected" data-val="dawn">
+                      <span class="chip-dot"></span>Dawn Major (06:15 - 08:45)
+                    </div>
+                    <div class="chip-option" data-val="midday">
+                      <span class="chip-dot"></span>Midday Minor (12:30 - 14:00)
+                    </div>
+                    <div class="chip-option" data-val="dusk">
+                      <span class="chip-dot"></span>Dusk Major (18:45 - 21:00)
+                    </div>
                   </div>
                 </div>
 
-                <div style="font-size: 12px; color: var(--text-tertiary); display: flex; align-items: center; gap: 6px;">
+                <div class="tactical-footer-note">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-                  <span>Dynamic synthesis based on Pydantic `BriefRequest` schema</span>
+                  <span>Dynamic synthesis based on Pydantic `BriefRequest` schema &amp; real-time pressure deltas</span>
                 </div>
               </div>
 
-              <div class="demo-result-box">
-                <div class="result-header">
-                  <span class="result-tag">HTTP 200 · LATENCY 1.1s</span>
-                  <div class="result-score" id="brief-score">91 / 100</div>
+              <!-- Tactical HUD Output Console -->
+              <div class="demo-result-box tactical-hud-card">
+                <div class="hud-top-telemetry">
+                  <div class="hud-latency-pill">
+                    <span class="hud-live-dot"></span>
+                    <span>HTTP 200 · LATENCY 1.1s</span>
+                  </div>
+                  <!-- Tactical Bite Score Gauge -->
+                  <div class="hud-score-gauge">
+                    <div class="gauge-ring">
+                      <span class="gauge-num" id="brief-score-num">91</span>
+                      <span class="gauge-max">/100</span>
+                    </div>
+                    <div class="gauge-caption">
+                      <span class="gauge-title">BITE INDEX</span>
+                      <span class="gauge-status" id="brief-score-status">ELEVATED PRE-FRONT</span>
+                    </div>
+                  </div>
                 </div>
-                <div class="result-headline" id="brief-headline">Aggressive Pre-Front Feed on Weedlines &amp; Drop-Offs</div>
+
+                <div class="hud-headline-wrap">
+                  <div class="hud-accent-bar"></div>
+                  <div class="result-headline" id="brief-headline">Aggressive Pre-Front Feed on Weedlines &amp; Drop-Offs</div>
+                </div>
+
                 <div class="result-summary" id="brief-summary">
                   Barometer dropping 2.8 hPa over 3 hours. Feeding activity elevated across shallow windblown flats. Fish are aggressively ambushing baitfish before the incoming low-pressure front.
                 </div>
 
-                <div class="result-grid">
-                  <div class="result-metric">
-                    <div class="result-metric-label">Optimal Feeding Window</div>
-                    <div class="result-metric-val" id="brief-window">06:15 - 08:45 AM (Major)</div>
+                <div class="hud-metrics-grid">
+                  <div class="hud-metric-cell">
+                    <div class="hud-metric-label">PEAK FEEDING WINDOW</div>
+                    <div class="hud-metric-val" id="brief-window">06:15 - 08:45 AM (Dawn Major)</div>
                   </div>
-                  <div class="result-metric">
-                    <div class="result-metric-label">Matched Tackle Item</div>
-                    <div class="result-metric-val" id="brief-tackle">110mm Suspending Jerkbait</div>
+                  <div class="hud-metric-cell">
+                    <div class="hud-metric-label">MATCHED TACKLE ITEM</div>
+                    <div class="hud-metric-val" id="brief-tackle">110mm Suspending Jerkbait</div>
                   </div>
-                  <div class="result-metric" style="grid-column: span 2;">
-                    <div class="result-metric-label">Tactical Presentation</div>
-                    <div class="result-metric-val" id="brief-tactics">Erratic twitch-twitch-pause (3s pause cadence). Target secondary points and submerged timber edges.</div>
+                  <div class="hud-metric-cell" style="grid-column: span 2;">
+                    <div class="hud-metric-label">TACTICAL PRESENTATION &amp; RETRIEVAL CADENCE</div>
+                    <div class="hud-metric-val" id="brief-tactics">Erratic twitch-twitch-pause (3s pause cadence). Target secondary points and submerged timber edges.</div>
                   </div>
                 </div>
               </div>

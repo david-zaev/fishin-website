@@ -334,18 +334,16 @@
   }, { passive: true });
 
   // =========================================================================
-  // 3. Interactive Intelligence Demo Terminal (Tactical Revolver Selector)
+  // 3. Interactive Intelligence Demo Terminal (Quarter Circle Revolver)
   // =========================================================================
   const tabPanes = document.querySelectorAll('.tab-pane');
-  const revolverDrum = document.getElementById('revolver-drum');
-  const revolverTrigger = document.getElementById('revolver-cylinder-trigger');
-  const chamberButtons = document.querySelectorAll('.revolver-chamber-btn');
-  const cylinderChambers = document.querySelectorAll('.cylinder-chamber');
-  const telemetryText = document.getElementById('revolver-telemetry-text');
-  const legacyTabButtons = document.querySelectorAll('.demo-tab-btn');
+  const qcWedges = document.querySelectorAll('.qc-wedge');
+  const qcHubDrum = document.getElementById('qc-hub-drum');
+  const qcHubBores = document.querySelectorAll('.qc-hub-bore');
+  const compactModeBtns = document.querySelectorAll('.compact-mode-btn');
 
   let currentChamberIndex = 0;
-  const chamberAngles = [0, -60, -120];
+  const drumAngles = [0, -60, -120];
 
   // Synthesized Mechanical Click Audio (Pure Web Audio API)
   let revolverAudioCtx = null;
@@ -361,8 +359,8 @@
       const gain = revolverAudioCtx.createGain();
       
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(860, now);
-      osc.frequency.exponentialRampToValueAtTime(120, now + 0.035);
+      osc.frequency.setValueAtTime(880, now);
+      osc.frequency.exponentialRampToValueAtTime(115, now + 0.035);
       
       gain.gain.setValueAtTime(0.16, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
@@ -378,38 +376,36 @@
     if (chamberIdx < 0 || chamberIdx > 2) chamberIdx = 0;
     currentChamberIndex = chamberIdx;
 
-    // Smooth mechanical cylinder rotation
-    if (revolverDrum) {
-      revolverDrum.style.transform = `rotate(${chamberAngles[chamberIdx]}deg)`;
+    // 1. Rotate the Corner Revolver Cylinder Drum
+    if (qcHubDrum) {
+      qcHubDrum.style.transform = `rotate(${drumAngles[chamberIdx]}deg)`;
     }
 
-    // Update chamber bullets in cylinder face
-    cylinderChambers.forEach(c => {
-      const idx = parseInt(c.getAttribute('data-chamber'), 10);
-      c.classList.toggle('active', idx === chamberIdx);
-    });
-
-    // Update revolver mode buttons
+    // 2. Update Quarter-Circle Wedges (The 3 Slices)
     let activeTargetId = 'tab-brief';
-    chamberButtons.forEach(btn => {
-      const idx = parseInt(btn.getAttribute('data-chamber'), 10);
+    qcWedges.forEach(w => {
+      const idx = parseInt(w.getAttribute('data-chamber'), 10);
       const isTarget = idx === chamberIdx;
-      btn.classList.toggle('active', isTarget);
-      btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+      w.classList.toggle('active', isTarget);
+      w.setAttribute('aria-selected', isTarget ? 'true' : 'false');
       if (isTarget) {
-        activeTargetId = btn.getAttribute('data-tab');
-        if (telemetryText) {
-          telemetryText.textContent = btn.getAttribute('data-label') || `CHAMBER 0${idx + 1}`;
-        }
+        activeTargetId = w.getAttribute('data-tab');
       }
     });
 
-    // Sync legacy tab buttons if present
-    legacyTabButtons.forEach(btn => {
-      btn.classList.toggle('active', btn.getAttribute('data-tab') === activeTargetId);
+    // 3. Update Cylinder Bores
+    qcHubBores.forEach(b => {
+      const isMatch = b.classList.contains(`b-${chamberIdx}`);
+      b.classList.toggle('active', isMatch);
     });
 
-    // Switch active pane
+    // 4. Update Compact Mobile Buttons
+    compactModeBtns.forEach(btn => {
+      const idx = parseInt(btn.getAttribute('data-chamber'), 10);
+      btn.classList.toggle('active', idx === chamberIdx);
+    });
+
+    // 5. Switch Active Tab Pane
     tabPanes.forEach(pane => {
       pane.classList.toggle('active', pane.id === activeTargetId);
     });
@@ -417,30 +413,35 @@
     if (playSound) playRevolverClick();
   }
 
-  // Click on chamber buttons
-  chamberButtons.forEach(btn => {
-    btn.addEventListener('click', function () {
+  // Click on Quarter-Circle Wedges
+  qcWedges.forEach(w => {
+    w.addEventListener('click', function () {
       const idx = parseInt(this.getAttribute('data-chamber'), 10);
       setRevolverChamber(idx, true);
     });
+    // Keyboard navigation (Enter / Space)
+    w.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const idx = parseInt(this.getAttribute('data-chamber'), 10);
+        setRevolverChamber(idx, true);
+      }
+    });
   });
 
-  // Click on rotating cylinder trigger to advance to next chamber
-  if (revolverTrigger) {
-    revolverTrigger.addEventListener('click', function () {
+  // Click on Corner Hub Drum to spin to next chamber
+  if (qcHubDrum) {
+    qcHubDrum.addEventListener('click', function () {
       const nextIdx = (currentChamberIndex + 1) % 3;
       setRevolverChamber(nextIdx, true);
     });
   }
 
-  // Legacy tab support
-  legacyTabButtons.forEach(btn => {
+  // Click on Compact Mode Buttons
+  compactModeBtns.forEach(btn => {
     btn.addEventListener('click', function () {
-      const targetId = this.getAttribute('data-tab');
-      let targetIdx = 0;
-      if (targetId === 'tab-vision') targetIdx = 1;
-      if (targetId === 'tab-rig') targetIdx = 2;
-      setRevolverChamber(targetIdx, true);
+      const idx = parseInt(this.getAttribute('data-chamber'), 10);
+      setRevolverChamber(idx, true);
     });
   });
 
@@ -591,11 +592,27 @@
     });
   });
 
+  const briefScoreNum = document.getElementById('brief-score-num');
+  const briefScoreStatus = document.getElementById('brief-score-status');
+
+  const statusMap = {
+    'falling': 'PRE-FRONT FEEDING AMBUSH',
+    'stable': 'DEEP STRUCTURE SUSPENDED',
+    'overcast': 'ACTIVE ROAMING FEED'
+  };
+
   function updateTacticalBrief() {
     const data = tacticalDatabase[selectedSpecies]?.[selectedWeather] || tacticalDatabase['bass']['falling'];
     if (briefHeadline) briefHeadline.textContent = data.headline;
     if (briefSummary) briefSummary.textContent = data.summary;
     if (briefScore) briefScore.textContent = data.score;
+    if (briefScoreNum) {
+      const match = data.score.match(/\d+/);
+      briefScoreNum.textContent = match ? match[0] : '91';
+    }
+    if (briefScoreStatus) {
+      briefScoreStatus.textContent = statusMap[selectedWeather] || 'FEEDING ELEVATED';
+    }
     if (briefWindow) briefWindow.textContent = solunarWindows[selectedSolunar] || data.window;
     if (briefTackle) briefTackle.textContent = data.tackle;
     if (briefTactics) briefTactics.textContent = data.tactics;
