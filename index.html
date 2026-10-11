@@ -152,10 +152,52 @@
               <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary); margin-left: 8px;">fishin-core // engine.preview</span>
             </div>
 
-            <div class="demo-tabs">
-              <button class="demo-tab-btn active" data-tab="tab-brief">1. AI Tactical Brief</button>
-              <button class="demo-tab-btn" data-tab="tab-vision">2. Vision Scanner</button>
-              <button class="demo-tab-btn" data-tab="tab-rig">3. Rig Engineer</button>
+            <!-- Top Right Revolver Mode Selector -->
+            <div class="demo-revolver-system" id="demo-revolver-system" role="tablist" aria-label="Engine Mode Revolver">
+              <!-- Telemetry badge -->
+              <div class="revolver-telemetry">
+                <span class="telemetry-pin"></span>
+                <span class="telemetry-text" id="revolver-telemetry-text">CHAMBER 01 // TACTICAL BRIEF</span>
+              </div>
+
+              <!-- Mechanical Revolver Cylinder & Mode Chambers -->
+              <div class="revolver-assembly">
+                <!-- Authentic Revolver Cylinder Drum -->
+                <button class="revolver-cylinder-btn" id="revolver-cylinder-trigger" title="Click to spin revolver cylinder to next mode" aria-label="Spin Revolver Cylinder">
+                  <div class="cylinder-index-notch" aria-hidden="true"></div>
+                  <div class="revolver-drum" id="revolver-drum">
+                    <div class="cylinder-chamber c-0 active" data-chamber="0"><div class="bullet-primer"></div></div>
+                    <div class="cylinder-chamber c-1" data-chamber="1"><div class="bullet-primer"></div></div>
+                    <div class="cylinder-chamber c-2" data-chamber="2"><div class="bullet-primer"></div></div>
+                    <div class="cylinder-chamber c-3 empty" data-chamber="3"></div>
+                    <div class="cylinder-chamber c-4 empty" data-chamber="4"></div>
+                    <div class="cylinder-chamber c-5 empty" data-chamber="5"></div>
+                    <div class="cylinder-center-arbor"></div>
+                    <div class="cylinder-flute fl-1"></div>
+                    <div class="cylinder-flute fl-2"></div>
+                    <div class="cylinder-flute fl-3"></div>
+                  </div>
+                </button>
+
+                <!-- 3 Revolver Mode Chambers (Tactical Brief, Vision Scanner, Rig Engineer) -->
+                <div class="revolver-chambers-list">
+                  <button class="revolver-chamber-btn active" data-tab="tab-brief" data-chamber="0" data-label="CHAMBER 01 // TACTICAL BRIEF" role="tab" aria-selected="true" id="rev-tab-brief">
+                    <span class="chamber-num">01</span>
+                    <span class="chamber-name">Tactical Brief</span>
+                    <span class="chamber-indicator"></span>
+                  </button>
+                  <button class="revolver-chamber-btn" data-tab="tab-vision" data-chamber="1" data-label="CHAMBER 02 // VISION SCANNER" role="tab" aria-selected="false" id="rev-tab-vision">
+                    <span class="chamber-num">02</span>
+                    <span class="chamber-name">Vision Scanner</span>
+                    <span class="chamber-indicator"></span>
+                  </button>
+                  <button class="revolver-chamber-btn" data-tab="tab-rig" data-chamber="2" data-label="CHAMBER 03 // RIG ENGINEER" role="tab" aria-selected="false" id="rev-tab-rig">
+                    <span class="chamber-num">03</span>
+                    <span class="chamber-name">Rig Engineer</span>
+                    <span class="chamber-indicator"></span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -189,6 +231,15 @@
                     <div class="chip-option selected" data-val="lake">Deep Alpine Lake</div>
                     <div class="chip-option" data-val="river">Rapid River Tailrace</div>
                     <div class="chip-option" data-val="shallow">Shallow Vegetated Reservoir</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Solunar Feeding Window</label>
+                  <div class="chip-select" data-group="solunar">
+                    <div class="chip-option selected" data-val="dawn">Dawn Major (06:15 - 08:45)</div>
+                    <div class="chip-option" data-val="midday">Midday Minor (12:30 - 14:00)</div>
+                    <div class="chip-option" data-val="dusk">Dusk Major (18:45 - 21:00)</div>
                   </div>
                 </div>
 

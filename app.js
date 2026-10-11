@@ -334,23 +334,113 @@
   }, { passive: true });
 
   // =========================================================================
-  // 3. Interactive Intelligence Demo Terminal
+  // 3. Interactive Intelligence Demo Terminal (Tactical Revolver Selector)
   // =========================================================================
-  const tabButtons = document.querySelectorAll('.demo-tab-btn');
   const tabPanes = document.querySelectorAll('.tab-pane');
+  const revolverDrum = document.getElementById('revolver-drum');
+  const revolverTrigger = document.getElementById('revolver-cylinder-trigger');
+  const chamberButtons = document.querySelectorAll('.revolver-chamber-btn');
+  const cylinderChambers = document.querySelectorAll('.cylinder-chamber');
+  const telemetryText = document.getElementById('revolver-telemetry-text');
+  const legacyTabButtons = document.querySelectorAll('.demo-tab-btn');
 
-  tabButtons.forEach(function (btn) {
+  let currentChamberIndex = 0;
+  const chamberAngles = [0, -60, -120];
+
+  // Synthesized Mechanical Click Audio (Pure Web Audio API)
+  let revolverAudioCtx = null;
+  function playRevolverClick() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtx) return;
+      if (!revolverAudioCtx) revolverAudioCtx = new AudioCtx();
+      if (revolverAudioCtx.state === 'suspended') revolverAudioCtx.resume();
+      
+      const now = revolverAudioCtx.currentTime;
+      const osc = revolverAudioCtx.createOscillator();
+      const gain = revolverAudioCtx.createGain();
+      
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(860, now);
+      osc.frequency.exponentialRampToValueAtTime(120, now + 0.035);
+      
+      gain.gain.setValueAtTime(0.16, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+      
+      osc.connect(gain);
+      gain.connect(revolverAudioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.04);
+    } catch (e) {}
+  }
+
+  function setRevolverChamber(chamberIdx, playSound = true) {
+    if (chamberIdx < 0 || chamberIdx > 2) chamberIdx = 0;
+    currentChamberIndex = chamberIdx;
+
+    // Smooth mechanical cylinder rotation
+    if (revolverDrum) {
+      revolverDrum.style.transform = `rotate(${chamberAngles[chamberIdx]}deg)`;
+    }
+
+    // Update chamber bullets in cylinder face
+    cylinderChambers.forEach(c => {
+      const idx = parseInt(c.getAttribute('data-chamber'), 10);
+      c.classList.toggle('active', idx === chamberIdx);
+    });
+
+    // Update revolver mode buttons
+    let activeTargetId = 'tab-brief';
+    chamberButtons.forEach(btn => {
+      const idx = parseInt(btn.getAttribute('data-chamber'), 10);
+      const isTarget = idx === chamberIdx;
+      btn.classList.toggle('active', isTarget);
+      btn.setAttribute('aria-selected', isTarget ? 'true' : 'false');
+      if (isTarget) {
+        activeTargetId = btn.getAttribute('data-tab');
+        if (telemetryText) {
+          telemetryText.textContent = btn.getAttribute('data-label') || `CHAMBER 0${idx + 1}`;
+        }
+      }
+    });
+
+    // Sync legacy tab buttons if present
+    legacyTabButtons.forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-tab') === activeTargetId);
+    });
+
+    // Switch active pane
+    tabPanes.forEach(pane => {
+      pane.classList.toggle('active', pane.id === activeTargetId);
+    });
+
+    if (playSound) playRevolverClick();
+  }
+
+  // Click on chamber buttons
+  chamberButtons.forEach(btn => {
+    btn.addEventListener('click', function () {
+      const idx = parseInt(this.getAttribute('data-chamber'), 10);
+      setRevolverChamber(idx, true);
+    });
+  });
+
+  // Click on rotating cylinder trigger to advance to next chamber
+  if (revolverTrigger) {
+    revolverTrigger.addEventListener('click', function () {
+      const nextIdx = (currentChamberIndex + 1) % 3;
+      setRevolverChamber(nextIdx, true);
+    });
+  }
+
+  // Legacy tab support
+  legacyTabButtons.forEach(btn => {
     btn.addEventListener('click', function () {
       const targetId = this.getAttribute('data-tab');
-
-      tabButtons.forEach(b => b.classList.remove('active'));
-      tabPanes.forEach(p => p.classList.remove('active'));
-
-      this.classList.add('active');
-      const targetPane = document.getElementById(targetId);
-      if (targetPane) {
-        targetPane.classList.add('active');
-      }
+      let targetIdx = 0;
+      if (targetId === 'tab-vision') targetIdx = 1;
+      if (targetId === 'tab-rig') targetIdx = 2;
+      setRevolverChamber(targetIdx, true);
     });
   });
 
@@ -476,6 +566,13 @@
 
   let selectedSpecies = 'bass';
   let selectedWeather = 'falling';
+  let selectedSolunar = 'dawn';
+
+  const solunarWindows = {
+    'dawn': '06:15 - 08:45 AM (Dawn Major)',
+    'midday': '12:30 - 14:00 PM (Midday Minor)',
+    'dusk': '18:45 - 21:00 PM (Dusk Major)'
+  };
 
   chipOptions.forEach(function (chip) {
     chip.addEventListener('click', function () {
@@ -488,6 +585,7 @@
       const val = this.getAttribute('data-val');
       if (groupType === 'species') selectedSpecies = val;
       if (groupType === 'weather') selectedWeather = val;
+      if (groupType === 'solunar') selectedSolunar = val;
 
       updateTacticalBrief();
     });
@@ -498,7 +596,7 @@
     if (briefHeadline) briefHeadline.textContent = data.headline;
     if (briefSummary) briefSummary.textContent = data.summary;
     if (briefScore) briefScore.textContent = data.score;
-    if (briefWindow) briefWindow.textContent = data.window;
+    if (briefWindow) briefWindow.textContent = solunarWindows[selectedSolunar] || data.window;
     if (briefTackle) briefTackle.textContent = data.tackle;
     if (briefTactics) briefTactics.textContent = data.tactics;
   }
