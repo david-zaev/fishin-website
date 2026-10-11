@@ -252,7 +252,7 @@
         if (pts.length > 2) {
           ctx.beginPath();
           ctx.lineWidth = (isMobile ? 1.2 : 1.4) + lineProximity * 0.8;
-          ctx.strokeStyle = `rgba(240, 240, 245, ${alpha})`;
+          ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
 
           ctx.moveTo(pts[0].x, pts[0].y);
           for (let k = 0; k < pts.length - 1; k++) {
@@ -656,7 +656,7 @@
       wavePhase += 0.025;
 
       // Draw subtle horizontal grid lines
-      hydroCtx.strokeStyle = '#1e1e22';
+      hydroCtx.strokeStyle = '#1e1e1e';
       hydroCtx.lineWidth = 1;
       for (let y = 25; y < h; y += 30) {
         hydroCtx.beginPath();
@@ -734,7 +734,7 @@
       hydroCtx.beginPath();
       hydroCtx.arc(needleX, needleY, 5, 0, Math.PI * 2);
       hydroCtx.fill();
-      hydroCtx.strokeStyle = '#0a0a0b';
+      hydroCtx.strokeStyle = '#000000';
       hydroCtx.lineWidth = 2;
       hydroCtx.stroke();
 
