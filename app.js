@@ -540,17 +540,10 @@
         const circumference = 125.66;
         const offset = circumference - (scoreVal / 100) * circumference;
         briefGaugeBar.style.strokeDashoffset = offset.toFixed(2);
-
-        if (scoreVal >= 85) {
-          briefGaugeBar.style.stroke = '#10b981';
-          if (briefScoreStatus) briefScoreStatus.style.color = '#10b981';
-        } else if (scoreVal >= 70) {
-          briefGaugeBar.style.stroke = '#06b6d4';
-          if (briefScoreStatus) briefScoreStatus.style.color = '#06b6d4';
-        } else {
-          briefGaugeBar.style.stroke = '#f59e0b';
-          if (briefScoreStatus) briefScoreStatus.style.color = '#f59e0b';
-        }
+        briefGaugeBar.style.stroke = '#ffffff';
+      }
+      if (briefScoreStatus) {
+        briefScoreStatus.style.color = '#ffffff';
       }
     }
     if (briefScoreStatus) {

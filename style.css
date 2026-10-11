@@ -660,144 +660,72 @@ body {
    Interactive Intelligence Demo Terminal
    ========================================================================== */
 /* ==========================================================================
-   Interactive Intelligence Demo / On-Water Field Simulator
+   Interactive Intelligence Demo / Field Simulator (Strict Monochrome)
    ========================================================================== */
 .demo-section {
   background: var(--bg-base);
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
   position: relative;
-  overflow: hidden;
-}
-
-/* Subtle ambient backdrop radar glow */
-.demo-section::before {
-  content: "";
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 650px;
-  height: 450px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.04) 0%, rgba(6, 182, 212, 0.02) 40%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .section-kicker {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 11.5px;
+  justify-content: center;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #10b981;
-  background: rgba(16, 185, 129, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.2);
-  padding: 4px 12px;
+  color: #a1a1a6;
+  background: #161618;
+  border: 1px solid #28282b;
+  padding: 5px 14px;
   border-radius: 999px;
   margin-bottom: 14px;
 }
 
-.pulse-beacon {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
-  animation: beaconPing 2s infinite cubic-bezier(0, 0, 0.2, 1);
-}
-
-@keyframes beaconPing {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-}
-
-/* Main Console Container */
+/* Main Console Container - Pure Graphite Black */
 .demo-terminal,
 .tactical-console {
   position: relative;
   z-index: 1;
-  background: linear-gradient(180deg, #111319 0%, #0c0d12 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #111113;
+  border: 1px solid #262629;
   border-radius: 20px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 0 40px rgba(6, 182, 212, 0.03);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   overflow: hidden;
 }
 
-/* Console Header Bar */
+/* Centered Segmented Tabs Header Bar */
 .console-header {
-  background: rgba(17, 19, 26, 0.95);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 14px 24px;
+  background: #161618;
+  border-bottom: 1px solid #262629;
+  padding: 16px 20px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  justify-content: center;
   box-sizing: border-box;
 }
 
-.console-system-status {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.system-beacon {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
-}
-
-.system-meta {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.system-brand {
-  font-size: 13px;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: -0.01em;
-}
-
-.system-badge {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 700;
-  color: #94a3b8;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 2px 7px;
-  border-radius: 4px;
-  letter-spacing: 0.04em;
-}
-
-/* Mode Switcher Tabs */
 .console-mode-tabs {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  gap: 4px;
+  background: #0d0d0f;
+  border: 1px solid #242427;
   padding: 4px;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
 .mode-tab-btn {
   background: transparent;
   border: 1px solid transparent;
-  color: #94a3b8;
-  padding: 7px 14px;
-  border-radius: 7px;
-  font-size: 12.5px;
-  font-weight: 600;
+  color: #8e8e93;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -807,13 +735,13 @@ body {
 }
 
 .mode-tab-btn svg {
-  color: #64748b;
+  color: #71717a;
   transition: color 0.2s ease;
 }
 
 .mode-tab-btn:hover {
   color: #ffffff;
-  background: rgba(255, 255, 255, 0.04);
+  background: #1a1a1d;
 }
 
 .mode-tab-btn:hover svg {
@@ -821,19 +749,21 @@ body {
 }
 
 .mode-tab-btn.active {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.14);
+  background: #27272b;
+  border-color: #38383e;
   color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .mode-tab-btn.active svg {
-  color: #10b981;
+  color: #ffffff;
 }
 
 /* Console Body & Grid Layout */
 .demo-body {
   padding: 28px 30px;
+  background: #111113;
 }
 
 .tab-pane {
@@ -854,8 +784,8 @@ body {
 }
 
 .tactical-module {
-  background: rgba(255, 255, 255, 0.015);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #161618;
+  border: 1px solid #262629;
   border-radius: 12px;
   padding: 14px 16px;
   margin-bottom: 0;
@@ -863,8 +793,8 @@ body {
 }
 
 .tactical-module:hover {
-  border-color: rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.025);
+  border-color: #38383e;
+  background: #19191c;
 }
 
 .field-badge-header {
@@ -872,11 +802,11 @@ body {
   align-items: center;
   gap: 8px;
   margin-bottom: 10px;
-  color: #94a3b8;
+  color: #8e8e93;
 }
 
 .field-badge-header svg {
-  color: #10b981;
+  color: #8e8e93;
 }
 
 .field-title {
@@ -884,7 +814,7 @@ body {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.06em;
-  color: #cbd5e1;
+  color: #d4d4d8;
 }
 
 .tactical-chips {
@@ -894,13 +824,13 @@ body {
 }
 
 .tactical-chips .chip-option {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #94a3b8;
+  background: #0f0f11;
+  border: 1px solid #27272a;
+  color: #a1a1a6;
   padding: 7px 13px;
   border-radius: 8px;
   font-size: 12.5px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
@@ -910,35 +840,35 @@ body {
 }
 
 .tactical-chips .chip-option:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: #1c1c1f;
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: #38383e;
   transform: translateY(-1px);
 }
 
 .tactical-chips .chip-option.selected {
   background: #ffffff;
-  color: #0c0d12;
+  color: #0a0a0b;
   border-color: #ffffff;
   font-weight: 700;
-  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 10px rgba(255, 255, 255, 0.12);
 }
 
 .chip-dot {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #475569;
+  background: #3f3f46;
   transition: background 0.15s;
 }
 
 .tactical-chips .chip-option.selected .chip-dot {
-  background: #0c0d12;
+  background: #0a0a0b;
 }
 
 .tactical-footer-note {
   font-size: 12px;
-  color: #64748b;
+  color: #71717a;
   display: flex;
   align-items: center;
   gap: 7px;
@@ -947,20 +877,20 @@ body {
 }
 
 .tactical-footer-note svg {
-  color: #10b981;
+  color: #71717a;
   flex-shrink: 0;
 }
 
 /* Tactical HUD Output Console (Right Column) */
 .tactical-hud-card {
-  background: radial-gradient(circle at 100% 0%, #151822 0%, #0d0e14 75%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #161618;
+  border: 1px solid #262629;
   border-radius: 16px;
   padding: 24px;
   display: flex;
   flex-direction: column;
   position: relative;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .hud-top-telemetry {
@@ -969,44 +899,44 @@ body {
   align-items: center;
   padding-bottom: 14px;
   margin-bottom: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid #242427;
 }
 
 .hud-latency-pill {
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 700;
-  color: #cbd5e1;
+  font-weight: 600;
+  color: #a1a1a6;
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  background: rgba(255, 255, 255, 0.03);
+  background: #111113;
   padding: 5px 10px;
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  border: 1px solid #242427;
 }
 
 .hud-live-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 6px #10b981;
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
 }
 
 .telemetry-badge-tag {
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: 700;
-  color: #94a3b8;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #8e8e93;
+  background: #111113;
+  border: 1px solid #242427;
   padding: 3px 8px;
   border-radius: 4px;
   letter-spacing: 0.04em;
 }
 
-/* Circular SVG Gauge for Bite Index */
+/* Circular Monochrome SVG Gauge */
 .hud-score-gauge {
   display: flex;
   align-items: center;
@@ -1031,17 +961,17 @@ body {
 
 .gauge-bg-circle {
   fill: none;
-  stroke: rgba(255, 255, 255, 0.08);
+  stroke: #242427;
   stroke-width: 4;
 }
 
 .gauge-bar-circle {
   fill: none;
-  stroke: #10b981;
+  stroke: #ffffff;
   stroke-width: 4;
   stroke-linecap: round;
-  transition: stroke-dashoffset 0.4s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.3s ease;
-  filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.4));
+  transition: stroke-dashoffset 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.25));
 }
 
 .gauge-ring-value {
@@ -1071,7 +1001,7 @@ body {
   font-family: var(--font-mono);
   font-size: 9.5px;
   font-weight: 700;
-  color: #94a3b8;
+  color: #71717a;
   letter-spacing: 0.06em;
 }
 
@@ -1079,8 +1009,7 @@ body {
   font-family: var(--font-mono);
   font-size: 11.5px;
   font-weight: 800;
-  color: #10b981;
-  transition: color 0.3s ease;
+  color: #ffffff;
 }
 
 /* Headline & Summary */
@@ -1093,10 +1022,10 @@ body {
 
 .hud-accent-bar {
   width: 3px;
-  background: linear-gradient(180deg, #10b981 0%, #06b6d4 100%);
+  background: #ffffff;
   border-radius: 2px;
   flex-shrink: 0;
-  box-shadow: 0 0 8px rgba(16, 185, 129, 0.5);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
 .result-headline {
@@ -1109,7 +1038,7 @@ body {
 
 .result-summary {
   font-size: 13.5px;
-  color: #94a3b8;
+  color: #a1a1a6;
   line-height: 1.6;
   margin-bottom: 16px;
 }
@@ -1124,8 +1053,8 @@ body {
 }
 
 .hud-metric-cell {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: #111113;
+  border: 1px solid #242427;
   border-radius: 9px;
   padding: 10px 12px;
 }
@@ -1138,7 +1067,7 @@ body {
   font-family: var(--font-mono);
   font-size: 9.5px;
   font-weight: 700;
-  color: #64748b;
+  color: #71717a;
   letter-spacing: 0.05em;
   margin-bottom: 5px;
   display: flex;
@@ -1147,7 +1076,7 @@ body {
 }
 
 .hud-metric-label svg {
-  color: #10b981;
+  color: #8e8e93;
 }
 
 .hud-metric-val {
@@ -1165,8 +1094,8 @@ body {
 }
 
 .lure-select-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: #111113;
+  border: 1px solid #242427;
   border-radius: 10px;
   padding: 12px 14px;
   cursor: pointer;
@@ -1174,15 +1103,15 @@ body {
 }
 
 .lure-select-card:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: #18181b;
+  border-color: #38383e;
   transform: translateY(-1px);
 }
 
 .lure-select-card.selected {
-  border-color: #10b981;
-  background: rgba(16, 185, 129, 0.06);
-  box-shadow: 0 0 16px rgba(16, 185, 129, 0.1);
+  border-color: #ffffff;
+  background: #1c1c1f;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
 }
 
 .lure-card-header {
@@ -1194,9 +1123,10 @@ body {
   font-size: 9.5px;
   font-weight: 700;
   text-transform: uppercase;
-  color: #10b981;
-  background: rgba(16, 185, 129, 0.1);
-  padding: 1px 6px;
+  color: #d4d4d8;
+  background: #242427;
+  border: 1px solid #333337;
+  padding: 2px 7px;
   border-radius: 4px;
 }
 
@@ -1209,7 +1139,7 @@ body {
 
 .lure-select-card p {
   font-size: 11.5px;
-  color: #94a3b8;
+  color: #8e8e93;
   line-height: 1.35;
   margin: 0;
 }
