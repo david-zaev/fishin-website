@@ -231,24 +231,24 @@ body {
 }
 
 .btn-primary {
-  background: #202127;
+  background: #141415;
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  border: 1px solid #272728;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
 }
 
 .btn-primary:hover {
-  background: #292a32;
-  border-color: rgba(255, 255, 255, 0.3);
+  background: #1c1c1d;
+  border-color: #3a3a3c;
   color: #ffffff;
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65);
 }
 
 .btn-secondary {
-  background: #141519;
-  color: #d4d4d8;
-  border: 1px solid rgba(255, 255, 255, 0.11);
+  background: #141415;
+  color: #d4d4d4;
+  border: 1px solid #272728;
   padding: 14px 26px;
   font-size: 15px;
   border-radius: 14px;
@@ -256,24 +256,24 @@ body {
 }
 
 .btn-secondary:hover {
-  background: #1c1d23;
-  border-color: rgba(255, 255, 255, 0.22);
+  background: #1c1c1d;
+  border-color: #3a3a3c;
   color: #ffffff;
   transform: translateY(-1px);
 }
 
 .btn-play {
-  background: #191a20;
+  background: #141415;
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid #272728;
   padding: 12px 24px;
   border-radius: 14px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
 .btn-play:hover {
-  background: #23242c;
-  border-color: rgba(255, 255, 255, 0.28);
+  background: #1c1c1d;
+  border-color: #3a3a3c;
   color: #ffffff;
   transform: translateY(-1px);
 }
@@ -1118,9 +1118,9 @@ body {
   letter-spacing: 0.05em;
   padding: 4px 11px;
   border-radius: 999px;
-  background: #23242c;
-  color: #f4f4f5;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #1c1c1d;
+  color: #f5f5f5;
+  border: 1px solid #2e2e30;
 }
 
 .plan-name {
@@ -1183,8 +1183,8 @@ body {
    Download Banner Section
    ========================================================================== */
 .download-banner {
-  background: linear-gradient(180deg, #16171d 0%, #0e0f13 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #141415;
+  border: 1px solid #272728;
   border-radius: var(--radius-xl);
   padding: 72px 56px;
   text-align: center;
