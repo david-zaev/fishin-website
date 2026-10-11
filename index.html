@@ -473,10 +473,19 @@
         <p class="section-desc">A deep, comprehensive look into the features powering every cast, spot, and catch.</p>
       </div>
 
+      <!-- Interactive Features Filter Bar -->
+      <div class="features-filter-bar" id="features-filter-bar">
+        <button type="button" class="feat-filter-btn active" data-feat="all">All Engine Modules</button>
+        <button type="button" class="feat-filter-btn" data-feat="ai">AI Co-Pilot &amp; Forecasts</button>
+        <button type="button" class="feat-filter-btn" data-feat="vision">Computer Vision</button>
+        <button type="button" class="feat-filter-btn" data-feat="atlas">Offline Vector Atlas</button>
+        <button type="button" class="feat-filter-btn" data-feat="social">Catch Logs &amp; Social</button>
+      </div>
+
       <div class="features-grid">
         
         <!-- Feature 1 -->
-        <div class="feature-card col-span-2">
+        <div class="feature-card col-span-2" data-category="ai">
           <div class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           </div>
@@ -492,7 +501,7 @@
         </div>
 
         <!-- Feature 2 -->
-        <div class="feature-card">
+        <div class="feature-card" data-category="vision">
           <div class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
           </div>
@@ -508,7 +517,7 @@
         </div>
 
         <!-- Feature 3 -->
-        <div class="feature-card">
+        <div class="feature-card" data-category="vision">
           <div class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
           </div>
@@ -524,7 +533,7 @@
         </div>
 
         <!-- Feature 4 -->
-        <div class="feature-card">
+        <div class="feature-card" data-category="ai">
           <div class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </div>
@@ -540,7 +549,7 @@
         </div>
 
         <!-- Feature 5 -->
-        <div class="feature-card">
+        <div class="feature-card" data-category="ai">
           <div class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
           </div>
@@ -556,7 +565,7 @@
         </div>
 
         <!-- Feature 6 -->
-        <div class="feature-card">
+        <div class="feature-card" data-category="atlas">
           <div class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
           </div>
@@ -572,7 +581,7 @@
         </div>
 
         <!-- Feature 7 -->
-        <div class="feature-card">
+        <div class="feature-card" data-category="social">
           <div class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           </div>
@@ -588,7 +597,7 @@
         </div>
 
         <!-- Feature 8 -->
-        <div class="feature-card">
+        <div class="feature-card" data-category="social">
           <div class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
@@ -698,6 +707,17 @@
         <p class="section-desc">Get started completely free or upgrade to FishIn Pro for unlimited multimodal AI intelligence.</p>
       </div>
 
+      <!-- Interactive Billing Toggle -->
+      <div class="pricing-toggle-wrap" role="group" aria-label="Subscription Billing Frequency">
+        <button type="button" class="pricing-toggle-btn active" id="pricing-monthly-btn" data-billing="monthly">
+          Monthly Billing
+        </button>
+        <button type="button" class="pricing-toggle-btn" id="pricing-annual-btn" data-billing="annual">
+          Annual Billing
+          <span class="save-chip">-17% SAVE</span>
+        </button>
+      </div>
+
       <div class="pricing-grid">
         
         <!-- Standard Free -->
@@ -740,7 +760,7 @@
         <div class="pricing-card featured">
           <div class="pricing-badge">MOST POPULAR</div>
           <div class="plan-name">FishIn Pro</div>
-          <div class="plan-price">$4.99 <span>/ mo ($49.99/yr)</span></div>
+          <div class="plan-price" id="pro-price-display">$4.99 <span id="pro-price-period">/ mo ($49.99/yr)</span></div>
           <div class="plan-desc">Full access to Claude 5.5 Haiku multimodal AI intelligence, photo analysis, and premium global features.</div>
 
           <ul class="plan-features">

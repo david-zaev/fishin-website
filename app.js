@@ -742,4 +742,139 @@
     });
   }
 
+  // =========================================================================
+  // 6. Interactive Subpages: Real-Time Policy Search & Category Filtering
+  // =========================================================================
+  const policySearchInput = document.getElementById('policy-search');
+  const policyPills = document.querySelectorAll('.filter-pill');
+  const policyCards = document.querySelectorAll('.policy-card');
+
+  if (policyCards.length > 0) {
+    let activeCategory = 'all';
+
+    function filterPolicyCards() {
+      const query = policySearchInput ? policySearchInput.value.trim().toLowerCase() : '';
+
+      policyCards.forEach(function (card) {
+        const category = card.getAttribute('data-category') || '';
+        const searchTerms = (card.getAttribute('data-search') || '').toLowerCase();
+        const cardText = card.textContent.toLowerCase();
+
+        const matchesCategory = (activeCategory === 'all') || (category === activeCategory);
+        const matchesQuery = !query || searchTerms.includes(query) || cardText.includes(query);
+
+        if (matchesCategory && matchesQuery) {
+          card.style.display = '';
+          card.style.opacity = '1';
+        } else {
+          card.style.display = 'none';
+          card.style.opacity = '0';
+        }
+      });
+    }
+
+    if (policySearchInput) {
+      policySearchInput.addEventListener('input', filterPolicyCards);
+    }
+
+    policyPills.forEach(function (pill) {
+      pill.addEventListener('click', function () {
+        policyPills.forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+        activeCategory = this.getAttribute('data-filter') || 'all';
+        filterPolicyCards();
+      });
+    });
+  }
+
+  // =========================================================================
+  // 7. Interactive Account Deletion Hub Switcher & Copy Template
+  // =========================================================================
+  const deletionMethodBtns = document.querySelectorAll('.deletion-method-btn');
+  const deletionPanels = document.querySelectorAll('.deletion-panel');
+
+  if (deletionMethodBtns.length > 0) {
+    deletionMethodBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        deletionMethodBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        deletionPanels.forEach(p => p.classList.remove('active'));
+
+        this.classList.add('active');
+        this.setAttribute('aria-selected', 'true');
+
+        const targetId = this.getAttribute('data-target');
+        const targetPanel = document.getElementById(targetId);
+        if (targetPanel) {
+          targetPanel.classList.add('active');
+        }
+      });
+    });
+  }
+
+  const btnCopyTemplate = document.getElementById('btn-copy-template');
+  const copyTextSpan = document.getElementById('copy-text');
+  if (btnCopyTemplate) {
+    btnCopyTemplate.addEventListener('click', function () {
+      const templateText = 'Subject: FishIn Account Deletion Request\n\nPlease permanently delete my FishIn account and all associated catch logs, tackle box entries, and cloud photo backups.';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(templateText).then(function () {
+          if (copyTextSpan) copyTextSpan.textContent = 'Template Copied!';
+          setTimeout(function () {
+            if (copyTextSpan) copyTextSpan.textContent = 'Copy Email Template';
+          }, 2500);
+        });
+      }
+    });
+  }
+
+  // =========================================================================
+  // 8. Interactive Features Grid Filter Bar (Main Page)
+  // =========================================================================
+  const featFilterBtns = document.querySelectorAll('.feat-filter-btn');
+  const featureCards = document.querySelectorAll('.feature-card');
+
+  if (featFilterBtns.length > 0 && featureCards.length > 0) {
+    featFilterBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        featFilterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        const filter = this.getAttribute('data-feat') || 'all';
+        featureCards.forEach(function (card) {
+          const cardCat = card.getAttribute('data-category');
+          if (filter === 'all' || cardCat === filter) {
+            card.classList.remove('is-dimmed');
+          } else {
+            card.classList.add('is-dimmed');
+          }
+        });
+      });
+    });
+  }
+
+  // =========================================================================
+  // 9. Interactive Billing Toggle (Main Page Pro Section)
+  // =========================================================================
+  const btnMonthly = document.getElementById('pricing-monthly-btn');
+  const btnAnnual = document.getElementById('pricing-annual-btn');
+  const proPriceDisplay = document.getElementById('pro-price-display');
+
+  if (btnMonthly && btnAnnual && proPriceDisplay) {
+    btnMonthly.addEventListener('click', function () {
+      btnMonthly.classList.add('active');
+      btnAnnual.classList.remove('active');
+      proPriceDisplay.innerHTML = '$4.99 <span id="pro-price-period">/ mo ($49.99/yr)</span>';
+    });
+
+    btnAnnual.addEventListener('click', function () {
+      btnAnnual.classList.add('active');
+      btnMonthly.classList.remove('active');
+      proPriceDisplay.innerHTML = '$49.99 <span id="pro-price-period">/ yr ($4.16/mo)</span>';
+    });
+  }
+
 })();
+
