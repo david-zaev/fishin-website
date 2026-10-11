@@ -36,176 +36,70 @@
 
   <div class="subpage-wrapper">
     <!-- Subpage Hero -->
-    <header class="subpage-hero">
-      <div class="subpage-badge">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-        DATA SOVEREIGNTY &amp; DELETION HUB
-      </div>
-      <h1 class="subpage-title">Delete Your FishIn Account</h1>
+    <header class="subpage-hero" style="padding-bottom: 24px;">
+      <div class="subpage-badge">ACCOUNT DELETION &amp; PRIVACY</div>
+      <h1 class="subpage-title">Delete Account &amp; Data</h1>
       <p class="subpage-desc">
-        You hold unconditional rights to erase your telemetry and personal records. Choose between instant self-service deletion directly inside the app, or submit an email deletion request if you have already uninstalled.
+        You can permanently delete your FishIn account and all associated personal records at any time.
       </p>
-      <div class="subpage-meta">
-        <span>IMMEDIATE IN-APP PURGE</span>
-        <span>•</span>
-        <span>REMOTE PROCESS WITHIN 30 DAYS</span>
-        <span>•</span>
-        <span>FULL ERASURE</span>
-      </div>
     </header>
 
     <!-- Deletion Hub Container -->
-    <main class="deletion-hub">
+    <main class="deletion-hub" style="max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px;">
       
-      <!-- Interactive Method Switcher -->
-      <div class="deletion-method-selector" role="tablist" aria-label="Deletion Methods">
-        <button type="button" class="deletion-method-btn active" id="btn-inapp" data-target="panel-inapp" role="tab" aria-selected="true">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-          Method 1: In-App Immediate Deletion (Recommended)
-        </button>
-        <button type="button" class="deletion-method-btn" id="btn-email" data-target="panel-email" role="tab" aria-selected="false">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Method 2: Remote Email Request
-        </button>
-      </div>
-
-      <!-- Panel 1: In-App Deletion -->
-      <section class="deletion-panel active" id="panel-inapp" role="tabpanel" aria-labelledby="btn-inapp">
-        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-          <h2 style="font-size: 18px; font-weight: 750; color: #ffffff; margin: 0;">Step-by-Step App Procedure</h2>
-          <span style="font-family: var(--font-mono); font-size: 11px; color: #737373; background: #1c1c1c; padding: 3px 8px; border-radius: 4px; border: 1px solid #2e2e2e;">EXECUTES IMMEDIATELY</span>
+      <!-- Option 1: In-App Immediate Deletion -->
+      <section class="scope-box" style="padding: 24px;">
+        <div class="scope-box-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          <h2 class="scope-box-title" style="font-size: 17px;">Option 1: In the App (Instant)</h2>
         </div>
-        <p style="font-size: 14px; color: #a3a3a3; margin-top: 8px;">
-          Execute these four taps within the FishIn Android app. All cloud database rows associated with your user ID are purged in real-time.
+        <p style="font-size: 14px; color: #a3a3a3; line-height: 1.6; margin-bottom: 14px;">
+          To delete your account immediately inside the FishIn Android app:
         </p>
-
-        <!-- Step Tracker -->
-        <div class="step-tracker">
-          <div class="step-item">
-            <span class="step-num">STEP 01</span>
-            <div class="step-title">Open App</div>
-            <div class="step-desc">Launch FishIn on your Android device while connected to internet.</div>
-          </div>
-          <div class="step-item">
-            <span class="step-num">STEP 02</span>
-            <div class="step-title">Settings Tab</div>
-            <div class="step-desc">Navigate to the bottom nav bar and tap Profile / Settings.</div>
-          </div>
-          <div class="step-item">
-            <span class="step-num">STEP 03</span>
-            <div class="step-title">Account Submenu</div>
-            <div class="step-desc">Select Account preferences to manage your credentials.</div>
-          </div>
-          <div class="step-item">
-            <span class="step-num">STEP 04</span>
-            <div class="step-title">Delete Account</div>
-            <div class="step-desc">Tap "Delete account" and confirm. Purge executes immediately.</div>
-          </div>
-        </div>
-
-        <div style="background: #101010; border: 1px solid #242424; border-radius: 12px; padding: 16px; font-size: 13.5px; color: #a3a3a3; display: flex; align-items: center; gap: 12px;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" style="flex-shrink: 0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <div>
-            <b>Instant Execution:</b> Once confirmed in-app, your remote data record is wiped from Supabase Frankfurt immediately. There is no grace-period recovery.
-          </div>
+        <ol style="color: #ffffff; font-size: 14px; padding-left: 20px; line-height: 1.9; margin: 0 0 16px;">
+          <li>Open the <b>FishIn</b> app on your phone.</li>
+          <li>Tap the <b>Profile / Settings</b> tab in the bottom bar.</li>
+          <li>Tap <b>Account</b> preferences.</li>
+          <li>Tap <b>Delete account</b> and confirm.</li>
+        </ol>
+        <div style="font-size: 13px; color: #737373; line-height: 1.5; border-top: 1px solid #1f1f1f; padding-top: 12px;">
+          Your account credentials, catch logs, and tackle box entries are wiped from the server database immediately.
         </div>
       </section>
 
-      <!-- Panel 2: Remote Email Request -->
-      <section class="deletion-panel" id="panel-email" role="tabpanel" aria-labelledby="btn-email">
-        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-          <h2 style="font-size: 18px; font-weight: 750; color: #ffffff; margin: 0;">Remote Manual Deletion Request</h2>
-          <span style="font-family: var(--font-mono); font-size: 11px; color: #737373; background: #1c1c1c; padding: 3px 8px; border-radius: 4px; border: 1px solid #2e2e2e;">SLA &le; 30 CALENDAR DAYS</span>
+      <!-- Option 2: Remote Email Request -->
+      <section class="scope-box" style="padding: 24px;">
+        <div class="scope-box-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <h2 class="scope-box-title" style="font-size: 17px;">Option 2: By Email (If App Uninstalled)</h2>
         </div>
-        <p style="font-size: 14px; color: #a3a3a3; margin-top: 8px;">
-          If you have uninstalled the app or lost your mobile device, submit an authenticated deletion request via email.
+        <p style="font-size: 14px; color: #a3a3a3; line-height: 1.6; margin-bottom: 14px;">
+          If you no longer have the app installed, send an email from the Google account linked to your FishIn profile to the developer contact email listed on our Google Play page with the subject <b>"Delete FishIn Account"</b>.
         </p>
-
-        <div class="email-request-card">
-          <div style="font-size: 14px; color: #ffffff; font-weight: 700;">Mandatory Authentication Instructions:</div>
-          <p style="font-size: 13px; color: #a3a3a3; margin: 0;">
-            To prevent unauthorized account destruction, the request must be dispatched from the exact Google Account email address linked to your FishIn profile.
-          </p>
-          
-          <div style="background: #0d0d0d; border: 1px solid #262626; border-radius: 8px; padding: 14px; font-family: var(--font-mono); font-size: 12.5px; color: #ffffff; display: flex; flex-direction: column; gap: 6px;">
-            <div><b>To:</b> Developer email shown on FishIn's official Google Play Store listing</div>
-            <div><b>Subject:</b> FishIn Account Deletion Request - [Your Username / Email]</div>
-            <div><b>Body:</b> "Please permanently delete my FishIn account and all associated catch logs, tackle box entries, and cloud photo backups."</div>
-          </div>
-
-          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-            <a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-              <span>View Developer Email on Google Play</span>
-            </a>
-            <button type="button" class="btn btn-secondary btn-sm" id="btn-copy-template">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-              <span id="copy-text">Copy Email Template</span>
-            </button>
-          </div>
+        <div style="margin-bottom: 16px;">
+          <a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="display: inline-flex;">
+            <span>View Developer Email on Google Play</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5"/></svg>
+          </a>
+        </div>
+        <div style="font-size: 13px; color: #737373; line-height: 1.5; border-top: 1px solid #1f1f1f; padding-top: 12px;">
+          Manual email requests are verified and permanently purged within 30 days.
         </div>
       </section>
 
-      <!-- Scope Breakdown Grid: What is Deleted vs Unaffected -->
-      <div class="deletion-scope-grid">
-        
-        <!-- Box 1: Permanently Deleted -->
-        <div class="scope-box">
-          <div class="scope-box-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-            <h3 class="scope-box-title">What is Permanently Erased</h3>
-          </div>
-          <ul class="interactive-scope-list">
-            <li>
-              <div class="scope-check">✓</div>
-              <span><b>Angler Profile:</b> Username, profile biography, avatar image, and verified Google link.</span>
-            </li>
-            <li>
-              <div class="scope-check">✓</div>
-              <span><b>Catch Logbook:</b> All historical catches, timestamps, species telemetry, and personal catch notes.</span>
-            </li>
-            <li>
-              <div class="scope-check">✓</div>
-              <span><b>Digital Tackle Box:</b> Cataloged lures, rigs, tackle specs, and custom gear configurations.</span>
-            </li>
-            <li>
-              <div class="scope-check">✓</div>
-              <span><b>Pro Cloud Photo Vault:</b> All backed up catch and lure images stored on our Frankfurt cloud storage.</span>
-            </li>
-            <li>
-              <div class="scope-check">✓</div>
-              <span><b>Community Footprint:</b> Shared spot pins, catch feed posts, reviews, likes, and comment threads.</span>
-            </li>
-            <li>
-              <div class="scope-check">✓</div>
-              <span><b>Social Graph:</b> Friends list, pending invitations, blocks, and reports.</span>
-            </li>
-            <li>
-              <div class="scope-check">✓</div>
-              <span><b>AI Telemetry Record:</b> Quota usage counts, purchase validation tokens, and API records.</span>
-            </li>
-          </ul>
+      <!-- What gets deleted -->
+      <section class="scope-box" style="padding: 24px;">
+        <div class="scope-box-header">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          <h2 class="scope-box-title" style="font-size: 17px;">Data Handled</h2>
         </div>
-
-        <!-- Box 2: Unaffected / External -->
-        <div class="scope-box">
-          <div class="scope-box-header">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8a8a8a" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <h3 class="scope-box-title">What is Not Affected</h3>
-          </div>
-          <ul class="interactive-scope-list">
-            <li>
-              <div class="scope-check" style="color: #8a8a8a; border-color: #2e2e2e;">—</div>
-              <span><b>On-Phone Offline Waypoints:</b> Private spots saved strictly in phone memory stay on device storage until you manually uninstall the app.</span>
-            </li>
-            <li>
-              <div class="scope-check" style="color: #8a8a8a; border-color: #2e2e2e;">!</div>
-              <span><b>Google Play Subscription:</b> Subscriptions are billed by Google Play. Deleting your FishIn account does <b>NOT</b> cancel Google Play billing. You must cancel active renewals in the Google Play Store under <i>Payments &amp; Subscriptions</i>.</span>
-            </li>
-          </ul>
-        </div>
-
-      </div>
+        <p style="font-size: 14px; color: #a3a3a3; line-height: 1.6; margin-bottom: 12px;">
+          <b>Permanently Deleted:</b> Profile name, email link, logged catches, catch photos, tackle box records, and shared spots.
+        </p>
+        <p style="font-size: 13px; color: #737373; line-height: 1.5; margin: 0;">
+          <b>Google Play Subscriptions:</b> Subscriptions are billed by Google Play. Deleting your account does not cancel recurring Google Play billing. Please cancel any active renewals directly in Google Play under <i>Payments &amp; Subscriptions</i>.
+        </p>
+      </section>
 
     </main>
   </div>
@@ -227,7 +121,6 @@
         <h5>Product</h5>
         <ul class="footer-links">
           <li><a href="./#features">Features</a></li>
-          <li><a href="./#interactive-demo">Live Demo</a></li>
           <li><a href="./#architecture">Claude 5.5 Haiku Architecture</a></li>
           <li><a href="./#pro">FishIn Pro</a></li>
           <li><a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener">Google Play Store</a></li>

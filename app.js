@@ -486,49 +486,6 @@
   }
 
   // =========================================================================
-  // 7. Interactive Account Deletion Hub Switcher & Copy Template
-  // =========================================================================
-  const deletionMethodBtns = document.querySelectorAll('.deletion-method-btn');
-  const deletionPanels = document.querySelectorAll('.deletion-panel');
-
-  if (deletionMethodBtns.length > 0) {
-    deletionMethodBtns.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        deletionMethodBtns.forEach(b => {
-          b.classList.remove('active');
-          b.setAttribute('aria-selected', 'false');
-        });
-        deletionPanels.forEach(p => p.classList.remove('active'));
-
-        this.classList.add('active');
-        this.setAttribute('aria-selected', 'true');
-
-        const targetId = this.getAttribute('data-target');
-        const targetPanel = document.getElementById(targetId);
-        if (targetPanel) {
-          targetPanel.classList.add('active');
-        }
-      });
-    });
-  }
-
-  const btnCopyTemplate = document.getElementById('btn-copy-template');
-  const copyTextSpan = document.getElementById('copy-text');
-  if (btnCopyTemplate) {
-    btnCopyTemplate.addEventListener('click', function () {
-      const templateText = 'Subject: FishIn Account Deletion Request\n\nPlease permanently delete my FishIn account and all associated catch logs, tackle box entries, and cloud photo backups.';
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(templateText).then(function () {
-          if (copyTextSpan) copyTextSpan.textContent = 'Template Copied!';
-          setTimeout(function () {
-            if (copyTextSpan) copyTextSpan.textContent = 'Copy Email Template';
-          }, 2500);
-        });
-      }
-    });
-  }
-
-  // =========================================================================
   // 8. Interactive Features Grid Filter Bar (Main Page)
   // =========================================================================
   const featFilterBtns = document.querySelectorAll('.feat-filter-btn');
