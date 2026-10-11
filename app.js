@@ -674,24 +674,62 @@
   });
 
   // =========================================================================
-  // 5. Interactive 3D Card Hover Tilt & Scroll Reveal Animations
+  // 5. Interactive 3D Card Hover Tilt (Instant Zero-Lag Reaction on Desktop)
   // =========================================================================
-  const tiltCards = document.querySelectorAll('.feature-card, .pricing-card, .pitch-card');
-  tiltCards.forEach(function (card) {
-    card.addEventListener('mousemove', function (e) {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const rotX = ((y - centerY) / centerY) * -3.5;
-      const rotY = ((x - centerX) / centerX) * 3.5;
-      card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-2px)`;
+  const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  if (isFinePointer) {
+    const tiltCards = document.querySelectorAll('.feature-card, .pricing-card, .pitch-card, .policy-card, .scope-box');
+    
+    tiltCards.forEach(function (card) {
+      let isHovering = false;
+      let rafId = null;
+
+      card.addEventListener('mouseenter', function () {
+        isHovering = true;
+        // Kill CSS transition immediately so tilt tracks cursor with 0ms lag
+        card.style.transition = 'none';
+        card.style.willChange = 'transform';
+      });
+
+      card.addEventListener('mousemove', function (e) {
+        if (!isHovering) return;
+        
+        if (rafId) cancelAnimationFrame(rafId);
+        
+        rafId = requestAnimationFrame(function () {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          // Instant 0ms reaction angle with tactile 3D perspective
+          const rotX = ((y - centerY) / centerY) * -5.0;
+          const rotY = ((x - centerX) / centerX) * 5.0;
+          
+          card.style.transform = `perspective(850px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-3px)`;
+        });
+      });
+
+      card.addEventListener('mouseleave', function () {
+        isHovering = false;
+        if (rafId) cancelAnimationFrame(rafId);
+        
+        // Smooth snappy release back to flat resting state
+        card.style.transition = 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)';
+        card.style.transform = 'perspective(850px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+        
+        setTimeout(function () {
+          if (!isHovering) {
+            card.style.transition = '';
+            card.style.transform = '';
+            card.style.willChange = '';
+          }
+        }, 300);
+      });
     });
-    card.addEventListener('mouseleave', function () {
-      card.style.transform = '';
-    });
-  });
+  }
 
   // Target all core content sections to reveal as user scrolls down
   const revealTargets = document.querySelectorAll(
