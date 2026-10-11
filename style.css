@@ -408,9 +408,37 @@ body {
 .hero-cta-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 18px;
+  gap: 16px;
   align-items: center;
   margin-bottom: 48px;
+}
+
+.hero-cta-group .btn-play,
+.hero-cta-group .btn-secondary {
+  height: 58px;
+  min-width: 216px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 24px;
+  border-radius: 14px;
+  box-sizing: border-box;
+}
+
+.hero-cta-group .btn-secondary {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.hero-cta-group .btn-secondary svg {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.hero-cta-group .btn-secondary:hover svg {
+  transform: translateY(2px);
 }
 
 .hero-metrics {
@@ -1594,17 +1622,17 @@ body {
     width: 100%;
   }
 
-  .hero-cta-group .btn-play {
-    padding: 10px 18px;
-    border-radius: 12px;
-  }
-
+  .hero-cta-group .btn-play,
   .hero-cta-group .btn-secondary {
-    display: inline-flex !important;
-    padding: 10px 18px;
+    height: 52px;
+    min-width: 185px;
+    padding: 0 20px;
     border-radius: 12px;
-    font-size: 13.5px;
-    gap: 6px;
+    font-size: 14px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
   }
 
   /* Clean Horizontal Divider & Metrics Row */
@@ -1925,6 +1953,8 @@ body {
   .hero-cta-group .btn-play,
   .hero-cta-group .btn-secondary {
     width: 100%;
+    min-width: 0;
+    height: 52px;
     justify-content: center;
     box-sizing: border-box;
   }
