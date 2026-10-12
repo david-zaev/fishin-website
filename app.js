@@ -324,12 +324,19 @@
       }
     }
 
-    // Hero S23 Ultra Phone Mockup 3D Float & Tilt on Scroll (Desktop only)
-    if (phoneWrapper && window.innerWidth > 992 && curY < 1200) {
-      const translateY = curY * 0.12;
-      const rotX = (mouseRelY * -3.5) + Math.min(curY * 0.012, 5);
-      const rotY = mouseRelX * 4.5;
-      phoneWrapper.style.transform = `translateY(${translateY}px) perspective(1200px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    // Hero S23 Ultra Phone Mockup Parallax Slide UPWARDS on Scroll (Desktop & Mobile)
+    if (phoneWrapper) {
+      if (window.innerWidth > 992) {
+        // Desktop: slides upward with 3D perspective and mouse tracking
+        const translateY = - Math.min(curY * 0.28, 220);
+        const rotX = (mouseRelY * -3.5) - Math.min(curY * 0.008, 4);
+        const rotY = mouseRelX * 4.5;
+        phoneWrapper.style.transform = `perspective(1200px) translate3d(0, ${translateY}px, 0) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+      } else {
+        // Mobile: smoothly slides upward on scroll with hardware acceleration
+        const translateY = - Math.min(curY * 0.22, 130);
+        phoneWrapper.style.transform = `translate3d(0, ${translateY}px, 0)`;
+      }
     }
   }, { passive: true });
 
