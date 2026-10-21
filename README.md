@@ -65,7 +65,7 @@
                                 └──> Strict Pydantic JSON Output Conformance
                                 │
                                 ▼
-             [ Supabase PostgreSQL + PostGIS (Frankfurt) ]
+             [ PostgreSQL + PostGIS on Oracle Cloud (Frankfurt) ]
 ```
 
 ---

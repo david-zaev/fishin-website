@@ -58,7 +58,7 @@
     <section class="subpage-controls" aria-label="Privacy Filter Controls">
       <div class="search-input-wrap">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" class="subpage-search-input" id="policy-search" placeholder="Filter privacy topics (e.g. GPS, photos, Supabase, AI, backup)..." autocomplete="off" />
+        <input type="text" class="subpage-search-input" id="policy-search" placeholder="Filter privacy topics (e.g. GPS, photos, servers, AI, backup)..." autocomplete="off" />
       </div>
 
       <div class="policy-filter-pills" id="policy-pills">
@@ -172,7 +172,7 @@
       </article>
 
       <!-- Card 6: Infrastructure & Topology -->
-      <article class="policy-card" data-category="cloud" data-search="frankfurt germany supabase oracle cloud servers security encryption rls ads no-tracking">
+      <article class="policy-card" data-category="cloud" data-search="frankfurt germany database oracle cloud servers security encryption rls ads no-tracking">
         <div class="policy-card-header">
           <div class="policy-card-icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
@@ -184,8 +184,9 @@
         </div>
         <p>Enterprise infrastructure residing within European jurisdiction:</p>
         <ul class="policy-list">
-          <li><b>Database Tier:</b> User records, logs, and social metadata are managed via Supabase PostgreSQL on dedicated infrastructure in Frankfurt, Germany.</li>
-          <li><b>API &amp; Photo Vault:</b> Core API and Pro compressed photo archives are hosted on Oracle Cloud Infrastructure in Frankfurt, Germany.</li>
+          <li><b>Database Tier:</b> User records, logs, and social metadata are stored in our own PostgreSQL database on Oracle Cloud Infrastructure in Frankfurt, Germany.</li>
+          <li><b>API &amp; Photo Vault:</b> Sign-in, the core API and all photos (profile pictures, shared catches and Pro backups) are hosted on the same Oracle Cloud server in Frankfurt, Germany.</li>
+          <li><b>Sign-in Emails:</b> One-time sign-in codes are sent through Google's Gmail.</li>
           <li><b>No Tracking &amp; No Ads:</b> FishIn does not sell personal data, does not include third-party advertising SDKs, and does not run invasive tracking networks.</li>
         </ul>
       </article>
@@ -270,7 +271,7 @@
           <li><a href="./#architecture">Kotlin &amp; Compose</a></li>
           <li><a href="./#architecture">FastAPI &amp; Pydantic</a></li>
           <li><a href="./#architecture">Claude 5.5 Haiku Multimodal</a></li>
-          <li><a href="./#architecture">Supabase &amp; PostGIS</a></li>
+          <li><a href="./#architecture">PostgreSQL &amp; PostGIS</a></li>
         </ul>
       </div>
     </div>
