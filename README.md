@@ -58,7 +58,7 @@
                                 ├──> Rate Limiting & Google Play License Verification
                                 │
                                 ▼
-         [ Anthropic Claude 3.5 Multimodal Reasoning Engine ]
+            [ Google Gemini Multimodal Reasoning Engine ]
                                 │
                                 ├──> Multimodal Visual Taxonomy (Tackle & Fish)
                                 ├──> Non-Linear Hydrographic / Solunar Synthesis
@@ -70,12 +70,12 @@
 
 ---
 
-## Claude for Startups Program Alignment
+## AI Approach
 
 FishIn has been engineered from day one as an AI-native physical-world application:
 - **High-Entropy Domain:** Outdoor angling takes place in non-linear, multi-variable physical environments where static weather apps fail.
-- **Why Claude:** Claude 3.5 Sonnet provides industry-leading reasoning over spatial-temporal telemetry and unmatched multimodal accuracy on complex outdoor imagery (reflections, wet lures, variable lighting).
-- **Program Roadmap:** Utilizing the Claude for Startups program ($1,000 API usage credits & 5 team seats) to:
+- **Model:** Google Gemini handles reasoning over weather and solunar data and multimodal analysis of outdoor photos (reflections, wet lures, variable lighting).
+- **Roadmap:**
   1. Scale real-time conversational voice coaching directly on the water.
   2. Expand multimodal species recognition to support regional fisheries conservation.
   3. Distill specialized edge models for seamless offline inference.

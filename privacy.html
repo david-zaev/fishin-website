@@ -43,12 +43,12 @@
       </div>
       <h1 class="subpage-title">Privacy Policy</h1>
       <p class="subpage-desc">
-        FishIn: Fishing Log &amp; Spots is built by an independent developer in North Macedonia. We believe your private fishing spots belong strictly to you. Here is an honest, technical breakdown of what data exists, where it is stored, and how it is protected.
+        FishIn: Fishing Log &amp; Spots is built by an independent developer in North Macedonia. We believe your private fishing spots belong strictly to you. Here is an honest, technical breakdown of what data exists, where it is stored, and how it is protected. This policy covers the FishIn Android app and <a href="https://fishinapp.site">fishinapp.site</a>. The developer is the data controller; contact: <a href="mailto:support@fishinapp.site">support@fishinapp.site</a>.
       </p>
       <div class="subpage-meta">
-        <span>VERSION 2.4</span>
+        <span>VERSION 3.0</span>
         <span>•</span>
-        <span>LAST AUDITED: 4 OCTOBER 2026</span>
+        <span>LAST UPDATED: 24 OCTOBER 2026</span>
         <span>•</span>
         <span>ENCRYPTED HTTPS</span>
       </div>
@@ -102,7 +102,7 @@
           <div>
             <h2 class="policy-card-title">Catch Log &amp; Tackle Box Sync</h2>
           </div>
-          <span class="policy-card-badge">ENCRYPTED DB</span>
+          <span class="policy-card-badge">PRIVATE BY DEFAULT</span>
         </div>
         <p>Telemetry required to restore your angler record across devices:</p>
         <ul class="policy-list">
@@ -122,13 +122,13 @@
           <div>
             <h2 class="policy-card-title">External Services &amp; AI Processing</h2>
           </div>
-          <span class="policy-card-badge">ZERO-LOGGING</span>
+          <span class="policy-card-badge">ON REQUEST ONLY</span>
         </div>
         <p>Live integrations invoked strictly to deliver real-time features:</p>
         <ul class="policy-list">
           <li><b>Atmospheric &amp; Solunar Data:</b> Coordinates of active spot queries are transmitted to Open-Meteo to fetch pressure, wind, and water variables.</li>
           <li><b>Google Maps &amp; Satellite Tiles:</b> Map viewports load vector and satellite tiles from Google. Device IP and viewport bounds are processed according to <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</li>
-          <li><b>FishIn Pro Multimodal AI:</b> Tactical weather briefs, lure recommendations, and tackle photo scans are processed via Google Gemini API through our secure gateway. We track daily request counts per account to manage quotas; prompt payloads and raw scans are never retained for model training.</li>
+          <li><b>FishIn Pro Multimodal AI:</b> Tactical weather briefs, lure recommendations, and tackle photo scans are sent through our server to Google's Gemini API, which processes them under Google's API terms and may store them for a limited time for abuse monitoring. We keep a daily count of AI requests per account to manage quotas. We do not use your data to train AI models. Do not include personal information in photos or questions you send to AI features.</li>
         </ul>
       </article>
 
@@ -141,7 +141,7 @@
           <div>
             <h2 class="policy-card-title">Identity &amp; Community Sharing</h2>
           </div>
-          <span class="policy-card-badge">RLS ISOLATED</span>
+          <span class="policy-card-badge">YOU CHOOSE</span>
         </div>
         <p>Account isolation and social visibility controls:</p>
         <ul class="policy-list">
@@ -182,11 +182,13 @@
           </div>
           <span class="policy-card-badge">EU FRANKFURT</span>
         </div>
-        <p>Enterprise infrastructure residing within European jurisdiction:</p>
+        <p>Infrastructure located in the European Union:</p>
         <ul class="policy-list">
           <li><b>Database Tier:</b> User records, logs, and social metadata are stored in our own PostgreSQL database on Oracle Cloud Infrastructure in Frankfurt, Germany.</li>
           <li><b>API &amp; Photo Vault:</b> Sign-in, the core API and all photos (profile pictures, shared catches and Pro backups) are hosted on the same Oracle Cloud server in Frankfurt, Germany.</li>
           <li><b>Sign-in Emails:</b> One-time sign-in codes are sent through Google's Gmail.</li>
+          <li><b>Server Logs:</b> Like any web service, our server briefly keeps technical logs (IP address, time, request path, app version) to keep FishIn secure and working. They are deleted automatically.</li>
+          <li><b>Transfers Outside the EU:</b> Google (Maps, Gemini, Play, Gmail) may process data in other countries, including the United States, under its own safeguards such as Standard Contractual Clauses.</li>
           <li><b>No Tracking &amp; No Ads:</b> FishIn does not sell personal data, does not include third-party advertising SDKs, and does not run invasive tracking networks.</li>
         </ul>
       </article>
@@ -207,6 +209,8 @@
           <li><b>One-Tap Account Deletion:</b> Accessible in-app at <i>Settings › Account › Delete account</i>. Deletes profile, catch logs, tackle box, photo archives, posts, shared spots, and friends. See <a href="delete-account.html">Account Deletion Guide</a>.</li>
           <li><b>Dormant Account Purge:</b> Unused anonymous accounts without saved records are permanently purged after 90 days of inactivity.</li>
           <li><b>Local Handset Purge:</b> Uninstalling the Android application instantly wipes all on-device caches, tile databases, and local notes.</li>
+          <li><b>Backups:</b> Deleted data may remain in server backups for up to 30 days before it is overwritten.</li>
+          <li><b>Legal Holds:</b> We may keep limited data longer where the law requires it, or to deal with abuse reports, fraud or legal claims.</li>
         </ul>
       </article>
 
@@ -219,14 +223,17 @@
           <div>
             <h2 class="policy-card-title">Security &amp; User Rights</h2>
           </div>
-          <span class="policy-card-badge">STRICT AUDIT</span>
+          <span class="policy-card-badge">YOUR RIGHTS</span>
         </div>
         <p>Access controls, statutory compliance, and contact options:</p>
         <ul class="policy-list">
-          <li><b>Encryption in Transit:</b> All client-to-cloud traffic is secured via TLS 1.3 HTTPS.</li>
-          <li><b>Row-Level Security (RLS):</b> Database schemas enforce cryptographic per-user session policies at the database layer; unauthorized tenants cannot access foreign records.</li>
-          <li><b>Children's Privacy:</b> FishIn is strictly intended for individuals aged 13 and older and does not knowingly collect minors' data.</li>
-          <li><b>Rights &amp; Inquiries:</b> You hold full rights to inspect, export, or rectify your data at any time. For support inquiries, contact our developer email listed on the Google Play listing.</li>
+          <li><b>Encryption in Transit:</b> All traffic between the app and our server uses HTTPS.</li>
+          <li><b>Access Controls:</b> The database only lets each account read its own private records.</li>
+          <li><b>No Guarantee:</b> We take reasonable measures to protect your data, but no system is completely secure and we cannot guarantee that data will never be accessed, lost or disclosed without authorisation. If a breach affects you, we will notify you where the law requires.</li>
+          <li><b>Legal Bases (GDPR):</b> We process data to provide the service you asked for (contract), to keep it secure and prevent abuse (legitimate interest), and where you choose to share content (consent, which you can withdraw by deleting it).</li>
+          <li><b>Children's Privacy:</b> FishIn is intended for people aged 13 and older (or the higher age of digital consent in your country, unless a parent or guardian consents). We do not knowingly collect data from younger children; if you believe a child has given us data, email us and we will delete it.</li>
+          <li><b>Your Rights:</b> Depending on where you live, you can ask to access, correct, export, delete or restrict the use of your data, or object to its use. Email <a href="mailto:support@fishinapp.site">support@fishinapp.site</a>; we reply within 30 days. You can also complain to your local data protection authority.</li>
+          <li><b>Changes:</b> We may update this policy. Material changes will be shown in the app or on this page with a new date.</li>
         </ul>
       </article>
 
@@ -250,7 +257,7 @@
         <h5>Product</h5>
         <ul class="footer-links">
           <li><a href="./#features">Features</a></li>
-          <li><a href="./#architecture">Claude 5.5 Haiku Architecture</a></li>
+          <li><a href="./#architecture">Google Gemini Architecture</a></li>
           <li><a href="./#pro">FishIn Pro</a></li>
           <li><a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener">Google Play Store</a></li>
         </ul>
@@ -270,7 +277,7 @@
         <ul class="footer-links">
           <li><a href="./#architecture">Kotlin &amp; Compose</a></li>
           <li><a href="./#architecture">FastAPI &amp; Pydantic</a></li>
-          <li><a href="./#architecture">Claude 5.5 Haiku Multimodal</a></li>
+          <li><a href="./#architecture">Google Gemini Multimodal</a></li>
           <li><a href="./#architecture">PostgreSQL &amp; PostGIS</a></li>
         </ul>
       </div>
