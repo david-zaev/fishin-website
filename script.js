@@ -65,6 +65,28 @@
     targets.forEach(t => t.classList.add('in'));
   }
 
+  // Demo tabs: click or arrow keys switch the phone screen.
+  const tabs = [...document.querySelectorAll('.demo-tab')];
+  const select = tab => {
+    tabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', e => {
+      const step = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+      if (!step) return;
+      e.preventDefault();
+      const next = tabs[(i + step + tabs.length) % tabs.length];
+      select(next);
+      next.focus();
+    });
+  });
+
   // Only one FAQ answer open at a time.
   const items = document.querySelectorAll('.faq details');
   items.forEach(d => d.addEventListener('toggle', () => {
