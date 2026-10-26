@@ -1,530 +1,740 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FishIn · Fishing Spots, Forecast &amp; Catch Log</title>
-  <meta name="description" content="FishIn is the AI-native fishing co-pilot: real-time tactical bite forecasts, multimodal tackle recognition, generative rig engineering, and global offline cartography.">
-  <meta name="theme-color" content="#000000">
-  
-  <!-- Open Graph / Meta -->
-  <meta property="og:title" content="FishIn · Fishing Spots, Forecast &amp; Catch Log">
-  <meta property="og:description" content="AI bite forecasts, computer-vision tackle recognition, generative rig engineering, and offline global spot maps. Built for serious anglers.">
+  <title>FishIn · Find the water. Know when they bite.</title>
+  <meta name="description" content="FishIn is a fishing app for Android: places to fish on a map that works offline, hour-by-hour bite forecasts, a catch log, a tackle box and Fish Coach, your AI fishing guide.">
+  <link rel="canonical" href="https://fishinapp.site/">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0c0c0c" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="FishIn · Find the water. Know when they bite.">
+  <meta property="og:description" content="Find where to fish, know when they bite, and keep every catch.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://david-zaev.github.io/fishin-website/">
-  <meta property="og:image" content="assets/fishin-feature-1024x500.png">
-  
-  <link rel="icon" type="image/svg+xml" href="assets/fishin-icon.svg">
+  <meta property="og:url" content="https://fishinapp.site/">
+  <meta property="og:image" content="https://fishinapp.site/assets/fishin-feature-1024x500.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/fishin-icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/fishin-icon-rounded-1024.png">
-  <link rel="stylesheet" href="style.css?v=7.0">
+  <script>document.documentElement.classList.remove('no-js');try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=9">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"MobileApplication","name":"FishIn","operatingSystem":"Android","applicationCategory":"SportsApplication","description":"Fishing spots on an offline map, hour-by-hour bite forecasts, a catch log, a tackle box and an AI fishing coach.","url":"https://fishinapp.site/","installUrl":"https://play.google.com/store/apps/details?id=com.daev.fishin","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}
+  </script>
 </head>
-<body class="dark-mode">
+<body>
 
-  <!-- Navigation -->
-  <nav class="site-nav">
-    <div class="nav-inner">
-      <a href="./" class="brand-wrap">
-        <img src="assets/fishin-icon-rounded-1024.png" alt="FishIn Logo" class="brand-logo-img">
-        <span class="brand-text">FishIn</span>
-      </a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-hook" viewBox="0 -960 960 960"><path fill="currentColor" d="M440-120q-100 0-170-70t-70-170v-192q0-14 12-19t22 5l138 138q11 11 11 27.5T372-372q-12 12-28.5 12T315-372l-35-35v47q0 66 47 113t113 47q66 0 113-47t47-113v-127q-36-14-58-44.5T520-600q0-38 22-68.5t58-44.5v-127q0-17 11.5-28.5T640-880q17 0 28.5 11.5T680-840v127q36 14 58 44.5t22 68.5q0 38-22 69t-58 44v127q0 100-70 170t-170 70Zm200-440q17 0 28.5-11.5T680-600q0-17-11.5-28.5T640-640q-17 0-28.5 11.5T600-600q0 17 11.5 28.5T640-560Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M4.6 2.8c-.3.3-.5.8-.5 1.4v15.6c0 .6.2 1.1.5 1.4l.1.1 8.7-8.7v-.2L4.7 2.7l-.1.1Zm11.7 11.7-2.9-2.9v-.2l2.9-2.9.1.1 3.4 2c1 .6 1 1.5 0 2.1l-3.4 2-.1-.2Zm-.1.1L13.3 12 4.6 20.6c.3.3.9.4 1.5 0l10.1-6Zm0-5.2L6.1 3.5c-.6-.4-1.2-.3-1.5 0L13.3 12l2.9-2.6Z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></g></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M9 4 3 6.5v13.5L9 17.5l6 2.5 6-2.5V4l-6 2.5L9 4Zm0 0v13.5m6-11v13.5"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v10a1.5 1.5 0 0 1-1.5 1.5H9l-5 4V5.5Z"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5v-15Zm0 15A1.5 1.5 0 0 0 6.5 21H19v-3"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M3 8h18v11.5a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 19.5V8Zm4-4h10l4 4H3l4-4Zm2 9h6"/></symbol>
+    <symbol id="i-people" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.4 3.2-5.5 6.5-5.5s5.9 2.1 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c2 .7 3.2 2.5 3.5 5.2"/></g></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></g></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></symbol>
+    <symbol id="i-wave" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M2.5 9c2.4 0 2.4-2 4.75-2S9.6 9 12 9s2.4-2 4.75-2S19.1 9 21.5 9M2.5 15c2.4 0 2.4-2 4.75-2S9.6 15 12 15s2.4-2 4.75-2 2.35 2 4.75 2"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 18a9 9 0 1 1 16 0"/><path d="M12 14l4-5"/></g></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></g></symbol>
+    <symbol id="i-cloud-off" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M8.5 6.3A6 6 0 0 1 17.6 10H18a4 4 0 0 1 2.8 6.8M16 18H7a5 5 0 0 1-2.2-9.5"/></g></symbol>
+    <symbol id="i-ban" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M6 6l12 12"/></g></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="16" height="7" rx="2"/><rect x="4" y="13" width="16" height="7" rx="2"/><path d="M8 7.5h.01M8 16.5h.01"/></g></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></g></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></g></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M12 20s-7.5-4.4-7.5-10A4.3 4.3 0 0 1 12 7.4 4.3 4.3 0 0 1 19.5 10c0 5.6-7.5 10-7.5 10Z"/></symbol>
+  </defs>
+</svg>
 
+<a class="skip" href="#main">Skip to content</a>
 
-
-      <div class="nav-actions">
-        <a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
-          <span>Get on Google Play</span>
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 9.5L9.5 2.5M9.5 2.5H4M9.5 2.5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand" aria-label="FishIn home">
+      <span class="brand-mark"><svg><use href="#i-hook"/></svg></span>
+      FishIn
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#map">Map</a>
+      <a href="#forecast">Forecast</a>
+      <a href="#coach">Fish Coach</a>
+      <a href="#tackle">Tackle</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
+        <svg class="i-moon"><use href="#i-moon"/></svg>
+        <svg class="i-sun"><use href="#i-sun"/></svg>
+      </button>
+      <a class="btn btn-dark btn-sm" href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener">Get the app <svg class="arrow"><use href="#i-arrow"/></svg></a>
+      <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span></button>
     </div>
-  </nav>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#map">Map</a>
+    <a href="#forecast">Forecast</a>
+    <a href="#coach">Fish Coach</a>
+    <a href="#tackle">Tackle</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a class="btn btn-dark" href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener"><svg><use href="#i-play"/></svg> Get it on Google Play</a>
+  </div>
+</header>
 
-  <div class="site-content">
-    
-    <!-- Hero Section -->
-    <header class="hero-section">
-      <!-- Ambient Dynamic Canvas Background strictly scoped to the Hero section ONLY -->
-      <div class="ambient-container" aria-hidden="true">
-        <canvas id="bg-canvas"></canvas>
-        <div class="ambient-overlay"></div>
+<main id="main">
+<div id="top"></div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <a class="badge reveal" href="#pricing"><b>FREE</b> Maps, spots and forecast stay free <svg width="14" height="14"><use href="#i-arrow"/></svg></a>
+      <h1 class="h-xl reveal d1">Find the water.<br>Know when they <mark>bite.</mark></h1>
+      <p class="lead reveal d2">FishIn shows you where to fish, tells you when the fish are feeding, and keeps every catch. One quiet app for every trip.</p>
+      <div class="hero-ctas reveal d3">
+        <a class="btn btn-dark" href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener"><svg><use href="#i-play"/></svg> Get it on Google Play</a>
+        <a class="btn btn-line" href="#how">See how it works <svg class="arrow"><use href="#i-arrow"/></svg></a>
       </div>
-
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <h1 class="hero-title">
-            Precision Fishing.
-            <span>Powered by Multimodal AI.</span>
-          </h1>
-          <p class="hero-subtitle">
-            Real-time tactical bite forecasting, multimodal tackle &amp; fish vision, generative rig engineering, and offline global cartography. Designed with uncompromising graphite precision.
-          </p>
-
-          <div class="hero-cta-group">
-            <a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener noreferrer" class="btn btn-play">
-              <svg width="24" height="24" viewBox="0 0 512 512" fill="none">
-                <path d="M47.7 5.7C40.6 13.2 36.6 24.8 36.6 39.8v432.4c0 15 4 26.6 11.1 34.1l1.8 1.8 242.3-242.3v-5.7L49.5 3.9l-1.8 1.8z" fill="#00D3FF"/>
-                <path d="M372.4 330.8l-80.6-80.6v-5.7l80.6-80.6 1.8 1 95.5 54.3c27.3 15.5 27.3 40.9 0 56.4l-95.5 54.2-1.8 1z" fill="#FFCE00"/>
-                <path d="M291.8 250.2L47.7 494.3c9 9.5 23.9 10.7 40.6 1.3l284.1-161.4-80.6-84z" fill="#FF3A44"/>
-                <path d="M291.8 261.8l80.6-84L88.3 16.4C71.6 7 56.7 8.2 47.7 17.7l244.1 244.1z" fill="#00E676"/>
-              </svg>
-              <div class="btn-play-text">
-                <div class="btn-play-subtitle">Available Now On</div>
-                <div class="btn-play-title">Google Play</div>
-              </div>
-            </a>
-
-            <a href="#features" class="btn btn-secondary">
-              <span>Explore Features</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
-            </a>
-          </div>
-
-          <div class="hero-metrics">
-            <div class="metric-item">
-              <div class="metric-value">100%</div>
-              <div class="metric-label">Offline-First Vector Atlas</div>
-            </div>
-            <div class="metric-item">
-              <div class="metric-value">&lt; 1.2s</div>
-              <div class="metric-label">Multimodal Vision Inference</div>
-            </div>
-            <div class="metric-item">
-              <div class="metric-value">12+ Var</div>
-              <div class="metric-label">Hydro &amp; Solunar Synthesis</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Hero Visual Phone Mockup (Authentic Android App Replica) -->
-        <div class="hero-visual">
-          <div class="phone-wrapper">
-            <!-- Samsung Galaxy S23 Ultra Mockup (Physical 2.092:1 Ratio & One UI 6.0) -->
-            <div class="phone-mockup s23-ultra">
-              <!-- S23 Ultra Curved Side Edge Reflection & Metal Rails -->
-              <div class="s23-edge-sheen"></div>
-
-              <!-- Single Centered Hole-Punch Front Camera (Infinity-O) -->
-              <div class="s23-camera-hole"></div>
-
-              <!-- Authentic App Screen Image from Device -->
-              <div class="phone-screen map-app-screen">
-                <img src="assets/app-screen.png" alt="FishIn Real App Map Screen" class="app-screen-img" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- Everything in the App: Feature Breakdown -->
-    <section id="features" class="section-container">
-      <div class="section-header">
-        <h2 class="section-title">Everything Built Inside FishIn</h2>
-        <p class="section-desc">A deep, comprehensive look into the features powering every cast, spot, and catch.</p>
-      </div>
-
-      <!-- Interactive Features Filter Bar -->
-      <div class="features-filter-bar" id="features-filter-bar">
-        <button type="button" class="feat-filter-btn active" data-feat="all">All Engine Modules</button>
-        <button type="button" class="feat-filter-btn" data-feat="ai">AI Co-Pilot &amp; Forecasts</button>
-        <button type="button" class="feat-filter-btn" data-feat="vision">Computer Vision</button>
-        <button type="button" class="feat-filter-btn" data-feat="atlas">Offline Vector Atlas</button>
-        <button type="button" class="feat-filter-btn" data-feat="social">Catch Logs &amp; Social</button>
-      </div>
-
-      <div class="features-grid">
-        
-        <!-- Feature 1 -->
-        <div class="feature-card col-span-2" data-category="ai">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          </div>
-          <h3>AI Tactical Bite Forecast &amp; Fish Score</h3>
-          <p>
-            Unlike generic weather forecasts, FishIn runs a multi-variable scoring model that synthesizes 3-hour barometric delta, solunar major/minor feeding peaks, solar elevation, lunar illumination, water temperature curves, and cloud cover into a unified 0-100 bite index. Delivers precise hour-by-hour tactical game plans.
-          </p>
-          <ul class="feature-meta-list">
-            <li>Solunar Major &amp; Minor feeding windows mapped to local coordinates</li>
-            <li>Barometric 3-hour pressure trend weighting calibrated per species</li>
-            <li>Generates customized tactical advice based on your actual tackle box inventory</li>
-          </ul>
-        </div>
-
-        <!-- Feature 2 -->
-        <div class="feature-card" data-category="vision">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-          </div>
-          <h3>Multimodal Tackle Scanner</h3>
-          <p>
-            Snap a photo of any lure, fly, or soft plastic. FishIn's computer vision identifies lure category, diving depth, color contrast, and suggests exact water clarity conditions for maximum hookups.
-          </p>
-          <ul class="feature-meta-list">
-            <li>Identifies 12+ lure classifications from crankbaits to jigs</li>
-            <li>Suggests target species and optimal retrieval cadences</li>
-            <li>Stores lures in your digital tackle box for AI game planning</li>
-          </ul>
-        </div>
-
-        <!-- Feature 3 -->
-        <div class="feature-card" data-category="vision">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
-          </div>
-          <h3>AI Fish Scanner &amp; Biometrics</h3>
-          <p>
-            Instant camera identification of freshwater and saltwater fish. Estimates specimen length, approximate weight range, and automatically populates catch log metadata.
-          </p>
-          <ul class="feature-meta-list">
-            <li>Species taxonomy identification with conservation alerts</li>
-            <li>Visual health and spawning condition assessment</li>
-            <li>Auto-fills catch log species, timestamp, and GPS coordinates</li>
-          </ul>
-        </div>
-
-        <!-- Feature 4 -->
-        <div class="feature-card" data-category="ai">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          </div>
-          <h3>Adaptive AI Fishing Coach</h3>
-          <p>
-            Conversational domain coach adapted to the angler's skill level. Beginners receive step-by-step knot guides and safe bank spots; advanced anglers get micro-tuning on lure presentation and thermocline depth.
-          </p>
-          <ul class="feature-meta-list">
-            <li>Strict domain guardrails: no hallucinated advice or drift</li>
-            <li>Context-aware: factors in current spot conditions and weather</li>
-            <li>20 daily interactions for quick tackle tweaks on the water</li>
-          </ul>
-        </div>
-
-        <!-- Feature 5 -->
-        <div class="feature-card" data-category="ai">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-          </div>
-          <h3>Rig Engineering &amp; Knot Studio</h3>
-          <p>
-            Interactive terminal for designing custom rigs. Calculates exact distances between floats, shot weights, swivels, and hooks. Includes step-by-step vector guides for Palomar, Uni, Blood, and FG knots.
-          </p>
-          <ul class="feature-meta-list">
-            <li>Rig design verification ensures components are balanced</li>
-            <li>Step-by-step illustrated knot guides with breaking-strength ratings</li>
-            <li>Community rig sharing and offline blueprint storage</li>
-          </ul>
-        </div>
-
-        <!-- Feature 6 -->
-        <div class="feature-card" data-category="atlas">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
-          </div>
-          <h3>100% Offline Global Spot Atlas</h3>
-          <p>
-            Fishing happens beyond cellular towers. FishIn bundles compact spatial binary blocks (`world.bin`) allowing phones to query spots, depth boundaries, and country packs completely offline.
-          </p>
-          <ul class="feature-meta-list">
-            <li>Ultra-compact binary tile format for fast zero-lag map zooms</li>
-            <li>Country packs downloadable for remote expeditions</li>
-            <li>Local GPS positioning without consuming cellular data</li>
-          </ul>
-        </div>
-
-        <!-- Feature 7 -->
-        <div class="feature-card" data-category="social">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          </div>
-          <h3>Automated Catch Logbook</h3>
-          <p>
-            Log catches in seconds. Automatically captures telemetry: exact weather, barometric pressure, solunar period, and lure used at the exact moment of the catch. Private by default.
-          </p>
-          <ul class="feature-meta-list">
-            <li>Private by design: spots are never leaked without consent</li>
-            <li>High-resolution photo backup to server with FishIn Pro</li>
-            <li>Personal catch statistics, weight trends, and seasonal heatmaps</li>
-          </ul>
-        </div>
-
-        <!-- Feature 8 -->
-        <div class="feature-card" data-category="social">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <h3>Community Spots &amp; Friends</h3>
-          <p>
-            Connect with local anglers, share public catches, review community spots, and climb verified leaderboards without burning your private honeyholes.
-          </p>
-          <ul class="feature-meta-list">
-            <li>Community spot updates synchronized every 5 minutes</li>
-            <li>Spot ratings, hazard warnings, and recent activity reports</li>
-            <li>Granular privacy settings: choose what to share with friends</li>
-          </ul>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Claude for Startups Program & Engineering Architecture Section -->
-    <section id="architecture" class="claude-program-section">
-      <div class="section-container" style="padding-top: 0; padding-bottom: 0;">
-        <div class="section-header">
-          <h2 class="section-title">Built for Claude 5.5 Haiku Multimodal Intelligence</h2>
-          <p class="section-desc">
-            How FishIn leverages frontier LLMs to solve complex physical domain challenges on water.
-          </p>
-        </div>
-
-        <div class="architecture-diagram-box">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;">
-            <h3 style="font-size: 20px; font-weight: 700; color: #ffffff;">End-to-End Intelligence Pipeline</h3>
-            <span style="font-family: var(--font-mono); font-size: 12px; color: var(--text-tertiary);">Production Architecture</span>
-          </div>
-
-          <div class="arch-flow">
-            <div class="arch-node">
-              <span class="arch-node-step">01. EDGE CLIENT</span>
-              <div class="arch-node-title">Native Android Client</div>
-              <div class="arch-node-desc">
-                Kotlin &amp; Jetpack Compose. Collects onboard GPS, local sensor telemetry, camera frame captures, and queries offline spatial index `world.bin`.
-              </div>
-            </div>
-
-            <div class="arch-node">
-              <span class="arch-node-step">02. API GATEWAY</span>
-              <div class="arch-node-title">FastAPI &amp; Pydantic</div>
-              <div class="arch-node-desc">
-                Strict Pydantic schemas enforce typed inputs. Sanitizes prompt parameters, verifies user tokens, and rate limits edge requests.
-              </div>
-            </div>
-
-            <div class="arch-node highlight-claude">
-              <span class="arch-node-step">03. COGNITIVE ENGINE</span>
-              <div class="arch-node-title">Claude 5.5 Haiku / Vision</div>
-              <div class="arch-node-desc">
-                Sub-second multimodal cognitive engine: analyzes unstructured visual tackle and catch photos, processes multi-variable environmental vectors, and returns structured JSON schemas for premium users with instant on-water latency.
-              </div>
-            </div>
-
-            <div class="arch-node">
-              <span class="arch-node-step">04. PERSISTENCE</span>
-              <div class="arch-node-title">Postgres RLS &amp; Oracle Cloud</div>
-              <div class="arch-node-desc">
-                PostgreSQL with Row-Level Security, automated photo backups, real-time community spot sync, and Google Play billing verification.
-              </div>
-            </div>
-          </div>
-
-          <div class="claude-pitch-grid">
-            <div class="pitch-card">
-              <h4>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-                Why Claude 5.5 Haiku is Fundamental
-              </h4>
-              <p>
-                Natural ecosystems are inherently chaotic. Claude 5.5 Haiku provides unmatched reasoning over multi-variable physical systems (barometric gradients, thermal stratification, lunar harmonics) with strict structured JSON schema adherence, ultra-fast sub-second responses, and edge efficiency.
-              </p>
-            </div>
-
-            <div class="pitch-card">
-              <h4>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-                Multimodal Computer Vision
-              </h4>
-              <p>
-                Anglers photograph tackle and fish in unpredictable outdoor lighting: glare, wet surfaces, water droplets, and low contrast. Claude 5.5 Haiku's multimodal vision capabilities excel at subtle biological taxonomy, instant specimen species classification, and geometric tackle identification.
-              </p>
-            </div>
-
-            <div class="pitch-card">
-              <h4>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                Startup Program Roadmap
-              </h4>
-              <p>
-                The Claude for Startups Program accelerates our deployment of Claude 5.5 Haiku for instant photo analysis and multi-turn conversational voice coaching on water, powering automated ecological catch-and-release telemetry and premium AI tools.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Pricing / FishIn Pro Section -->
-    <section id="pro" class="section-container">
-      <div class="section-header">
-        <h2 class="section-title">Free For Every Angler. Pro For The Obsessed.</h2>
-        <p class="section-desc">Get started completely free or upgrade to FishIn Pro for unlimited multimodal AI intelligence.</p>
-      </div>
-
-      <!-- Interactive Billing Toggle -->
-      <div class="pricing-toggle-wrap" role="group" aria-label="Subscription Billing Frequency">
-        <button type="button" class="pricing-toggle-btn active" id="pricing-monthly-btn" data-billing="monthly">
-          Monthly Billing
-        </button>
-        <button type="button" class="pricing-toggle-btn" id="pricing-annual-btn" data-billing="annual">
-          Annual Billing
-          <span class="save-chip">-17% SAVE</span>
-        </button>
-      </div>
-
-      <div class="pricing-grid">
-        
-        <!-- Standard Free -->
-        <div class="pricing-card">
-          <div class="plan-name">Standard Angler</div>
-          <div class="plan-price">$0 <span>/ forever</span></div>
-          <div class="plan-desc">Everything needed for daily fishing and logging your personal catches.</div>
-
-          <ul class="plan-features">
-            <li class="included">
-              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-              Unlimited offline spots in home region
-            </li>
-            <li class="included">
-              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-              Full offline catch log &amp; tackle box
-            </li>
-            <li class="included">
-              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-              Solunar major/minor feeding times
-            </li>
-            <li class="included">
-              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-              Community spot browsing &amp; friends
-            </li>
-            <li style="color: var(--text-tertiary);">
-              — Advanced AI Tactical Game Plans
-            </li>
-            <li style="color: var(--text-tertiary);">
-              — Multimodal Tackle &amp; Fish Scans
-            </li>
-          </ul>
-
-          <a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
-            <span>Download Free on Google Play</span>
-          </a>
-        </div>
-
-        <!-- Pro Tier -->
-        <div class="pricing-card featured">
-          <div class="pricing-badge">MOST POPULAR</div>
-          <div class="plan-name">FishIn Pro</div>
-          <div class="plan-price" id="pro-price-display">$4.99 <span id="pro-price-period">/ mo ($49.99/yr)</span></div>
-          <div class="plan-desc">Full access to Claude 5.5 Haiku multimodal AI intelligence, photo analysis, and premium global features.</div>
-
-          <ul class="plan-features">
-            <li class="included">
-              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-              <b>Unlimited AI Tactical Game Plans (Powered by Claude 5.5 Haiku)</b>
-            </li>
-            <li class="included">
-              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-              <b>Claude 5.5 Haiku Vision: Photo Tackle &amp; Fish Analysis</b>
-            </li>
-            <li class="included">
-              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-              <b>Conversational AI Fishing Coach (Powered by Claude 5.5 Haiku)</b>
-            </li>
-            <li class="included">
-              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-              <b>High-Res Cloud Photo Backup for catches &amp; lures</b>
-            </li>
-            <li class="included">
-              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-              <b>Global Country Spot Packs for offline travel</b>
-            </li>
-            <li class="included">
-              <svg class="check-icon" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
-              <b>Full Community Country Packs &amp; live cluster sync</b>
-            </li>
-          </ul>
-
-          <a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-            <span>Upgrade in App via Google Play</span>
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Download Banner -->
-    <div class="download-banner">
-      <h2>Ready To Elevate Every Day On The Water?</h2>
-      <p>
-        Download FishIn today on Google Play. Zero intrusive ads. Zero location selling. 100% focused on catching fish.
-      </p>
-
-      <div class="download-btns">
-        <a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener noreferrer" class="btn btn-play" style="padding: 14px 28px;">
-          <svg width="26" height="26" viewBox="0 0 512 512" fill="none">
-            <path d="M47.7 5.7C40.6 13.2 36.6 24.8 36.6 39.8v432.4c0 15 4 26.6 11.1 34.1l1.8 1.8 242.3-242.3v-5.7L49.5 3.9l-1.8 1.8z" fill="#00D3FF"/>
-            <path d="M372.4 330.8l-80.6-80.6v-5.7l80.6-80.6 1.8 1 95.5 54.3c27.3 15.5 27.3 40.9 0 56.4l-95.5 54.2-1.8 1z" fill="#FFCE00"/>
-            <path d="M291.8 250.2L47.7 494.3c9 9.5 23.9 10.7 40.6 1.3l284.1-161.4-80.6-84z" fill="#FF3A44"/>
-            <path d="M291.8 261.8l80.6-84L88.3 16.4C71.6 7 56.7 8.2 47.7 17.7l244.1 244.1z" fill="#00E676"/>
-          </svg>
-          <div class="btn-play-text">
-            <div class="btn-play-subtitle">Direct Download From</div>
-            <div class="btn-play-title" style="font-size: 17px;">Google Play Store</div>
-          </div>
-        </a>
-      </div>
-      <div style="margin-top: 18px; font-size: 13px; color: var(--text-tertiary);">
-        Requires Android 8.0+ · Verified Clean · Native Performance
-      </div>
+      <ul class="checks reveal d3">
+        <li><svg><use href="#i-check"/></svg> Works without signal</li>
+        <li><svg><use href="#i-check"/></svg> Hour-by-hour bite times</li>
+        <li><svg><use href="#i-check"/></svg> No ads, no account needed</li>
+      </ul>
     </div>
 
+    <div class="stage reveal d2" aria-hidden="true">
+      <!-- Log -->
+      <div class="phone side far">
+        <div class="screen">
+          <div class="statusbar"><span>6:12</span><span class="dots"><i></i><i></i></span></div>
+          <div class="app-top"><div class="app-title">Logbook</div><div class="app-sub">27 catches</div></div>
+          <div class="log-body">
+            <div class="seg"><span class="on">Catches</span><span>Tackle</span></div>
+            <div class="pb">
+              <div><b>27</b><span>Catches</span></div>
+              <div><b>5</b><span>Species</span></div>
+              <div><b>81%</b><span>Released</span></div>
+            </div>
+            <div class="catch"><i class="thumb"></i><div><b>Pike</b><span>Reed bay · 05:40</span></div><span class="len">84</span></div>
+            <div class="catch"><i class="thumb"></i><div><b>Perch</b><span>Old pier · Yesterday</span></div><span class="len">41</span></div>
+            <div class="catch"><i class="thumb"></i><div><b>Trout</b><span>River bend · Sat</span></div><span class="len">35</span></div>
+          </div>
+          <div class="tabbar">
+            <div class="tab"><span class="ico"><svg><use href="#i-map"/></svg></span>Map</div>
+            <div class="tab"><span class="ico"><svg><use href="#i-chat"/></svg></span>Coach</div>
+            <span class="tab-add"><svg><use href="#i-plus"/></svg></span>
+            <div class="tab"><span class="ico"><svg><use href="#i-people"/></svg></span>Community</div>
+            <div class="tab on"><span class="ico"><svg><use href="#i-book"/></svg></span>Log</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Forecast -->
+      <div class="phone side">
+        <div class="screen">
+          <div class="statusbar"><span>6:12</span><span class="dots"><i></i><i></i></span></div>
+          <div class="app-top"><div class="app-title">Old pier</div><div class="app-sub">Bite forecast</div></div>
+          <div class="fc-body">
+            <div class="days">
+              <div class="day on">Today<b>18</b></div>
+              <div class="day">Sun<b>19</b></div>
+              <div class="day lock">Mon<b>20</b></div>
+              <div class="day lock">Tue<b>21</b></div>
+            </div>
+            <div class="big-score">
+              <div class="num">82<small>/100</small></div>
+              <div class="lbl">Best window 05:30 – 07:30</div>
+              <div class="bars">
+                <i style="height:22%"></i><i style="height:30%"></i><i style="height:28%"></i><i class="mid" style="height:52%"></i><i class="hi" style="height:88%"></i><i class="hi" style="height:100%"></i><i class="hi" style="height:80%"></i><i class="mid" style="height:50%"></i><i style="height:34%"></i><i style="height:30%"></i><i style="height:40%"></i><i class="mid" style="height:58%"></i><i class="mid" style="height:62%"></i><i style="height:38%"></i><i style="height:26%"></i><i style="height:32%"></i><i class="mid" style="height:56%"></i><i class="hi" style="height:76%"></i><i class="mid" style="height:54%"></i><i style="height:30%"></i>
+              </div>
+              <div class="bar-axis"><span>04</span><span>08</span><span>12</span><span>16</span><span>20</span></div>
+            </div>
+            <div class="fc-list">
+              <div class="fc-item"><span class="ic"><svg><use href="#i-sun"/></svg></span><div><b>Sunrise 05:48</b><span>The hour either side is prime time</span></div></div>
+              <div class="fc-item"><span class="ic"><svg><use href="#i-moon"/></svg></span><div><b>Moon overhead 06:20</b><span>Strong feeding spell</span></div></div>
+            </div>
+          </div>
+          <div class="tabbar">
+            <div class="tab on"><span class="ico"><svg><use href="#i-map"/></svg></span>Map</div>
+            <div class="tab"><span class="ico"><svg><use href="#i-chat"/></svg></span>Coach</div>
+            <span class="tab-add"><svg><use href="#i-plus"/></svg></span>
+            <div class="tab"><span class="ico"><svg><use href="#i-people"/></svg></span>Community</div>
+            <div class="tab"><span class="ico"><svg><use href="#i-book"/></svg></span>Log</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="phone">
+        <div class="screen">
+          <div class="statusbar"><span>6:12</span><span class="dots"><i></i><i></i></span></div>
+          <div class="map">
+            <svg class="terrain" viewBox="0 0 272 520" preserveAspectRatio="xMidYMid slice">
+              <rect class="t-land" width="272" height="520"/>
+              <path class="t-water" d="M-10 300 C 40 270, 70 330, 120 300 S 200 240, 290 270 L 290 420 C 220 400, 180 450, 120 430 S 30 400, -10 430 Z"/>
+              <path class="t-water" d="M150 -10 C 140 60, 190 100, 170 170 S 120 250, 150 290 L 175 290 C 150 250, 200 180, 195 165 S 165 60, 175 -10 Z"/>
+              <ellipse class="t-water" cx="60" cy="150" rx="38" ry="24"/>
+              <path class="t-road" d="M-10 220 C 60 210, 110 240, 290 210"/>
+              <path class="t-road" d="M90 -10 C 95 100, 70 160, 80 520"/>
+              <path class="t-road" d="M220 520 C 210 470, 240 450, 290 455"/>
+              <path class="t-edge" d="M-10 220 C 60 210, 110 240, 290 210"/>
+              <path class="t-edge" d="M90 -10 C 95 100, 70 160, 80 520"/>
+              <rect class="t-block" x="20" y="238" width="34" height="22" rx="3"/><rect class="t-block" x="104" y="246" width="26" height="30" rx="3"/>
+              <rect class="t-block" x="200" y="224" width="40" height="18" rx="3"/><rect class="t-block" x="214" y="120" width="30" height="36" rx="3"/>
+              <rect class="t-block" x="24" y="470" width="40" height="26" rx="3"/><rect class="t-block" x="120" y="480" width="34" height="22" rx="3"/>
+            </svg>
+            <div class="map-search"><svg><use href="#i-search"/></svg> Search spots, lakes, rivers</div>
+            <div class="map-day"><svg><use href="#i-cal"/></svg> Today</div>
+            <span class="pin" style="left:24%;top:33%">71</span>
+            <span class="pin lo" style="left:66%;top:22%">65</span>
+            <span class="pin cluster" style="left:74%;top:40%">2</span>
+            <span class="pin pulse" style="left:50%;top:58%">82</span>
+            <span class="pin lo" style="left:18%;top:66%">67</span>
+            <span class="pin" style="left:84%;top:58%">73</span>
+            <span class="pin me" style="left:38%;top:46%"></span>
+            <div class="spot-card">
+              <div class="row">
+                <div><div class="spot-name">Old pier</div><div class="spot-meta">Pier · 1.2 km · Pike, perch, zander</div></div>
+                <div class="score">82</div>
+              </div>
+              <div class="chips"><span class="chip dark">Bite 05:30</span><span class="chip">Easy access</span><span class="chip">Quiet</span></div>
+            </div>
+          </div>
+          <div class="tabbar">
+            <div class="tab on"><span class="ico"><svg><use href="#i-map"/></svg></span>Map</div>
+            <div class="tab"><span class="ico"><svg><use href="#i-chat"/></svg></span>Coach</div>
+            <span class="tab-add"><svg><use href="#i-plus"/></svg></span>
+            <div class="tab"><span class="ico"><svg><use href="#i-people"/></svg></span>Community</div>
+            <div class="tab"><span class="ico"><svg><use href="#i-book"/></svg></span>Log</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coach -->
+      <div class="phone side">
+        <div class="screen">
+          <div class="statusbar"><span>6:12</span><span class="dots"><i></i><i></i></span></div>
+          <div class="app-top"><div class="app-title">Fish Coach</div><div class="app-sub">Knows your spot, forecast and tackle</div></div>
+          <div class="chat">
+            <div class="msg me">What should I use for pike this week?</div>
+            <div class="msg ai">Water is clear and cooling. Go <b>early</b>, 05:30 to 07:30 at the old pier.<div class="lure-row"><span>Spinner · silver</span><span>12 cm</span></div></div>
+            <div class="msg-photo"></div>
+            <div class="msg ai">That's a <b>perch</b>, about 30 cm. Nice one.</div>
+          </div>
+          <div class="composer">Ask about anything fishing <i><svg><use href="#i-send"/></svg></i></div>
+          <div class="tabbar">
+            <div class="tab"><span class="ico"><svg><use href="#i-map"/></svg></span>Map</div>
+            <div class="tab on"><span class="ico"><svg><use href="#i-chat"/></svg></span>Coach</div>
+            <span class="tab-add"><svg><use href="#i-plus"/></svg></span>
+            <div class="tab"><span class="ico"><svg><use href="#i-people"/></svg></span>Community</div>
+            <div class="tab"><span class="ico"><svg><use href="#i-book"/></svg></span>Log</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Community -->
+      <div class="phone side far">
+        <div class="screen">
+          <div class="statusbar"><span>6:12</span><span class="dots"><i></i><i></i></span></div>
+          <div class="app-top"><div class="app-title">Community</div><div class="app-sub">Anglers, catches and friends</div></div>
+          <div class="log-body">
+            <div class="seg" style="grid-template-columns:1fr 1fr 1fr"><span class="on">Feed</span><span>Board</span><span>Friends</span></div>
+            <div class="catch" style="flex-direction:column;align-items:stretch">
+              <div style="display:flex;gap:8px;align-items:center"><i class="thumb plain" style="width:26px;height:26px;border-radius:50%"></i><div><b>Marta J.</b><span>Yesterday</span></div></div>
+              <i class="thumb" style="width:100%;height:120px;border-radius:12px"></i>
+              <b>Pike · 92 cm</b>
+              <span style="display:flex;gap:6px;align-items:center"><svg width="12" height="12"><use href="#i-heart"/></svg> 14</span>
+            </div>
+          </div>
+          <div class="tabbar">
+            <div class="tab"><span class="ico"><svg><use href="#i-map"/></svg></span>Map</div>
+            <div class="tab"><span class="ico"><svg><use href="#i-chat"/></svg></span>Coach</div>
+            <span class="tab-add"><svg><use href="#i-plus"/></svg></span>
+            <div class="tab on"><span class="ico"><svg><use href="#i-people"/></svg></span>Community</div>
+            <div class="tab"><span class="ico"><svg><use href="#i-book"/></svg></span>Log</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Piers</span><span>Boat ramps</span><span>River bends</span><span>Pike at dawn</span><span>Quiet lakes</span><span>Harbour walls</span><span>Perch on drop shot</span><span>Moonrise</span><span>Rising tide</span><span>Carp at dusk</span><span>Trout streams</span><span>Secret spots</span>
+      <span>Piers</span><span>Boat ramps</span><span>River bends</span><span>Pike at dawn</span><span>Quiet lakes</span><span>Harbour walls</span><span>Perch on drop shot</span><span>Moonrise</span><span>Rising tide</span><span>Carp at dusk</span><span>Trout streams</span><span>Secret spots</span>
+    </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="brand-wrap" style="margin-bottom: 14px;">
-          <img src="assets/fishin-icon-rounded-1024.png" alt="FishIn Logo" class="brand-logo-img" style="width: 36px; height: 36px;">
-          <span class="brand-text">FishIn</span>
+  <!-- Stats -->
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat reveal"><b>24</b><span>Fish Scores a day, one per hour</span></div>
+      <div class="stat reveal d1"><b>10</b><span>days of forecast with Pro</span></div>
+      <div class="stat reveal d2"><b>0</b><span>ads or trackers</span></div>
+      <div class="stat reveal d3"><b>EU</b><span>servers, in Frankfurt</span></div>
+    </div>
+  </div>
+
+  <!-- Problem -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">The problem</span>
+        <h2 class="h-lg">Most trips are decided before you cast.</h2>
+        <p class="lead">Where you stand, when you go and what you tie on matter more than luck. FishIn answers all three before you leave the house.</p>
+      </div>
+      <div class="problems">
+        <div class="problem reveal">
+          <span class="n">01</span>
+          <h3 class="h-md">Where to go</h3>
+          <p>Good water hides behind private roads and forum threads. FishIn puts piers, ramps and places to fish on one map, each with its own score.</p>
         </div>
-        <p>
-          Fishing spots, forecasts, a catch log and friends. Crafted by an independent engineer in North Macedonia for anglers worldwide.
-        </p>
-      </div>
-
-      <div class="footer-col">
-        <h5>Product</h5>
-        <ul class="footer-links">
-          <li><a href="#features">Features</a></li>
-          <li><a href="#architecture">Claude 5.5 Haiku Architecture</a></li>
-          <li><a href="#pro">FishIn Pro</a></li>
-          <li><a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener">Google Play Store</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h5>Legal &amp; Privacy</h5>
-        <ul class="footer-links">
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms of Use</a></li>
-          <li><a href="delete-account.html">Delete Account</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h5>Technical Stack</h5>
-        <ul class="footer-links">
-          <li><a href="#architecture">Kotlin &amp; Compose</a></li>
-          <li><a href="#architecture">FastAPI &amp; Pydantic</a></li>
-          <li><a href="#architecture">Claude 5.5 Haiku Multimodal</a></li>
-          <li><a href="#architecture">PostgreSQL &amp; PostGIS</a></li>
-        </ul>
+        <div class="problem reveal d1">
+          <span class="n">02</span>
+          <h3 class="h-md">When to go</h3>
+          <p>Weather apps don't know fish. FishIn reads pressure, the moon, sunrise and tide into a single Fish Score for every hour.</p>
+        </div>
+        <div class="problem reveal d2">
+          <span class="n">03</span>
+          <h3 class="h-md">What to throw</h3>
+          <p>A tackle box full of lures and no plan. Fish Coach picks the lure, colour and length for today's water from what you own.</p>
+        </div>
       </div>
     </div>
+  </section>
 
+  <!-- Features -->
+  <section class="section flush">
+    <div class="wrap">
+
+      <div class="feature" id="map">
+        <div class="feature-copy reveal">
+          <span class="eyebrow">The map</span>
+          <h2 class="h-lg">Every place to fish, even without signal.</h2>
+          <p class="lead">Lakes, rivers, piers and ramps on a clean map. Every pin carries its Fish Score for the day, so the best water stands out at a glance.</p>
+          <ul class="points">
+            <li><svg><use href="#i-map"/></svg><div><b>Spots near you</b><span>Ratings for access, crowds and catch rate, and the fish recorded there.</span></div></li>
+            <li><svg><use href="#i-cloud-off"/></svg><div><b>Works offline</b><span>Spots you've seen stay on your phone. Save whole countries with Pro.</span></div></li>
+            <li><svg><use href="#i-lock"/></svg><div><b>Your own spots</b><span>Share them with everyone, keep them between friends, or keep them to yourself.</span></div></li>
+          </ul>
+        </div>
+        <div class="feature-visual reveal d1" aria-hidden="true">
+          <div class="phone">
+            <div class="screen">
+              <div class="statusbar"><span>6:12</span><span class="dots"><i></i><i></i></span></div>
+              <div class="map">
+                <svg class="terrain" viewBox="0 0 272 520" preserveAspectRatio="xMidYMid slice">
+                  <rect class="t-land" width="272" height="520"/>
+                  <path class="t-water" d="M-10 140 C 60 160, 120 100, 180 140 S 260 220, 290 190 L 290 360 C 240 330, 200 380, 140 350 S 40 300, -10 330 Z"/>
+                  <path class="t-water" d="M60 520 C 70 470, 40 430, 60 400 L 76 400 C 58 430, 88 470, 78 520 Z"/>
+                  <path class="t-road" d="M-10 430 C 80 410, 160 450, 290 420"/>
+                  <path class="t-road" d="M200 -10 C 210 60, 230 80, 240 150"/>
+                  <rect class="t-block" x="120" y="462" width="40" height="26" rx="3"/><rect class="t-block" x="200" y="470" width="30" height="22" rx="3"/>
+                  <rect class="t-block" x="30" y="96" width="44" height="26" rx="3"/><rect class="t-block" x="110" y="90" width="30" height="30" rx="3"/>
+                </svg>
+                <div class="map-search"><svg><use href="#i-search"/></svg> Search spots, lakes, rivers</div>
+                <div class="map-day"><svg><use href="#i-cal"/></svg> Today</div>
+                <span class="pin lo" style="left:22%;top:34%">66</span>
+                <span class="pin" style="left:60%;top:30%">72</span>
+                <span class="pin pulse" style="left:42%;top:52%">76</span>
+                <span class="pin cluster" style="left:80%;top:44%">3</span>
+                <span class="pin me" style="left:30%;top:78%"></span>
+                <div class="spot-card">
+                  <div class="row">
+                    <div><div class="spot-name">Reed bay</div><div class="spot-meta">Shore · 3.4 km · Pike, carp</div></div>
+                    <div class="score">76</div>
+                  </div>
+                  <div class="chips"><span class="chip dark">Best 19:40</span><span class="chip">Boat ramp</span><span class="chip">Parking</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature flip" id="forecast">
+        <div class="feature-copy reveal">
+          <span class="eyebrow">Bite forecast</span>
+          <h2 class="h-lg">Know the hour, not just the day.</h2>
+          <p class="lead">Hour-by-hour bite chances from weather, pressure and the moon. Tap any bar to see why it scores what it does.</p>
+          <ul class="points">
+            <li><svg><use href="#i-gauge"/></svg><div><b>Fish Score</b><span>One number from the bite, the spot and the conditions there.</span></div></li>
+            <li><svg><use href="#i-moon"/></svg><div><b>Moon and sun</b><span>Feeding spells around moonrise, moonset, sunrise and sunset.</span></div></li>
+            <li><svg><use href="#i-wave"/></svg><div><b>Tides and rivers</b><span>High and low water on the coast, river flow inland. Moving water fishes best.</span></div></li>
+          </ul>
+        </div>
+        <div class="feature-visual reveal d1" aria-hidden="true">
+          <div class="phone">
+            <div class="screen">
+              <div class="statusbar"><span>6:12</span><span class="dots"><i></i><i></i></span></div>
+              <div class="app-top"><div class="app-title">Reed bay</div><div class="app-sub">Bite forecast</div></div>
+              <div class="fc-body">
+                <div class="days">
+                  <div class="day">Today<b>18</b></div>
+                  <div class="day on">Sun<b>19</b></div>
+                  <div class="day lock">Mon<b>20</b></div>
+                  <div class="day lock">Tue<b>21</b></div>
+                </div>
+                <div class="big-score">
+                  <div class="num">76<small>/100</small></div>
+                  <div class="lbl">Best window 18:40 – 20:40</div>
+                  <div class="bars">
+                    <i style="height:30%"></i><i class="mid" style="height:50%"></i><i class="mid" style="height:56%"></i><i style="height:40%"></i><i style="height:28%"></i><i style="height:24%"></i><i style="height:30%"></i><i style="height:36%"></i><i class="mid" style="height:50%"></i><i style="height:38%"></i><i style="height:30%"></i><i style="height:34%"></i><i class="mid" style="height:48%"></i><i class="mid" style="height:60%"></i><i class="hi" style="height:82%"></i><i class="hi" style="height:100%"></i><i class="hi" style="height:86%"></i><i class="mid" style="height:54%"></i><i style="height:32%"></i><i style="height:22%"></i>
+                  </div>
+                  <div class="bar-axis"><span>04</span><span>08</span><span>12</span><span>16</span><span>20</span></div>
+                </div>
+                <div class="fc-list">
+                  <div class="fc-item"><span class="ic"><svg><use href="#i-sun"/></svg></span><div><b>Sunset 19:52</b><span>The hour either side is prime time</span></div></div>
+                  <div class="fc-item"><span class="ic"><svg><use href="#i-moon"/></svg></span><div><b>Moonrise 19:10</b><span>Short feeding spell</span></div></div>
+                  <div class="fc-item"><span class="ic"><svg><use href="#i-gauge"/></svg></span><div><b>Pressure steady</b><span>1016 hPa, slowly falling</span></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature" id="coach">
+        <div class="feature-copy reveal">
+          <span class="eyebrow">Fish Coach · Pro</span>
+          <h2 class="h-lg">A guide that knows your water.</h2>
+          <p class="lead">Ask anything about fishing, or send a photo of a fish, lure or rig. Fish Coach knows where you are, the forecast, the fish there and your tackle box, and remembers what you tell it.</p>
+          <ul class="points">
+            <li><svg><use href="#i-chat"/></svg><div><b>Ask in plain words</b><span>"Why am I getting bites but no hookups?"</span></div></li>
+            <li><svg><use href="#i-search"/></svg><div><b>Photo scan</b><span>Identify a fish, or photograph a lure and its type, colour and size are filled in.</span></div></li>
+            <li><svg><use href="#i-box"/></svg><div><b>Lure picks and briefs</b><span>When to go, where to stand and what to throw, from what's already in your box.</span></div></li>
+          </ul>
+        </div>
+        <div class="feature-visual reveal d1" aria-hidden="true">
+          <div class="phone">
+            <div class="screen">
+              <div class="statusbar"><span>6:12</span><span class="dots"><i></i><i></i></span></div>
+              <div class="app-top"><div class="app-title">Fish Coach</div><div class="app-sub">Knows your spot, forecast and tackle</div></div>
+              <div class="chat">
+                <div class="msg me">Where should I fish today?</div>
+                <div class="msg ai">Reed bay at sunset. The pressure is easing and moonrise lines up with dusk, so expect a short, strong spell from <b>18:40</b>.</div>
+                <div class="msg me">And what do I throw?</div>
+                <div class="msg ai">Your <b>silver spinner</b>, 12 cm. Fish it slow along the reed edge.<div class="lure-row"><span>In your box</span><span>Silver</span><span>12 cm</span></div></div>
+                <div class="msg ai typing"><i></i><i></i><i></i></div>
+              </div>
+              <div class="composer">Ask about anything fishing <i><svg><use href="#i-send"/></svg></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Real screens -->
+  <section class="section flush" id="screens">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Straight from the app</span>
+        <h2 class="h-lg">Calm on the outside. Sharp on the water.</h2>
+        <p class="lead">Real screens from FishIn. Black, white and grey, so your catches are the only colour.</p>
+      </div>
+      <div class="shots">
+        <figure class="shot reveal">
+          <div class="shot-frame"><img src="assets/screen-map.webp" alt="FishIn map with fishing spots along a river, each pin showing its Fish Score" loading="lazy" width="540" height="1213"></div>
+          <figcaption>Map<span>Scores on every spot</span></figcaption>
+        </figure>
+        <figure class="shot reveal d1">
+          <div class="shot-frame"><img src="assets/screen-coach.webp" alt="Fish Coach tab with chat, forecast and saved reports" loading="lazy" width="540" height="1145"></div>
+          <figcaption>Coach<span>Ask, scan, plan</span></figcaption>
+        </figure>
+        <figure class="shot reveal d2">
+          <div class="shot-frame"><img src="assets/screen-log.webp" alt="Logbook with catch stats, personal bests and a logged trout" loading="lazy" width="540" height="1145"></div>
+          <figcaption>Logbook<span>Stats and personal bests</span></figcaption>
+        </figure>
+        <figure class="shot reveal d3">
+          <div class="shot-frame"><img src="assets/screen-community.webp" alt="Community feed showing a shared brown trout catch" loading="lazy" width="540" height="1133"></div>
+          <figcaption>Community<span>Catches from friends</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bento -->
+  <section class="section" id="tackle">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Everything else</span>
+        <h2 class="h-lg">The whole tackle bag, in your pocket.</h2>
+        <p class="lead">The small tools you reach for on the bank, made calm and quick.</p>
+      </div>
+      <div class="bento">
+        <div class="card c-4 reveal">
+          <h3 class="h-md">Catch log</h3>
+          <p>Log a fish in seconds. Where, when, the weather and the lure are saved with it, so you learn what works.</p>
+          <div class="visual">
+            <div class="pb" style="grid-template-columns:repeat(4,1fr)">
+              <div><b>84 cm</b><span>Personal best</span></div>
+              <div><b>27</b><span>Catches this year</span></div>
+              <div><b>Spinner</b><span>Best lure</span></div>
+              <div><b>81%</b><span>Released</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card c-2 reveal d1">
+          <h3 class="h-md">Screen ruler</h3>
+          <p>Measure small fish or lures right on the screen.</p>
+          <div class="visual" aria-hidden="true">
+            <div class="ruler"></div>
+            <div class="ruler-labels"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span></div>
+          </div>
+        </div>
+        <div class="card c-2 reveal">
+          <h3 class="h-md">Knots</h3>
+          <p>Step-by-step guides for every line.</p>
+          <div class="visual knot-list">
+            <div>Palomar <span>Braid to lure</span></div>
+            <div>FG knot <span>Braid to fluoro</span></div>
+            <div>Uni to uni <span>Line to line</span></div>
+          </div>
+        </div>
+        <div class="card c-2 reveal d1">
+          <h3 class="h-md">Rig builder</h3>
+          <p>Put a rig together part by part, or let AI suggest one.</p>
+          <div class="visual rig" aria-hidden="true">
+            <span class="part fill">Main line</span><span class="line"></span><span class="part">Swivel</span><span class="line"></span><span class="part">Hook</span>
+          </div>
+        </div>
+        <div class="card c-2 reveal d2">
+          <h3 class="h-md">Tackle box</h3>
+          <p>Every lure you own, so advice fits your kit.</p>
+          <div class="visual box-grid" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="card c-3 dark reveal">
+          <h3 class="h-md">Fish with friends</h3>
+          <p>Share catches with friends or every angler, keep secret spots between friends, and climb the leaderboard.</p>
+          <div class="visual">
+            <div class="avatars" aria-hidden="true"><i>AK</i><i>MJ</i><i>TL</i><i>+5</i></div>
+            <div class="board">
+              <div><span>1 · Marta J.</span><span>92 cm pike</span></div>
+              <div><span>2 · You</span><span>84 cm pike</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="card c-3 reveal d1">
+          <h3 class="h-md">Offline countries</h3>
+          <p>Save every fishing spot of a country for trips without signal.</p>
+          <div class="visual countries">
+            <div>Norway <span class="bar"><i style="width:100%"></i></span><span>Saved</span></div>
+            <div>Sweden <span class="bar"><i style="width:64%"></i></span><span>64%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy promise -->
+  <section class="section flush" id="privacy">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Your spots stay yours</span>
+        <h2 class="h-lg">Private by default.</h2>
+        <p class="lead">A good spot is worth more than gold. FishIn is built so it stays where you put it.</p>
+      </div>
+      <div class="promise">
+        <div class="promise-item reveal">
+          <svg><use href="#i-ban"/></svg>
+          <h3>No ads, no trackers</h3>
+          <p>No advertising or analytics SDKs, and your data is never sold.</p>
+        </div>
+        <div class="promise-item reveal d1">
+          <svg><use href="#i-lock"/></svg>
+          <h3>You choose who sees</h3>
+          <p>Everyone, friends only, or just you, per spot. Your notes are always private.</p>
+        </div>
+        <div class="promise-item reveal d2">
+          <svg><use href="#i-server"/></svg>
+          <h3>Kept in the EU</h3>
+          <p>Accounts and photos live on our own server in Frankfurt, Germany.</p>
+        </div>
+        <div class="promise-item reveal d3">
+          <svg><use href="#i-trash"/></svg>
+          <h3>Gone in one tap</h3>
+          <p>Delete your account in the app and your data goes with it.</p>
+        </div>
+      </div>
+      <a class="promise-link reveal" href="privacy.html">Read the privacy policy <svg><use href="#i-arrow"/></svg></a>
+    </div>
+  </section>
+
+  <!-- How -->
+  <section class="section" id="how">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">How it works</span>
+        <h2 class="h-lg">From couch to cast in three steps.</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="n">1</div>
+          <h3 class="h-md">Install</h3>
+          <p>Get FishIn from Google Play. No account needed: start as a guest and sign in later, everything comes with you.</p>
+        </div>
+        <div class="step reveal d1">
+          <div class="n">2</div>
+          <h3 class="h-md">Pick a spot</h3>
+          <p>Open the map, find water near you and star it. Its bite forecast is one tap away.</p>
+        </div>
+        <div class="step reveal d2">
+          <div class="n">3</div>
+          <h3 class="h-md">Go and log it</h3>
+          <p>Fish the best window, then log the catch with the + button. Next time, FishIn knows what worked.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section flush" id="pricing">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Pricing</span>
+        <h2 class="h-lg">Free to fish. Pro to go further.</h2>
+        <p class="lead">Maps, spots, the 2-day forecast, your log, tackle box and friends stay free.</p>
+      </div>
+      <div class="plans">
+        <div class="plan reveal">
+          <div class="plan-name">Free <span class="plan-tag">Forever</span></div>
+          <div class="plan-price">Free</div>
+          <p class="plan-note">Everything you need for the next trip.</p>
+          <ul>
+            <li><svg><use href="#i-check"/></svg><div>Map of fishing spots<span>Works offline for spots you've seen</span></div></li>
+            <li><svg><use href="#i-check"/></svg><div>Bite forecast and Fish Scores<span>Today and tomorrow</span></div></li>
+            <li><svg><use href="#i-check"/></svg><div>Catch log and personal bests</div></li>
+            <li><svg><use href="#i-check"/></svg><div>Tackle box, rigs, knots and ruler</div></li>
+            <li><svg><use href="#i-check"/></svg><div>Friends, feed and leaderboard</div></li>
+          </ul>
+          <a class="btn btn-line" href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener">Download free</a>
+        </div>
+        <div class="plan pro reveal d1">
+          <div class="plan-name">FishIn Pro <span class="plan-tag">AI</span></div>
+          <div class="plan-price">Pro<small>monthly or yearly</small></div>
+          <p class="plan-note">Your personal fishing guide, powered by AI.</p>
+          <ul>
+            <li><svg><use href="#i-check"/></svg><div>Fish Coach chat<span>Ask anything, send photos</span></div></li>
+            <li><svg><use href="#i-check"/></svg><div>10-day forecast<span>Instead of today and tomorrow</span></div></li>
+            <li><svg><use href="#i-check"/></svg><div>AI fishing brief and lure picks<span>When to go, where to stand, what to throw</span></div></li>
+            <li><svg><use href="#i-check"/></svg><div>Lure scanner and photo backup</div></li>
+            <li><svg><use href="#i-check"/></svg><div>Offline countries<span>Every spot of a country on your phone</span></div></li>
+          </ul>
+          <a class="btn btn-light" href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener">Get Pro in the app <svg class="arrow"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+      <p class="plan-fine">Subscriptions run through Google Play. Cancel anytime in Google Play › Subscriptions.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="wrap faq-grid">
+      <div class="section-head reveal">
+        <span class="eyebrow">FAQ</span>
+        <h2 class="h-lg">Questions, answered.</h2>
+        <p class="lead">Anything else? Ask Fish Coach, or email <a href="mailto:contact@fishinapp.site" style="color:var(--ink);border-bottom:1px solid var(--silver)">contact@fishinapp.site</a>.</p>
+      </div>
+      <div class="faq reveal d1">
+        <details>
+          <summary>Is FishIn free?<span class="plus"></span></summary>
+          <p>Yes. Maps, spots, the 2-day forecast, your catch log, tackle box and friends are free. FishIn Pro adds the AI features, a 10-day forecast, photo backup and offline countries.</p>
+        </details>
+        <details>
+          <summary>Does it work without signal?<span class="plus"></span></summary>
+          <p>Spots you've already seen stay on your phone, so the map keeps working at the water. With Pro you can save every fishing spot of a whole country before a trip.</p>
+        </details>
+        <details>
+          <summary>How is the bite forecast worked out?<span class="plus"></span></summary>
+          <p>It combines weather and air pressure with the moon's position, moonrise and moonset, sunrise and sunset, and tides or river flow where they apply. Each hour gets a Fish Score, and you can tap a bar to see what pushes it up or down.</p>
+        </details>
+        <details>
+          <summary>Do I need an account?<span class="plus"></span></summary>
+          <p>No. Start as a guest. Sign in with Google or an emailed code later and everything you saved comes with you, on every phone you sign in to. Pro needs an account so you can get it back on a new phone.</p>
+        </details>
+        <details>
+          <summary>Are my secret spots safe?<span class="plus"></span></summary>
+          <p>You choose who sees each spot: everyone, only your FishIn friends, or just you. Your notes on a spot are always private, and shared catches never show exact coordinates.</p>
+        </details>
+        <details>
+          <summary>Is there an iPhone version?<span class="plus"></span></summary>
+          <p>FishIn is on Android today, through Google Play.</p>
+        </details>
+        <details>
+          <summary>How do I cancel Pro or delete my account?<span class="plus"></span></summary>
+          <p>Cancel Pro anytime in Google Play › Subscriptions; it stays on until the end of the period you paid for. To delete your account, open Settings › Account › Delete account in the app, or see <a href="delete-account.html">how to delete your account</a>.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="section flush">
+    <div class="wrap">
+      <div class="final reveal">
+        <div class="final-rings" aria-hidden="true"></div>
+        <span class="eyebrow">Get started</span>
+        <h2 class="h-xl">Tight lines <mark>start here.</mark></h2>
+        <p class="lead">Install FishIn, open the map and find your next spot in under a minute.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-light" href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener"><svg><use href="#i-play"/></svg> Get it on Google Play</a>
+          <a class="btn btn-line" href="#pricing">Compare plans</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <a href="#top" class="brand"><span class="brand-mark"><svg><use href="#i-hook"/></svg></span>FishIn</a>
+        <p>Fishing spots, forecasts, a catch log and friends. Made by an independent developer in North Macedonia, for anglers everywhere.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>App</h4>
+          <a href="#map">Map</a>
+          <a href="#forecast">Forecast</a>
+          <a href="#coach">Fish Coach</a>
+          <a href="#tackle">Tackle</a>
+        </div>
+        <div class="footer-col">
+          <h4>FishIn</h4>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+          <a href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener">Google Play</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Use</a>
+          <a href="delete-account.html">Delete account</a>
+          <a href="mailto:contact@fishinapp.site">Contact</a>
+        </div>
+      </div>
+    </div>
     <div class="footer-bottom">
-      <div>&copy; 2026 FishIn. All rights reserved. Package: <code>com.daev.fishin</code></div>
-      <div>Designed with pure graphite monochrome aesthetics.</div>
+      <span>© <span class="year">2026</span> FishIn · com.daev.fishin</span>
+      <span class="status"><i></i> Made for anglers</span>
     </div>
-  </footer>
+  </div>
+</footer>
 
-  <script src="app.js"></script>
+<script src="script.js?v=9"></script>
 </body>
 </html>
