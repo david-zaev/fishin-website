@@ -13,6 +13,7 @@ Live at **https://fishinapp.site** (GitHub Pages, `main` branch root). Contact: 
 | `terms.html` | Terms of Use |
 | `delete-account.html` | How to delete an account (linked from Google Play) |
 | `404.html` | Not found |
+| `knots/` | 16 knot guides and an index, **generated** by `python tools/build_knots.py` from the app's knot data (edit the script, not the pages) |
 
 All pages share `styles.css` and `script.js`. No build step and no dependencies apart from the Inter font from Google Fonts.
 

@@ -109,6 +109,22 @@
     byId.forEach((_, id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
   }
 
+  // Hero phones drift apart a little as the page scrolls.
+  const stage = document.querySelector('.stage');
+  const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (stage && !calm.matches) {
+    const sides = [...stage.querySelectorAll('.phone.side')];
+    const centre = stage.querySelector('.phone:not(.side)');
+    let ticking = false;
+    const move = () => {
+      ticking = false;
+      const y = Math.min(window.scrollY, 700);
+      sides.forEach(p => { p.style.transform = `translateY(${110 - y * 0.12}px) scale(.9)`; });
+      if (centre) centre.style.transform = `translateY(${y * 0.04}px)`;
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(move); } }, { passive: true });
+  }
+
   // Final banner rings.
   const rings = document.querySelector('.final-rings');
   if (rings) {
