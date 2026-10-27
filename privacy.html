@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Privacy Policy · FishIn</title>
-  <meta name="description" content="How FishIn handles your location, spots, catches, photos and AI requests: what is collected, where it is stored, who it is shared with and how to delete it.">
+  <meta name="description" content="How FishIn handles your location, spots, catches, photos and AI requests: what is collected, where it is stored, who it is shared with, how long it is kept and how to delete it.">
   <link rel="canonical" href="https://fishinapp.site/privacy.html">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0c0c0c" media="(prefers-color-scheme: dark)">
@@ -59,8 +59,8 @@
     <header class="doc-hero">
       <span class="eyebrow">Legal</span>
       <h1 class="h-lg">Privacy Policy</h1>
-      <p class="lead">FishIn is made by an independent developer in North Macedonia. Your fishing spots are yours. This page says plainly what data FishIn handles, where it lives, who sees it and how to remove it.</p>
-      <div class="doc-meta"><span>Version 3.1</span><span>Last updated 26 October 2026</span><span>Applies to the FishIn Android app and fishinapp.site</span><span>contact@fishinapp.site</span></div>
+      <p class="lead">FishIn is made by an independent developer in North Macedonia. Your fishing spots are yours. This policy says what personal data FishIn handles, why, where it is kept, who receives it, how long it stays and what you can do about it.</p>
+      <div class="doc-meta"><span>Version 4.0</span><span>Last updated 27 October 2026</span><span>Applies to the FishIn Android app, its server and fishinapp.site</span><span>contact@fishinapp.site</span></div>
     </header>
 
     <div class="doc">
@@ -68,18 +68,25 @@
         <h4>Contents</h4>
         <ol>
           <li><a href="#short">The short version</a></li>
+          <li><a href="#controller">Who is responsible</a></li>
           <li><a href="#phone">What stays on your phone</a></li>
           <li><a href="#account">Your account</a></li>
           <li><a href="#sync">What we store</a></li>
+          <li><a href="#location">Location</a></li>
           <li><a href="#sharing">Sharing and community</a></li>
+          <li><a href="#photos">Photos</a></li>
           <li><a href="#ai">Fish Coach and AI</a></li>
-          <li><a href="#services">Services we use</a></li>
           <li><a href="#billing">Purchases</a></li>
+          <li><a href="#services">Services we use</a></li>
+          <li><a href="#logs">Server logs and security limits</a></li>
           <li><a href="#permissions">Phone permissions</a></li>
           <li><a href="#retention">How long we keep data</a></li>
-          <li><a href="#legal">Legal bases and transfers</a></li>
+          <li><a href="#legal">Legal bases</a></li>
+          <li><a href="#transfers">Where data is processed</a></li>
           <li><a href="#rights">Your rights</a></li>
-          <li><a href="#security">Security and children</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#children">Children</a></li>
+          <li><a href="#website">This website</a></li>
           <li><a href="#changes">Changes and contact</a></li>
         </ol>
       </aside>
@@ -88,149 +95,233 @@
         <section id="short">
           <h2>The short version</h2>
           <ul>
-            <li><strong>No ads, no trackers.</strong> FishIn has no advertising or analytics SDKs, and we never sell your data.</li>
-            <li><strong>You choose who sees your spots and catches:</strong> everyone, your FishIn friends, or only you. Your notes are always private.</li>
-            <li><strong>Your data lives in the EU,</strong> on our own server at Oracle Cloud in Frankfurt, Germany.</li>
-            <li><strong>Fish Coach chats stay on your phone.</strong> Questions are sent to Google Gemini through our server only to answer them.</li>
+            <li><strong>No ads, no trackers.</strong> FishIn has no advertising, analytics or crash-reporting SDKs. We never sell your data or share it for advertising.</li>
+            <li><strong>You choose who sees your spots and catches:</strong> everyone, your FishIn friends, or only you. Your spot notes are always private.</li>
+            <li><strong>Our server is in the EU,</strong> on Oracle Cloud in Frankfurt, Germany, and so are its encrypted backups.</li>
+            <li><strong>Fish Coach chats stay on your phone.</strong> Questions are sent to Google Gemini through our server only to answer them; we don't keep them.</li>
+            <li><strong>Pro is paid through Google Play.</strong> We never see your card or bank details.</li>
             <li><strong>Delete everything</strong> in the app under Settings › Account › Delete account.</li>
           </ul>
         </section>
 
+        <section id="controller">
+          <h2>Who is responsible</h2>
+          <p>The data controller for FishIn is the independent developer who makes it, based in Skopje, North Macedonia ("FishIn", "we", "us"). You can reach us about anything in this policy at <a href="mailto:contact@fishinapp.site">contact@fishinapp.site</a>.</p>
+          <p>This policy covers the FishIn Android app (com.daev.fishin), the FishIn server at api.fishinapp.site and this website. It doesn't cover the services of other companies that FishIn uses, such as Google; their own privacy policies apply to them (see <a href="#services">Services we use</a>).</p>
+        </section>
+
         <section id="phone">
           <h2>What stays on your phone</h2>
-          <p>Much of FishIn works on the phone alone, and that data never leaves it unless you share or sync it:</p>
+          <p>Much of FishIn works on the phone alone, and this data doesn't reach our server unless you share or sync it:</p>
           <ul>
-            <li><strong>Your location.</strong> Used on the phone to centre the map, find spots near you and give a forecast for where you are. We don't track your location in the background or keep a history of it.</li>
-            <li><strong>Saved spots and offline countries.</strong> Spot data you've viewed or downloaded is cached on the phone so the map works without signal.</li>
+            <li><strong>Your precise location</strong> (see <a href="#location">Location</a>).</li>
+            <li><strong>Spot data and offline countries.</strong> The spot atlas comes with the app, and spot data you view or download is cached on the phone so the map works without signal.</li>
             <li><strong>Fish Coach chats and memory.</strong> Your conversations, and the short notes Fish Coach remembers about how you fish, are stored on the phone.</li>
-            <li><strong>Photos you don't back up.</strong> Without Pro photo backup, catch and lure photos stay on the phone.</li>
+            <li><strong>Rigs and their AI reviews,</strong> fish checks and forecasts you've opened.</li>
+            <li><strong>Guest "About your fishing" answers.</strong> For guests these stay on the phone; once you sign in they are saved with your account.</li>
+            <li><strong>Photos you don't back up.</strong> Without Pro photo backup, your catch and lure photos stay on the phone.</li>
           </ul>
-          <p>Uninstalling FishIn removes all of this from the phone.</p>
+          <p>Uninstalling FishIn removes this data from the phone. If Android backup is switched on, Android may copy the app's data (but not your sign-in session) to your own Google account and restore it to a new phone. That backup is run by Google under your Google account settings, not by us; we can't read it.</p>
         </section>
 
         <section id="account">
           <h2>Your account</h2>
           <p>Every install starts with a <strong>guest account</strong>: a random ID with no name or email, so you can use FishIn straight away and your log is kept safe.</p>
-          <p>You can sign in at any time, and everything you saved as a guest comes with you:</p>
+          <p>You can sign in at any time, and everything you saved as a guest moves into your account:</p>
           <ul>
-            <li><strong>With Google:</strong> we receive your name, email address and profile photo. Nothing else.</li>
-            <li><strong>With email:</strong> we send a one-time sign-in code to your address. The code email goes out through Google's Gmail.</li>
+            <li><strong>With Google:</strong> we receive your Google account ID, name, email address (if Google has verified it) and a link to your Google profile photo. We don't get your Google password or access to anything else in your Google account.</li>
+            <li><strong>With email:</strong> we send a six-digit, short-lived sign-in code to your address. We keep only a scrambled (hashed) copy of the code until it is used or expires. The email is sent through Gmail.</li>
           </ul>
-          <p>If you join the community you pick a public username, and can add a profile photo and short bio that other anglers see.</p>
+          <p>To keep you signed in we store sign-in sessions (hashed refresh tokens with their expiry) and when you last signed in.</p>
+          <p>If you join the community you choose a public username, and can add a profile photo and short bio that other anglers see.</p>
         </section>
 
         <section id="sync">
           <h2>What we store</h2>
-          <p>To keep your fishing safe across phones, FishIn stores this with your account:</p>
+          <p>To keep your fishing safe across phones and to run the community, our server stores this with your account:</p>
           <div class="table-wrap">
             <table class="table">
               <thead><tr><th>Data</th><th>Why</th></tr></thead>
               <tbody>
+                <tr><td>Account</td><td>Random account ID, whether it's a guest, and if you signed in: email, Google account ID, name and profile photo link from Google, sign-in times and sessions.</td></tr>
                 <tr><td>Catch log</td><td>Species, length, weight, time, place, weather, lure and notes, so your log and personal bests are on every phone you sign in to.</td></tr>
-                <tr><td>Tackle box and rigs</td><td>So Fish Coach can suggest lures you own, and your box follows you to a new phone.</td></tr>
-                <tr><td>Spots you add</td><td>Name, position and who may see it. Notes are visible only to you.</td></tr>
-                <tr><td>Reviews and ratings</td><td>Access, crowds and catch rate you give a spot.</td></tr>
-                <tr><td>About your fishing</td><td>Your experience level and whether you fish from a boat or the shore, so the app doesn't ask again.</td></tr>
-                <tr><td>Profile and friends</td><td>Username, photo, bio, friends and the posts, likes and comments you make.</td></tr>
-                <tr><td>Photos</td><td>Profile pictures, photos of catches you share, and with Pro, backups of your catch and lure photos.</td></tr>
-                <tr><td>Pro status</td><td>Whether your subscription is active, and when it renews or ends.</td></tr>
+                <tr><td>Tackle box and rigs</td><td>So Fish Coach can suggest lures you own, and your box and rigs follow you to a new phone.</td></tr>
+                <tr><td>Spots you add or change</td><td>Name, position, water type, who may see it and your private notes (visible only to you).</td></tr>
+                <tr><td>Reviews, ratings and spot feedback</td><td>Access, crowds and catch rate you give a spot, and corrections you send us.</td></tr>
+                <tr><td>About your fishing</td><td>Your experience level and whether you fish from a boat or the shore (signed-in accounts only), so the app doesn't ask again.</td></tr>
+                <tr><td>Profile and friends</td><td>Username, photo, bio, friends, friend requests and invites, blocks, and the posts, shared rigs, likes and comments you make.</td></tr>
+                <tr><td>Reports</td><td>Reports you send about posts, comments or users, with the reason you give.</td></tr>
+                <tr><td>Photos</td><td>Profile photos, photos in posts and shared rigs, and with Pro, backups of your catch and lure photos (see <a href="#photos">Photos</a>).</td></tr>
+                <tr><td>Pro status</td><td>The Google Play purchase token, product, subscription state and when it renews or ends.</td></tr>
+                <tr><td>AI allowance</td><td>How many AI credits your account has used this month. Not what you asked.</td></tr>
               </tbody>
             </table>
           </div>
           <p>Signing out removes the synced data from that phone; signing in again brings it back.</p>
         </section>
 
+        <section id="location">
+          <h2>Location</h2>
+          <p>If you allow it, FishIn uses your phone's location while the app is open to centre the map, find spots near you and show the forecast where you are. FishIn doesn't use location in the background and we don't keep a history of where you've been. FishIn works without location: you can search or move the map instead.</p>
+          <p>Some features send a place (not a record of your movements) off the phone:</p>
+          <ul>
+            <li><strong>Loading spots:</strong> the phone asks our server for the spots in the map area you are looking at.</li>
+            <li><strong>Forecasts:</strong> the coordinates of a place you check go to Open-Meteo for weather, tides and river flow.</li>
+            <li><strong>Fish records:</strong> the area of a spot goes to GBIF to look up which fish have been recorded there.</li>
+            <li><strong>AI features:</strong> the spot you ask about and its forecast go to Google Gemini through our server.</li>
+            <li><strong>Catches and spots</strong> you save include the place you choose for them.</li>
+          </ul>
+          <p>A place you look at may be near where you are. These services receive your IP address as part of any internet connection.</p>
+        </section>
+
         <section id="sharing">
           <h2>Sharing and community</h2>
           <ul>
-            <li><strong>Spots</strong> you share with everyone appear on every angler's map; friends-only spots appear only for your FishIn friends. Shared spots show the name and pin, never your notes.</li>
-            <li><strong>Catches</strong> you share show the species, size, lure, photo and the name of the spot's area. They never show exact coordinates.</li>
+            <li><strong>Spots</strong> you share with everyone appear on every angler's map, and are included in the spot data other phones download for offline use. Friends-only spots appear only for your FishIn friends. Shared spots show the name and pin, never your notes.</li>
+            <li><strong>Catches</strong> you post show the species, size, lure, photo, your username and the name of the spot's area. They never show the exact coordinates.</li>
+            <li><strong>Rigs</strong> you share show the rig, its photo and your username.</li>
+            <li><strong>Your profile</strong> (username, photo, bio) can be seen by other FishIn users. Profile photos are served by a public link.</li>
             <li><strong>Leaderboard</strong> entries come only from catches you share with everyone.</li>
             <li>You can remove anything you've shared, report content and block other users at any time.</li>
           </ul>
+          <p>Once you share something, other users can see it and could screenshot or copy it. When you delete it, it leaves our server and the shared map within minutes, but copies already on other phones, for example in an offline country download, may remain until those phones refresh their data.</p>
+        </section>
+
+        <section id="photos">
+          <h2>Photos</h2>
+          <ul>
+            <li><strong>Profile photos</strong> are stored on our server and anyone with the link can view them.</li>
+            <li><strong>Photos in posts and shared rigs</strong> are stored on our server and shown only through short-lived signed links to people allowed to see the post.</li>
+            <li><strong>Pro photo backup</strong> keeps compressed copies of your catch and lure photos on our server. Only you can read them.</li>
+            <li><strong>Photos you send to AI features</strong> are passed to Google Gemini and not stored on our server (see <a href="#ai">Fish Coach and AI</a>).</li>
+          </ul>
+          <p>Photos can contain information you didn't intend to share, such as faces, number plates or landmarks. Please check a photo before you post it.</p>
         </section>
 
         <section id="ai">
           <h2>Fish Coach and AI</h2>
-          <p>Fish Coach, AI fishing briefs, lure picks, the lure scanner and fish photos are FishIn Pro features. They run on <strong>Google Gemini</strong>, always through our own server, which holds the key and builds the request.</p>
-          <p>To answer, a request may include your question, a photo you send, the spot and its forecast, the fish recorded there, your tackle box, recent messages from that chat and the notes Fish Coach remembers about you. We count each account's AI use against a monthly allowance, with short hourly and daily limits on a few heavier tasks, to keep usage fair. We don't keep your questions, answers or photos on our server, and we don't use your data to train AI models.</p>
-          <p>Google processes these requests under the <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener">Gemini API terms</a> and may store them for a limited time to monitor for abuse. Please don't put personal information in photos or questions you send to AI features.</p>
-        </section>
-
-        <section id="services">
-          <h2>Services we use</h2>
-          <div class="table-wrap">
-            <table class="table">
-              <thead><tr><th>Service</th><th>What it receives</th></tr></thead>
-              <tbody>
-                <tr><td>Oracle Cloud (Frankfurt, Germany)</td><td>Hosts our database, API and photos.</td></tr>
-                <tr><td>Google Maps</td><td>Map tiles for the area you view, and your IP address. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</td></tr>
-                <tr><td>Open-Meteo</td><td>The coordinates of a place you check, to fetch weather, pressure, tides and river flow.</td></tr>
-                <tr><td>Google Gemini</td><td>Pro AI requests, as described above.</td></tr>
-                <tr><td>Google Sign-In and Gmail</td><td>Signing in with Google, and sending email sign-in codes.</td></tr>
-                <tr><td>Google Play</td><td>Downloads, purchases and subscriptions.</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p>Like any web service, our server briefly keeps technical logs (IP address, time, request path and app version) to keep FishIn secure and working. They are deleted automatically.</p>
+          <p>Fish Coach, AI fishing briefs, lure picks, fish checks, rig design and review, the lure scanner and fish photo identification are FishIn Pro features. They run on <strong>Google Gemini</strong>, always through our own server, which holds the key and builds the request.</p>
+          <p>Depending on the feature, a request may include your question, photos you send, the spot and its forecast, the fish recorded there, your tackle box, your rig, your experience level and boat or shore answer, recent messages from that chat, the notes Fish Coach remembers about you, and your app language.</p>
+          <ul>
+            <li><strong>We don't keep</strong> your questions, answers or AI photos on our server, and we don't use your data to train AI models.</li>
+            <li>We count each account's AI use against a monthly allowance, with short hourly and daily limits on a few heavier tasks, to keep usage fair. Only the counts are stored.</li>
+            <li>Google processes these requests as our service provider under the <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener">Gemini API Additional Terms</a>. On the paid Gemini API service Google doesn't use the content to improve its products, but may keep it for a limited time to detect abuse and meet legal obligations.</li>
+            <li>AI answers are generated automatically and can be wrong. No decision with legal or similarly significant effects on you is made by automated means.</li>
+          </ul>
+          <p>Please don't put personal information about yourself or others in photos or questions you send to AI features.</p>
         </section>
 
         <section id="billing">
           <h2>Purchases</h2>
-          <p>FishIn Pro is sold only through Google Play. We never see your card number, billing address or bank details. Our server checks the purchase token Google Play gives the app, to switch Pro on for your account and keep it in step with renewals and cancellations.</p>
+          <p>FishIn Pro is sold only through Google Play. Google handles the payment and your payment details under its own terms and <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">privacy policy</a>; we never see your card number, billing address or bank details.</p>
+          <p>When you buy Pro, the app sends us the purchase token Google Play gives it. Our server checks it with Google Play to switch Pro on for your account, and Google Play notifies our server of renewals, cancellations, refunds and expiry so your Pro status stays correct.</p>
+        </section>
+
+        <section id="services">
+          <h2>Services we use</h2>
+          <p>We share data only with these providers, only what each needs, and never for advertising:</p>
+          <div class="table-wrap">
+            <table class="table">
+              <thead><tr><th>Service</th><th>What it receives</th></tr></thead>
+              <tbody>
+                <tr><td>Oracle Cloud (Frankfurt, Germany)</td><td>Hosts our server, database, photos and encrypted backups.</td></tr>
+                <tr><td>Google Maps</td><td>Map requests for the area you view, your IP address and device information, under <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a>.</td></tr>
+                <tr><td>Google Gemini</td><td>Pro AI requests, as described above.</td></tr>
+                <tr><td>Google Sign-In</td><td>Signing in with Google.</td></tr>
+                <tr><td>Gmail</td><td>Your email address and sign-in code, to send the code email.</td></tr>
+                <tr><td>Google Play</td><td>Downloads, purchases, subscriptions and purchase checks.</td></tr>
+                <tr><td>Open-Meteo</td><td>The coordinates of a place you check, and your IP address, to fetch weather, pressure, tides and river flow.</td></tr>
+                <tr><td>GBIF (Global Biodiversity Information Facility)</td><td>The area of a spot, and your IP address, to look up public fish records.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>We may also disclose data where the law requires it (for example a valid court order), to protect the safety of a person, to investigate fraud or abuse, or to establish or defend legal claims. If FishIn is ever transferred to another owner, your data would go with it under this policy, and we would tell you first.</p>
+        </section>
+
+        <section id="logs">
+          <h2>Server logs and security limits</h2>
+          <p>Like any web service, our server keeps short technical logs (IP address, time, request path, response and app version) to keep FishIn secure and working. Secrets and signed links are removed from them. Logs are rotated automatically and overwritten after a short time, usually days.</p>
+          <p>To stop abuse, the server counts requests per IP address and per session for a short time in memory, and limits how often sign-in codes can be sent to an address.</p>
         </section>
 
         <section id="permissions">
           <h2>Phone permissions</h2>
           <ul>
-            <li><strong>Location:</strong> to show spots and forecasts near you. FishIn works without it; you can search the map instead.</li>
-            <li><strong>Camera:</strong> to photograph catches, lures and fish for Fish Coach. Used only when you take a photo.</li>
-            <li><strong>Photos:</strong> only the pictures you pick are read.</li>
-            <li><strong>Internet:</strong> to load maps, forecasts, sync and the community.</li>
+            <li><strong>Location (approximate and precise):</strong> to show spots and forecasts near you, only while you use the app. Optional.</li>
+            <li><strong>Camera:</strong> to photograph catches, lures and fish. Used only when you take a photo. Optional.</li>
+            <li><strong>Photos:</strong> only the pictures you pick are read, through Android's photo picker.</li>
+            <li><strong>Internet and network state:</strong> to load maps, forecasts, sync and the community, and to know when you're offline.</li>
           </ul>
+          <p>You can change these at any time in Android's settings.</p>
         </section>
 
         <section id="retention">
           <h2>How long we keep data</h2>
           <ul>
-            <li><strong>Your account</strong> is kept until you delete it.</li>
-            <li><strong>Guest accounts</strong> not opened for 90 days are deleted with everything in them, unless they ever had Pro.</li>
+            <li><strong>Your account and its data</strong> are kept until you delete them or the account.</li>
+            <li><strong>Guest accounts</strong> not opened for 90 days are deleted automatically with everything in them, unless they ever had Pro.</li>
             <li><strong>Pro photo backups</strong> are kept for 90 days after Pro ends, so you can renew or take them with you, and then deleted.</li>
-            <li><strong>Deleting your account</strong> removes your profile, username, catch log, tackle box, shared spots, posts, comments, friends and photos straight away. Deletion can't be undone.</li>
-            <li><strong>Backups:</strong> deleted data may stay in server backups for up to 30 days before it's overwritten.</li>
-            <li><strong>Legal holds:</strong> we may keep limited data longer where the law requires it, or to deal with abuse reports, fraud or legal claims.</li>
+            <li><strong>Sign-in codes</strong> are deleted when used or expired; expired sessions are deleted daily.</li>
+            <li><strong>Deleting your account</strong> immediately removes your profile, username, email, catch log, tackle box, rigs, spots, reviews, posts, comments, likes, friends, reports you made and photos from our live server. Deletion can't be undone.</li>
+            <li><strong>Backups:</strong> encrypted backups of the database (nightly) and photos (weekly) are kept for up to 60 days and then deleted. We don't restore deleted accounts from them.</li>
+            <li><strong>Legal holds:</strong> we may keep limited data longer where the law requires it, or to deal with abuse reports, fraud or legal claims. Reports other people made about your content may be kept for this reason.</li>
           </ul>
-          <p>See <a href="delete-account.html">how to delete your account</a>.</p>
+          <p>See <a href="delete-account.html">how to delete your account</a>. Deleting your account does not cancel a Google Play subscription.</p>
         </section>
 
         <section id="legal">
-          <h2>Legal bases and transfers</h2>
-          <p>Under the GDPR we process your data:</p>
+          <h2>Legal bases</h2>
+          <p>Under the EU and UK GDPR (and North Macedonia's Law on Personal Data Protection) we process your data on these bases:</p>
           <ul>
-            <li><strong>To provide the service you asked for</strong> (contract): your account, log, sync, forecasts and Pro.</li>
-            <li><strong>To keep FishIn secure and prevent abuse</strong> (legitimate interest): server logs, rate limits and moderation.</li>
-            <li><strong>Where you choose to share</strong> (consent): spots, catches and posts you make public or share with friends. You can withdraw it by deleting them.</li>
+            <li><strong>To provide the service you asked for</strong> (contract): your account, sign-in, log, sync, spots, forecasts, AI features, photo backup and Pro.</li>
+            <li><strong>To keep FishIn secure and fair and prevent abuse</strong> (legitimate interests): server logs, rate limits, AI allowances, backups, moderation and handling reports.</li>
+            <li><strong>Where you choose to share or allow it</strong> (consent): location access, camera, spots, catches, rigs and posts you share with others. You can withdraw consent at any time in Android's settings or by deleting what you shared; this doesn't affect what happened before.</li>
+            <li><strong>To meet legal obligations</strong> (legal obligation): for example answering lawful requests and keeping records the law requires.</li>
           </ul>
-          <p>Our own server is in the EU. Google (Maps, Gemini, Play, Sign-In and Gmail) may process data in other countries, including the United States, under its own safeguards such as Standard Contractual Clauses.</p>
+          <p>Giving us data is voluntary, but without an account the app can't sync, and without the data a feature needs that feature can't work.</p>
+        </section>
+
+        <section id="transfers">
+          <h2>Where data is processed</h2>
+          <p>Our server, database, photos and backups are in the EU (Frankfurt, Germany). Google (Maps, Gemini, Sign-In, Gmail and Play), Open-Meteo and GBIF may process data in other countries, including the United States. Where data leaves the EU/EEA, these providers rely on safeguards such as the EU–US Data Privacy Framework or the European Commission's Standard Contractual Clauses.</p>
         </section>
 
         <section id="rights">
           <h2>Your rights</h2>
-          <p>Depending on where you live, you can ask to access, correct, export or delete your data, restrict how it's used, or object to its use. Much of this you can do yourself in the app.</p>
-          <p>For anything else, email <a href="mailto:contact@fishinapp.site">contact@fishinapp.site</a>. We reply within 30 days. You can also complain to your local data protection authority.</p>
+          <p>Depending on where you live, including in the EU, EEA, UK and North Macedonia, you have the right to:</p>
+          <ul>
+            <li><strong>Access</strong> the personal data we hold about you and get a copy.</li>
+            <li><strong>Correct</strong> data that is wrong.</li>
+            <li><strong>Delete</strong> your data ("right to be forgotten").</li>
+            <li><strong>Export</strong> data you gave us in a common machine-readable format (portability).</li>
+            <li><strong>Restrict</strong> or <strong>object to</strong> processing based on legitimate interests.</li>
+            <li><strong>Withdraw consent</strong> at any time.</li>
+            <li><strong>Complain</strong> to a data protection authority, for example where you live or work. In North Macedonia that is the Personal Data Protection Agency (azlp.mk).</li>
+          </ul>
+          <p>Much of this you can do yourself in the app: edit or delete catches, spots and posts, edit your profile, or delete your account. For anything else, email <a href="mailto:contact@fishinapp.site">contact@fishinapp.site</a> from the address on your account. We may need to confirm it's you, and reply within one month (extendable by two months for complex requests, in which case we'll tell you).</p>
+          <p>If you live in a US state with a consumer privacy law, such as California, you have similar rights to know, delete and correct your data. We don't sell or "share" personal information for cross-context behavioural advertising, and we won't discriminate against you for using your rights.</p>
         </section>
 
         <section id="security">
-          <h2>Security and children</h2>
-          <p>All traffic between the app and our server uses HTTPS. The database only lets each account read its own private records, and the keys for Gemini, Google Play and email live on the server, never in the app.</p>
-          <p>We take reasonable measures to protect your data, but no system is completely secure and we can't guarantee that data will never be accessed, lost or disclosed without authorisation. If a breach affects you, we'll tell you where the law requires it.</p>
-          <p>FishIn is meant for people aged 13 and over, or the higher age of digital consent in your country unless a parent or guardian consents. We don't knowingly collect data from younger children; if you think a child has given us data, email us and we'll delete it.</p>
+          <h2>Security</h2>
+          <p>All traffic between the app and our server uses HTTPS. The database lets each account read only its own private records and what others chose to share with it. The keys for Gemini, Google Play and email live on the server, never in the app. Backups are encrypted before they leave the server, with a key that isn't kept on the server.</p>
+          <p>We take reasonable technical and organisational measures to protect your data, but no system is completely secure and we can't guarantee that data will never be accessed, lost or disclosed without authorisation. If a breach is likely to put your rights at risk, we'll tell you and the authorities where the law requires it.</p>
+        </section>
+
+        <section id="children">
+          <h2>Children</h2>
+          <p>FishIn is not directed at children under 13. You must be at least 13 to use FishIn, or older where the age of digital consent in your country is higher (up to 16 in some EU countries) unless a parent or guardian has consented. We don't knowingly collect data from children below these ages. If you think a child has given us data, email us and we'll delete it.</p>
+        </section>
+
+        <section id="website">
+          <h2>This website</h2>
+          <p>fishinapp.site is hosted by GitHub Pages, which receives your IP address and browser details to serve the pages, under <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub's privacy statement</a>. The site loads its font from Google Fonts, which receives your IP address. The site has no analytics, ads or tracking cookies; it only remembers your light or dark theme choice in your own browser.</p>
         </section>
 
         <section id="changes">
           <h2>Changes and contact</h2>
-          <p>We may update this policy. If a change matters, we'll show it in the app or on this page with a new date before it takes effect.</p>
-          <p>FishIn is made by an independent developer in Skopje, North Macedonia, who is the data controller. Contact: <a href="mailto:contact@fishinapp.site">contact@fishinapp.site</a>.</p>
+          <p>We may update this policy when FishIn or the law changes. The date at the top shows the latest version. If a change matters, we'll tell you in the app or on this page before it takes effect.</p>
+          <p>Questions, requests or complaints: <a href="mailto:contact@fishinapp.site">contact@fishinapp.site</a>. FishIn is made by an independent developer in Skopje, North Macedonia, who is the data controller.</p>
         </section>
       </div>
     </div>
