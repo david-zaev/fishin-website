@@ -2,7 +2,7 @@
 <html lang="en" class="no-js">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>FishIn · Find the water. Know when they bite.</title>
   <meta name="description" content="FishIn is a fishing app for Android: places to fish on a map that works offline, hour-by-hour bite forecasts, a catch log, a tackle box and Fish Coach, your AI fishing guide.">
   <link rel="canonical" href="https://fishinapp.site/">
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=11">
+  <link rel="stylesheet" href="styles.css?v=16">
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"MobileApplication","name":"FishIn","alternateName":"FishIn: Fishing Log & Spots","operatingSystem":"Android","applicationCategory":"SportsApplication","description":"Fishing spots on an offline map, hour-by-hour bite forecasts, a catch log, a tackle box and Fish Coach, an AI fishing guide powered by Google Gemini.","url":"https://fishinapp.site/","installUrl":"https://play.google.com/store/apps/details?id=com.daev.fishin","sameAs":["https://play.google.com/store/apps/details?id=com.daev.fishin"],"image":"https://fishinapp.site/assets/fishin-icon-rounded-1024.png","screenshot":["https://fishinapp.site/assets/screen-map.webp","https://fishinapp.site/assets/screen-coach.webp","https://fishinapp.site/assets/screen-log.webp","https://fishinapp.site/assets/screen-community.webp"],"offers":{"@type":"Offer","price":"0","priceCurrency":"EUR","description":"Free: map, spots, 2-day forecast, catch log, tackle box and friends. FishIn Pro is an optional in-app subscription."}}
   </script>
@@ -44,7 +44,7 @@
     <symbol id="i-hook" viewBox="0 -960 960 960"><path fill="currentColor" d="M440-120q-100 0-170-70t-70-170v-192q0-14 12-19t22 5l138 138q11 11 11 27.5T372-372q-12 12-28.5 12T315-372l-35-35v47q0 66 47 113t113 47q66 0 113-47t47-113v-127q-36-14-58-44.5T520-600q0-38 22-68.5t58-44.5v-127q0-17 11.5-28.5T640-880q17 0 28.5 11.5T680-840v127q36 14 58 44.5t22 68.5q0 38-22 69t-58 44v127q0 100-70 170t-170 70Zm200-440q17 0 28.5-11.5T680-600q0-17-11.5-28.5T640-640q-17 0-28.5 11.5T600-600q0 17 11.5 28.5T640-560Z"/></symbol>
     <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
-    <symbol id="i-play" viewBox="0 0 24 24"><path fill="currentColor" d="M4.6 2.8c-.3.3-.5.8-.5 1.4v15.6c0 .6.2 1.1.5 1.4l.1.1 8.7-8.7v-.2L4.7 2.7l-.1.1Zm11.7 11.7-2.9-2.9v-.2l2.9-2.9.1.1 3.4 2c1 .6 1 1.5 0 2.1l-3.4 2-.1-.2Zm-.1.1L13.3 12 4.6 20.6c.3.3.9.4 1.5 0l10.1-6Zm0-5.2L6.1 3.5c-.6-.4-1.2-.3-1.5 0L13.3 12l2.9-2.6Z"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path fill="#4285F4" d="M3.6 1.8 13.6 12 3.6 22.2c-.4-.2-.6-.7-.6-1.2V3c0-.5.2-1 .6-1.2Z"/><path fill="#34A853" d="M3.6 1.8c.4-.2.9-.2 1.4.1l11.9 6.8-3.3 3.3L3.6 1.8Z"/><path fill="#EA4335" d="M3.6 22.2 13.6 12l3.3 3.3L5 22.1c-.5.3-1 .3-1.4.1Z"/><path fill="#FBBC04" d="m16.9 8.7 3.4 1.9c1.1.6 1.1 2.2 0 2.8l-3.4 1.9-3.3-3.3 3.3-3.3Z"/></symbol>
     <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></g></symbol>
     <symbol id="i-map" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M9 4 3 6.5v13.5L9 17.5l6 2.5 6-2.5V4l-6 2.5L9 4Zm0 0v13.5m6-11v13.5"/></symbol>
     <symbol id="i-chat" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v10a1.5 1.5 0 0 1-1.5 1.5H9l-5 4V5.5Z"/></symbol>
@@ -110,9 +110,10 @@
 
   <!-- Hero -->
   <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
     <div class="wrap">
-      <h1 class="h-xl reveal d1">Find the water.<br>Know when they <mark>bite.</mark></h1>
-      <p class="lead reveal d2">FishIn shows you where to fish, tells you when the fish are feeding, and keeps every catch. One quiet app for every trip.</p>
+      <h1 class="h-xl reveal d1">Stop guessing.<br>Start <mark>catching.</mark></h1>
+      <p class="lead reveal d2">The best spots near you, the exact hour fish start feeding, and a guide that knows your tackle box. All in one app that works even without signal.</p>
       <div class="hero-ctas reveal d3">
         <a class="btn btn-dark" href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener"><svg><use href="#i-play"/></svg> Get it on Google Play</a>
         <a class="btn btn-line" href="#how">See how it works <svg class="arrow"><use href="#i-arrow"/></svg></a>
@@ -314,21 +315,24 @@
         <p class="lead">Where you stand, when you go and what you tie on matter more than luck. FishIn answers all three before you leave the house.</p>
       </div>
       <div class="problems">
-        <div class="problem reveal">
+        <a class="problem reveal" href="#map">
           <span class="n">01</span>
           <h3 class="h-md">Where to go</h3>
           <p>Good water hides behind private roads and forum threads. FishIn puts piers, ramps and places to fish on one map, each with its own score.</p>
-        </div>
-        <div class="problem reveal d1">
+          <span class="problem-link">The map <svg><use href="#i-arrow"/></svg></span>
+        </a>
+        <a class="problem reveal d1" href="#forecast">
           <span class="n">02</span>
           <h3 class="h-md">When to go</h3>
           <p>Weather apps don't know fish. FishIn reads pressure, the moon, sunrise and tide into a single Fish Score for every hour.</p>
-        </div>
-        <div class="problem reveal d2">
+          <span class="problem-link">Bite forecast <svg><use href="#i-arrow"/></svg></span>
+        </a>
+        <a class="problem reveal d2" href="#coach">
           <span class="n">03</span>
           <h3 class="h-md">What to throw</h3>
           <p>A tackle box full of lures and no plan. Fish Coach picks the lure, colour and length for today's water from what you own.</p>
-        </div>
+          <span class="problem-link">Fish Coach <svg><use href="#i-arrow"/></svg></span>
+        </a>
       </div>
     </div>
   </section>
@@ -339,7 +343,7 @@
 
       <div class="feature" id="map">
         <div class="feature-copy reveal">
-          <span class="eyebrow">The map</span>
+          <span class="eyebrow"><span class="eyebrow-n">01</span>Where · The map</span>
           <h2 class="h-lg">Every place to fish, even without signal.</h2>
           <p class="lead">Lakes, rivers, piers and ramps on a clean map. Every pin carries its Fish Score for the day, so the best water stands out at a glance.</p>
           <ul class="points">
@@ -384,7 +388,7 @@
 
       <div class="feature flip" id="forecast">
         <div class="feature-copy reveal">
-          <span class="eyebrow">Bite forecast</span>
+          <span class="eyebrow"><span class="eyebrow-n">02</span>When · Bite forecast</span>
           <h2 class="h-lg">Know the hour, not just the day.</h2>
           <p class="lead">Hour-by-hour bite chances from weather, pressure and the moon. Tap any bar to see why it scores what it does.</p>
           <ul class="points">
@@ -426,7 +430,7 @@
 
       <div class="feature" id="coach">
         <div class="feature-copy reveal">
-          <span class="eyebrow">Fish Coach · Pro · Google Gemini</span>
+          <span class="eyebrow"><span class="eyebrow-n">03</span>What · Fish Coach · Pro</span>
           <h2 class="h-lg">A guide that knows your water.</h2>
           <p class="lead">Ask anything about fishing, or send a photo of a fish, lure or rig. Fish Coach runs on Google Gemini and knows where you are, the forecast, the fish there and your tackle box, and remembers what you tell it.</p>
           <ul class="points">
@@ -453,6 +457,35 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- Real screens -->
+  <section class="section flush" id="screens">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <span class="eyebrow">Straight from the app</span>
+        <h2 class="h-lg">Calm on the outside. Sharp on the water.</h2>
+        <p class="lead">Real screens from FishIn. Black, white and grey, so your catches are the only colour.</p>
+      </div>
+      <div class="shots">
+        <figure class="shot reveal">
+          <div class="shot-frame"><img src="assets/screen-map.webp" alt="FishIn map with fishing spots along a river, each pin showing its Fish Score" loading="lazy" width="540" height="1213"></div>
+          <figcaption>Map<span>Scores on every spot</span></figcaption>
+        </figure>
+        <figure class="shot reveal d1">
+          <div class="shot-frame"><img src="assets/screen-coach.webp" alt="Fish Coach tab with chat, forecast and saved reports" loading="lazy" width="540" height="1145"></div>
+          <figcaption>Coach<span>Ask, scan, plan</span></figcaption>
+        </figure>
+        <figure class="shot reveal d2">
+          <div class="shot-frame"><img src="assets/screen-log.webp" alt="Logbook with catch stats, personal bests and a logged trout" loading="lazy" width="540" height="1145"></div>
+          <figcaption>Logbook<span>Stats and personal bests</span></figcaption>
+        </figure>
+        <figure class="shot reveal d3">
+          <div class="shot-frame"><img src="assets/screen-community.webp" alt="Community feed showing a shared brown trout catch" loading="lazy" width="540" height="1133"></div>
+          <figcaption>Community<span>Catches from friends</span></figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
@@ -547,35 +580,6 @@
     </div>
   </section>
 
-  <!-- Real screens -->
-  <section class="section flush" id="screens">
-    <div class="wrap">
-      <div class="section-head center reveal">
-        <span class="eyebrow">Straight from the app</span>
-        <h2 class="h-lg">Calm on the outside. Sharp on the water.</h2>
-        <p class="lead">Real screens from FishIn. Black, white and grey, so your catches are the only colour.</p>
-      </div>
-      <div class="shots">
-        <figure class="shot reveal">
-          <div class="shot-frame"><img src="assets/screen-map.webp" alt="FishIn map with fishing spots along a river, each pin showing its Fish Score" loading="lazy" width="540" height="1213"></div>
-          <figcaption>Map<span>Scores on every spot</span></figcaption>
-        </figure>
-        <figure class="shot reveal d1">
-          <div class="shot-frame"><img src="assets/screen-coach.webp" alt="Fish Coach tab with chat, forecast and saved reports" loading="lazy" width="540" height="1145"></div>
-          <figcaption>Coach<span>Ask, scan, plan</span></figcaption>
-        </figure>
-        <figure class="shot reveal d2">
-          <div class="shot-frame"><img src="assets/screen-log.webp" alt="Logbook with catch stats, personal bests and a logged trout" loading="lazy" width="540" height="1145"></div>
-          <figcaption>Logbook<span>Stats and personal bests</span></figcaption>
-        </figure>
-        <figure class="shot reveal d3">
-          <div class="shot-frame"><img src="assets/screen-community.webp" alt="Community feed showing a shared brown trout catch" loading="lazy" width="540" height="1133"></div>
-          <figcaption>Community<span>Catches from friends</span></figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
-
   <!-- Bento -->
   <section class="section" id="tackle">
     <div class="wrap">
@@ -650,7 +654,7 @@
   </section>
 
   <!-- Privacy promise -->
-  <section class="section flush" id="privacy">
+  <section class="section band" id="privacy">
     <div class="wrap">
       <div class="section-head reveal">
         <span class="eyebrow">Your spots stay yours</span>
@@ -679,17 +683,11 @@
           <p>Delete your account in the app and your data goes with it.</p>
         </div>
       </div>
-      <a class="promise-link reveal" href="privacy.html">Read the privacy policy <svg><use href="#i-arrow"/></svg></a>
-    </div>
-  </section>
 
-  <!-- Compare -->
-  <section class="section" id="compare">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <span class="eyebrow">Why FishIn</span>
-        <h2 class="h-lg">We never burn your spots.</h2>
-        <p class="lead">What changes when a fishing app is built around the angler instead of the ad feed.</p>
+      <!-- Compare -->
+      <div class="subhead reveal" id="compare">
+        <h3 class="h-md">We never burn your spots.</h3>
+        <p>What changes when a fishing app is built around the angler instead of the ad feed.</p>
       </div>
       <div class="compare reveal" role="table" aria-label="FishIn compared with a typical fishing app">
         <div class="compare-row compare-head" role="row"><div role="columnheader"></div><div role="columnheader">FishIn</div><div role="columnheader">Many fishing apps</div></div>
@@ -699,7 +697,10 @@
         <div class="compare-row" role="row"><div role="rowheader">Ads and trackers</div><div role="cell"><svg><use href="#i-check"/></svg>No ads or ad trackers. Basic anonymous usage counts, optional</div><div role="cell">Often ads in the feed and ad trackers in the app</div></div>
         <div class="compare-row" role="row"><div role="rowheader">Free features</div><div role="cell"><svg><use href="#i-check"/></svg>Map, forecast, log, tackle box and friends</div><div role="cell">Core features often behind the paywall</div></div>
       </div>
-      <p class="compare-note">"Many fishing apps" describes common patterns in the category, not any one app.</p>
+      <div class="compare-foot">
+        <p class="compare-note">"Many fishing apps" describes common patterns in the category, not any one app.</p>
+        <a class="promise-link" href="privacy.html">Read the privacy policy <svg><use href="#i-arrow"/></svg></a>
+      </div>
     </div>
   </section>
 
@@ -754,6 +755,7 @@
           <a class="btn btn-line" href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener">Download free</a>
         </div>
         <div class="plan pro reveal d1">
+          <span class="plan-flag">For regulars</span>
           <div class="plan-name">FishIn Pro <span class="plan-tag">AI</span></div>
           <div class="plan-price">Pro<small>monthly or yearly</small></div>
           <p class="plan-note">Your personal fishing guide, powered by Google Gemini.</p>
@@ -835,8 +837,21 @@
 
 </main>
 
+<a class="to-top" id="toTop" href="#top" aria-label="Back to top"><svg><use href="#i-send"/></svg></a>
+<div class="dock" id="dock">
+  <span class="dock-copy"><b>FishIn</b> Free on Google Play</span>
+  <a class="btn btn-dark btn-sm" href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener"><svg><use href="#i-play"/></svg> Install</a>
+</div>
+
 <footer class="footer">
   <div class="wrap">
+    <div class="footer-cta">
+      <div>
+        <b>Next trip starts on the map.</b>
+        <span>Free on Android. No account needed.</span>
+      </div>
+      <a class="btn btn-dark" href="https://play.google.com/store/apps/details?id=com.daev.fishin" target="_blank" rel="noopener"><svg><use href="#i-play"/></svg> Get it on Google Play</a>
+    </div>
     <div class="footer-top">
       <div>
         <a href="#top" class="brand"><span class="brand-mark"><svg><use href="#i-hook"/></svg></span>FishIn</a>
@@ -874,6 +889,6 @@
   </div>
 </footer>
 
-<script src="script.js?v=11"></script>
+<script src="script.js?v=16"></script>
 </body>
 </html>

@@ -33,14 +33,49 @@
   }
 
   if (nav) {
-    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+    const toTop = document.getElementById('toTop');
+    const dock = document.getElementById('dock');
+    const hero = document.querySelector('.hero-ctas');
+    const footer = document.querySelector('.footer');
+    let queued = false;
+    const onScroll = () => {
+      queued = false;
+      const y = window.scrollY;
+      nav.classList.toggle('scrolled', y > 8);
+      if (toTop) toTop.classList.toggle('show', y > window.innerHeight * 1.2);
+      if (dock && hero) {
+        const pastHero = hero.getBoundingClientRect().bottom < 0;
+        const atFooter = footer && footer.getBoundingClientRect().top < window.innerHeight;
+        dock.classList.toggle('show', pastHero && !atFooter);
+      }
+    };
     onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+
+    // Highlight the nav link for the section on screen.
+    const navLinks = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+    if (navLinks.length && 'IntersectionObserver' in window) {
+      const linkFor = new Map(navLinks.map(a => [a.getAttribute('href').slice(1), a]));
+      const spy = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          // The features wrapper section holds #map/#forecast/#coach; let those decide.
+          if (!e.target.id && e.target.querySelector('#map')) return;
+          navLinks.forEach(a => a.classList.remove('active'));
+          const a = linkFor.get(e.target.id);
+          if (a) a.classList.add('active');
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      // Watch every section, so ones without a nav link clear the highlight.
+      document.querySelectorAll('main section, #map, #forecast, #coach').forEach(el => spy.observe(el));
+    }
   }
 
   if (menuBtn) {
     const setOpen = open => {
       nav.classList.toggle('open', open);
+      root.classList.toggle('menu-open', open);
       menuBtn.setAttribute('aria-expanded', String(open));
       menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     };
