@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Get FishIn on Google Play</title>
+  <meta name="description" content="Download FishIn, the fishing app with bite forecasts, spots and an AI fishing coach. Free on Android.">
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://fishinapp.site/get/">
+  <meta property="og:title" content="Get FishIn on Google Play">
+  <meta property="og:description" content="Bite forecasts, fishing spots and an AI fishing coach. Free on Android.">
+  <meta property="og:url" content="https://fishinapp.site/get/">
+  <meta property="og:image" content="https://fishinapp.site/assets/fishin-feature-1024x500.png">
+  <link rel="icon" href="../assets/fishin-icon.svg" type="image/svg+xml">
+  <style>
+    html,body{margin:0;height:100%;background:#0c0c0c;color:#f2f2f2;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+    main{min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;box-sizing:border-box;text-align:center}
+    img{width:88px;height:88px;border-radius:20px}
+    h1{font-size:22px;font-weight:600;margin:8px 0 0}
+    p{margin:0;color:#9a9a9a;font-size:15px;max-width:320px;line-height:1.45}
+    a.btn{display:inline-block;margin-top:8px;padding:14px 28px;border-radius:12px;background:#f2f2f2;color:#0c0c0c;font-weight:600;text-decoration:none}
+    a.sub{color:#9a9a9a;font-size:14px}
+  </style>
+</head>
+<body>
+<main>
+  <img src="../assets/fishin-icon-rounded-1024.png" alt="FishIn">
+  <h1>FishIn</h1>
+  <p id="msg">Opening Google Play…</p>
+  <a class="btn" id="play" href="https://play.google.com/store/apps/details?id=com.daev.fishin">Get it on Google Play</a>
+  <a class="sub" href="/">fishinapp.site</a>
+</main>
+<script>
+  // fishinapp.site/get: one short link for Instagram, TikTok and YouTube bios.
+  // In-app browsers (Instagram's especially) often show a blank page for play.google.com links, so on
+  // Android this opens the Play Store app directly. Any utm_* in the link become the Play install referrer.
+  (function () {
+    var id = 'com.daev.fishin';
+    var q = new URLSearchParams(location.search), ref = [];
+    q.forEach(function (v, k) { if (k.indexOf('utm_') === 0) ref.push(k + '=' + v); });
+    if (!q.has('utm_source')) ref.unshift('utm_source=fishinapp_get');
+    var referrer = encodeURIComponent(ref.join('&'));
+    var web = 'https://play.google.com/store/apps/details?id=' + id + '&referrer=' + referrer;
+    var play = document.getElementById('play');
+    play.href = web;
+    var ua = navigator.userAgent;
+    if (/Android/i.test(ua)) {
+      var intent = 'intent://details?id=' + id + '&referrer=' + referrer +
+        '#Intent;scheme=market;package=com.android.vending;S.browser_fallback_url=' + encodeURIComponent(web) + ';end';
+      play.href = intent;
+      location.href = intent;
+    } else if (/iPhone|iPad|iPod/i.test(ua)) {
+      document.getElementById('msg').textContent = 'FishIn is on Android for now. Open this link on an Android phone to download it.';
+    } else {
+      location.replace(web);
+    }
+  })();
+</script>
+</body>
+</html>
